@@ -1,10 +1,10 @@
-package sorhy.hello;
+package ssafy.sorhy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HelloApplicationTests {
+class SorhyApplicationTests {
 
 	@Test
 	void contextLoads() {

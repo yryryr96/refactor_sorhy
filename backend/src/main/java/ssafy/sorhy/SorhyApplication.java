@@ -1,13 +1,13 @@
-package sorhy.hello;
+package ssafy.sorhy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelloApplication {
+public class SorhyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelloApplication.class, args);
+		SpringApplication.run(SorhyApplication.class, args);
 	}
 
 }
