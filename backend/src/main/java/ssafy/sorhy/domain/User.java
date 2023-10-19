@@ -1,6 +1,7 @@
 package ssafy.sorhy.domain;
 
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,12 +34,13 @@ public class User {
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
-    private List<Match> matches = new ArrayList<>();
+    private List<GameResult> gameResults = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Transactional
     public void updateTotalScore(int score) {
         this.totalScore += score;
     }

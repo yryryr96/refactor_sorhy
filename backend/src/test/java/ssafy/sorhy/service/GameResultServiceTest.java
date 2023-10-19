@@ -1,25 +1,21 @@
 package ssafy.sorhy.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import ssafy.sorhy.domain.*;
-import ssafy.sorhy.dto.MatchRequestDto;
+import ssafy.sorhy.dto.MatchDto.MatchRequestDto;
 import ssafy.sorhy.repository.GameRepository;
 import ssafy.sorhy.repository.UserRepository;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
 @Rollback(false)
-class MatchServiceTest {
+class GameResultServiceTest {
 
     @Autowired
-    MatchService matchService;
+    GameResultService gameResultService;
 
     @Autowired
     UserRepository userRepository;
@@ -65,8 +61,8 @@ class MatchServiceTest {
                 .team(UserTeam.BLUE)
                 .build();
 
-        matchService.save(dto1);
-        matchService.save(dto2);
+        gameResultService.save(dto1);
+        gameResultService.save(dto2);
 
 
 

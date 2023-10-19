@@ -2,21 +2,28 @@ package ssafy.sorhy.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "matches")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Match {
+@Getter
+public class GameResult {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "match_id")
+    @Column(name = "gameResult_id")
     private Long id;
+
+    private int score;
+    private Long characterId;
+
+    @Enumerated(EnumType.STRING)
+    private UserTeam userTeam;
 
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -28,4 +35,5 @@ public class Match {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
+
 }

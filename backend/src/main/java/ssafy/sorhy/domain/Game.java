@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +20,12 @@ public class Game {
     @Column(name = "game_id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private GameType gameType;
+    @Enumerated(EnumType.STRING)
     private GameTitle gameTitle;
 
     @OneToMany(mappedBy = "game")
     @Builder.Default
-    private List<Match> matches = new ArrayList<>();
+    private List<GameResult> gameResults = new ArrayList<>();
 }
