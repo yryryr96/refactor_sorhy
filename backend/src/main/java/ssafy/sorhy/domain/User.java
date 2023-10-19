@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +20,27 @@ public class User {
     private String email;
     private String password;
     private String nickname;
-    private Long totalScore;
+    private int totalScore;
 
+
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Article> articles = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<Match> matches = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    public void updateTotalScore(int score) {
+        this.totalScore += score;
+    }
 
 }

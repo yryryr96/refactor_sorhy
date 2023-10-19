@@ -19,7 +19,7 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public String join(@Valid @RequestBody UserJoinRequest dto) {
+    public String join(@RequestBody @Valid UserJoinRequest dto) {
         userService.save(dto);
         return dto.getEmail();
     }
