@@ -1,13 +1,17 @@
-package ssafy.sorhy.dto.UserDto;
+package ssafy.sorhy.dto.user;
 
 import lombok.Builder;
 import lombok.Data;
 import ssafy.sorhy.entity.User;
+import ssafy.sorhy.entity.gameresult.GameResult;
+
+import java.util.List;
 
 @Data
 public class UserDto {
 
-    public static class Join {
+    @Data
+    public static class joinReq {
 
         private String email;
         private String password;
@@ -24,11 +28,19 @@ public class UserDto {
     }
 
     @Builder
-    public static class Response {
+    @Data
+    public static class joinRes {
 
         private String nickname;
         private int totalScore;
-
     }
 
+    @Data
+    public static class findRes {
+
+        private String nickname;
+        private int totalScore;
+        private List<GameResult> gameResults;
+
+    }
 }

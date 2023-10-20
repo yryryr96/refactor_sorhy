@@ -1,4 +1,4 @@
-package ssafy.sorhy.controller;
+package ssafy.sorhy.controller.game;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ssafy.sorhy.dto.GameDto.SaveGameDto;
-import ssafy.sorhy.service.GameService;
+import ssafy.sorhy.dto.game.SaveGameDto;
+import ssafy.sorhy.service.game.GameService;
 import ssafy.sorhy.util.Response;
 
 @RestController

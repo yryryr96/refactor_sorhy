@@ -1,12 +1,9 @@
-package ssafy.sorhy.repository;
+package ssafy.sorhy.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ssafy.sorhy.entity.GameResult;
 import ssafy.sorhy.entity.User;
-
-import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

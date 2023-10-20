@@ -1,10 +1,14 @@
-package ssafy.sorhy.entity;
+package ssafy.sorhy.entity.gameresult;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.entity.User;
+import ssafy.sorhy.entity.UserTeam;
+import ssafy.sorhy.entity.game.Game;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -38,5 +42,16 @@ public class GameResult {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
+
+    public GameResultDto.saveRes toSaveResDto(GameResult gameResult) {
+
+        return GameResultDto.saveRes.builder()
+                .gameId(this.getGame().getId())
+                .userId(this.getUser().getId())
+                .team(this.userTeam)
+                .score(this.score)
+                .characterId(this.characterId)
+                .build();
+    }
 
 }

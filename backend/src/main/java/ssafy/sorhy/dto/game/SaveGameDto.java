@@ -1,10 +1,10 @@
-package ssafy.sorhy.dto.GameDto;
+package ssafy.sorhy.dto.game;
 
 import lombok.Builder;
 import lombok.Data;
-import ssafy.sorhy.entity.Game;
-import ssafy.sorhy.entity.GameTitle;
-import ssafy.sorhy.entity.GameType;
+import ssafy.sorhy.entity.game.Game;
+import ssafy.sorhy.entity.game.GameTitle;
+import ssafy.sorhy.entity.game.GameType;
 
 @Data
 public class SaveGameDto {

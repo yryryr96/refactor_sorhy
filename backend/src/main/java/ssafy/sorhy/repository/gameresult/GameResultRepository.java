@@ -1,9 +1,9 @@
-package ssafy.sorhy.repository;
+package ssafy.sorhy.repository.gameresult;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ssafy.sorhy.entity.GameResult;
+import ssafy.sorhy.entity.gameresult.GameResult;
 
 import java.util.List;
 

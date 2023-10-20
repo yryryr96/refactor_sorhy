@@ -1,10 +1,11 @@
-package ssafy.sorhy.entity;
+package ssafy.sorhy.entity.game;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.dto.GameDto.SaveGameDto;
+import ssafy.sorhy.dto.game.SaveGameDto;
+import ssafy.sorhy.entity.gameresult.GameResult;
 
 import javax.persistence.*;
 import java.util.ArrayList;

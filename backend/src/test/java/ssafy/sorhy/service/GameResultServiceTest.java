@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import ssafy.sorhy.entity.*;
-import ssafy.sorhy.dto.MatchDto.MatchRequestDto;
-import ssafy.sorhy.repository.GameRepository;
-import ssafy.sorhy.repository.UserRepository;
+import ssafy.sorhy.dto.gameresult.MatchRequestDto;
+import ssafy.sorhy.entity.game.Game;
+import ssafy.sorhy.entity.game.GameTitle;
+import ssafy.sorhy.entity.game.GameType;
+import ssafy.sorhy.repository.game.GameRepository;
+import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.gameresult.GameResultService;
 
 
 @SpringBootTest

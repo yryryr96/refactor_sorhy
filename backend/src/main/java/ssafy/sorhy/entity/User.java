@@ -2,8 +2,8 @@ package ssafy.sorhy.entity;
 
 import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.dto.GameDto.SaveGameDto;
-import ssafy.sorhy.dto.UserDto.UserDto;
+import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.entity.gameresult.GameResult;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +23,9 @@ public class User {
     private String email;
     private String password;
     private String nickname;
-    private int totalScore;
+
+    @Builder.Default
+    private int totalScore = 0;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
@@ -50,8 +52,9 @@ public class User {
         gameResults.add(gameResult);
     }
 
-    public UserDto.Response toUserDto() {
-        return UserDto.Response.builder()
+    public UserDto.joinRes toUserDto() {
+
+        return UserDto.joinRes.builder()
                 .nickname(this.nickname)
                 .totalScore(this.totalScore)
                 .build();

@@ -1,11 +1,11 @@
-package ssafy.sorhy.service;
+package ssafy.sorhy.service.game;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.entity.Game;
-import ssafy.sorhy.dto.GameDto.SaveGameDto;
-import ssafy.sorhy.repository.GameRepository;
+import ssafy.sorhy.entity.game.Game;
+import ssafy.sorhy.dto.game.SaveGameDto;
+import ssafy.sorhy.repository.game.GameRepository;
 
 @Service
 @RequiredArgsConstructor

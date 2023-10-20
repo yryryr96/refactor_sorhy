@@ -1,15 +1,13 @@
-package ssafy.sorhy.controller;
+package ssafy.sorhy.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.dto.UserDto.UserDto;
+import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.User;
-import ssafy.sorhy.dto.UserJoinRequest;
-import ssafy.sorhy.service.UserService;
+import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.Response;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,8 +19,9 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public Response<UserDto.Response> save(@RequestBody UserDto.Join dto) {
-        UserDto.Response response = userService.save(dto);
+    public Response<UserDto.joinRes> save(@RequestBody UserDto.joinReq request) {
+
+        UserDto.joinRes response = userService.save(request);
         return new Response(201, "회원가입에 성공했습니다.", response);
     }
 
@@ -31,9 +30,9 @@ public class UserApiController {
         return userService.findAll();
     }
 
-    @GetMapping("/{nickname}")
-    public UserDto.Response findByNickname(@PathVariable String nickname) {
-
-        return userService.findByNickname(nickname);
-    }
+//    @GetMapping("/{nickname}")
+//    public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
+////        userService.findByNickname(nickname);
+////        return new Response(201,"닉네임으로 유저 전적 조회 성공",  )
+//    }
 }
