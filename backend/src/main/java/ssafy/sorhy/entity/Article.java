@@ -1,18 +1,21 @@
-package ssafy.sorhy.domain;
+package ssafy.sorhy.entity;
 
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
-public class Comment {
+public class Article {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "article_id")
     private Long id;
 
+    private String title;
     private String content;
     private LocalDateTime createdAt;
 
@@ -20,7 +23,7 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments = new ArrayList<>();
+
 }

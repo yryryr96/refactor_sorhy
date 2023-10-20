@@ -1,4 +1,4 @@
-package ssafy.sorhy.domain;
+package ssafy.sorhy.entity;
 
 import lombok.NoArgsConstructor;
 

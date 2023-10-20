@@ -1,10 +1,6 @@
 package ssafy.sorhy.dto.MatchDto;
 
-import lombok.Builder;
 import lombok.Data;
-import ssafy.sorhy.domain.*;
-
-import java.time.LocalDateTime;
 
 @Data
 public class MatchRequestDto {

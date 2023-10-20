@@ -1,14 +1,10 @@
 package ssafy.sorhy.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import ssafy.sorhy.domain.User;
+import ssafy.sorhy.entity.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Data
 public class UserJoinRequest {

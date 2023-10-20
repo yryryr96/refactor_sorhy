@@ -1,7 +1,7 @@
 package ssafy.sorhy.dto.MatchDto;
 
 import lombok.Data;
-import ssafy.sorhy.domain.UserTeam;
+import ssafy.sorhy.entity.UserTeam;
 @Data
 public class MatchResponseDto {
 

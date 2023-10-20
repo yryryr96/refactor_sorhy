@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import ssafy.sorhy.domain.Game;
-import ssafy.sorhy.domain.GameResult;
-import ssafy.sorhy.domain.User;
-import ssafy.sorhy.domain.UserTeam;
+import ssafy.sorhy.entity.Game;
+import ssafy.sorhy.entity.GameResult;
+import ssafy.sorhy.entity.User;
+import ssafy.sorhy.entity.UserTeam;
 import ssafy.sorhy.dto.MatchDto.MatchRequestDto;
 import ssafy.sorhy.repository.GameRepository;
 import ssafy.sorhy.repository.GameResultRepository;
@@ -15,7 +15,6 @@ import ssafy.sorhy.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,11 +38,8 @@ public class GameResultService {
                 .userTeam(UserTeam.valueOf(dto.getTeam()))
                 .build();
 
+        findUser.addGameResult(gameResult);
         gameResultRepository.save(gameResult);
     }
 
-    public List<GameResult> findByUserId(Long userId) {
-        log.info("service={}", userId);
-        return gameResultRepository.findByUserId(userId);
-    }
 }

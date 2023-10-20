@@ -3,9 +3,10 @@ package ssafy.sorhy.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.domain.GameResult;
+import ssafy.sorhy.entity.GameResult;
 import ssafy.sorhy.dto.MatchDto.MatchRequestDto;
 import ssafy.sorhy.service.GameResultService;
+import ssafy.sorhy.service.UserService;
 
 import java.util.List;
 
@@ -16,20 +17,11 @@ import java.util.List;
 public class GameResultApiController {
 
     private final GameResultService gameResultService;
+    private final UserService userService;
 
     @PostMapping
     public void matchSave(@RequestBody MatchRequestDto dto) {
 
         gameResultService.createMatch(dto);
-    }
-
-    @GetMapping("/{userId}")
-    public List<GameResult> findByUserId(@PathVariable Long userId) {
-        log.info("{}", userId);
-        List<GameResult> result = gameResultService.findByUserId(userId);
-        for (GameResult gameResult : result) {
-            System.out.println(gameResult.getId());
-        }
-        return result;
     }
 }

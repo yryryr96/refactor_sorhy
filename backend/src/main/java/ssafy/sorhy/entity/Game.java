@@ -1,9 +1,10 @@
-package ssafy.sorhy.domain;
+package ssafy.sorhy.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.dto.GameDto.SaveGameDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,10 +23,19 @@ public class Game {
 
     @Enumerated(EnumType.STRING)
     private GameType gameType;
+
     @Enumerated(EnumType.STRING)
     private GameTitle gameTitle;
 
     @OneToMany(mappedBy = "game")
     @Builder.Default
     private List<GameResult> gameResults = new ArrayList<>();
+
+    public SaveGameDto.Response toSaveGameDto() {
+        return SaveGameDto.Response.builder()
+                .id(this.id)
+                .gameTitle(this.gameTitle)
+                .gameType(this.gameType)
+                .build();
+    }
 }
