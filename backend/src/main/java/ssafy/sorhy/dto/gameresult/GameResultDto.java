@@ -3,7 +3,9 @@ package ssafy.sorhy.dto.gameresult;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import ssafy.sorhy.entity.User;
 import ssafy.sorhy.entity.UserTeam;
+import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.repository.game.GameRepository;
 
@@ -28,7 +30,5 @@ public class GameResultDto {
         private Long gameId;
         private Long userId;
         private int score;
-        private UserTeam team;
-        private Long characterId;
     }
 }

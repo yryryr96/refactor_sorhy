@@ -12,6 +12,7 @@ import ssafy.sorhy.entity.game.Game;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @NoArgsConstructor
@@ -31,7 +32,7 @@ public class GameResult {
     private UserTeam userTeam;
 
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,10 +49,7 @@ public class GameResult {
         return GameResultDto.saveRes.builder()
                 .gameId(this.getGame().getId())
                 .userId(this.getUser().getId())
-                .team(this.userTeam)
                 .score(this.score)
-                .characterId(this.characterId)
                 .build();
     }
-
 }

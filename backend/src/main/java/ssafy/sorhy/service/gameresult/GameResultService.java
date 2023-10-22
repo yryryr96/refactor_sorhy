@@ -43,5 +43,4 @@ public class GameResultService {
         gameResultRepository.save(gameResult);
         return gameResult.toSaveResDto(gameResult);
     }
-
 }
