@@ -14,7 +14,7 @@ public class Company {
     private Long id;
 
     private String companyName;
-    private Long totalScore;
+    private Long companyScore;
 
     @OneToMany(mappedBy = "company")
     private List<User> users;
