@@ -43,7 +43,6 @@ public class User {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @Transactional
     public void updateTotalScore(int score) {
         this.totalScore += score;
     }
@@ -51,12 +50,22 @@ public class User {
     public void addGameResult(GameResult gameResult) {
         gameResults.add(gameResult);
     }
+    public void addArticle(Article article) {articles.add(article);}
 
-    public UserDto.joinRes toUserDto() {
+    public UserDto.joinRes toJoinDto() {
 
         return UserDto.joinRes.builder()
                 .nickname(this.nickname)
                 .totalScore(this.totalScore)
+                .build();
+    }
+
+    public UserDto.findRes toFindDto() {
+
+        return UserDto.findRes.builder()
+                .nickname(this.nickname)
+                .totalScore(this.totalScore)
+                .gameResults(this.gameResults)
                 .build();
     }
 

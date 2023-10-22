@@ -30,9 +30,9 @@ public class UserApiController {
         return userService.findAll();
     }
 
-//    @GetMapping("/{nickname}")
-//    public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
-////        userService.findByNickname(nickname);
-////        return new Response(201,"닉네임으로 유저 전적 조회 성공",  )
-//    }
+    @GetMapping("/{nickname}")
+    public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
+        UserDto.findRes response = userService.findByNickname(nickname);
+        return new Response(201,"닉네임으로 유저 전적 조회 성공", response);
+    }
 }

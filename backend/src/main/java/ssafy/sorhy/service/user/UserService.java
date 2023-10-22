@@ -17,22 +17,24 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    
+    // 계정 저장
     public UserDto.joinRes save(UserDto.joinReq request) {
 
         User saveUser = userRepository.save(request.toEntity());
-        return saveUser.toUserDto();
+        return saveUser.toJoinDto();
     }
-
+    
+    // 전체 유저 조회
     public List<User> findAll() {
 
         return userRepository.findAll();
     }
+    
+    // 유저 닉네임으로 유저 정보 조회
+    public UserDto.findRes findByNickname(String nickname) {
 
-//    public UserDto.findRes findByNickname(String nickname) {
-//
-//        User findUser = userRepository.findByNickname(nickname);
-//        findUser.get
-//        return findUser.toUserDto();
-//    }
+        User findUser = userRepository.findByNickname(nickname);
+        return findUser.toFindDto();
+    }
 }

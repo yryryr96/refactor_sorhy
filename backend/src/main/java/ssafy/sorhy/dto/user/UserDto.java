@@ -36,6 +36,7 @@ public class UserDto {
     }
 
     @Data
+    @Builder
     public static class findRes {
 
         private String nickname;

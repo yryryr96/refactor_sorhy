@@ -7,6 +7,5 @@ import ssafy.sorhy.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select u from User u where u.nickname = :nickname")
-    User findByNickname(@Param("nickname") String nickname);
+    User findByNickname(String nickname);
 }
