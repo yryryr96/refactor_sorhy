@@ -1,6 +1,7 @@
-package ssafy.sorhy.entity;
+package ssafy.sorhy.entity.company;
 
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.entity.user.User;
 
 import javax.persistence.*;
 import java.util.List;

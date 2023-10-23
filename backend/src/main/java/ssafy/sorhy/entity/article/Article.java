@@ -1,9 +1,12 @@
-package ssafy.sorhy.entity;
+package ssafy.sorhy.entity.article;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.article.ArticleDto;
+import ssafy.sorhy.entity.comment.Comment;
+import ssafy.sorhy.entity.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 public class Article {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,18 +38,18 @@ public class Article {
     @OneToMany(mappedBy = "article")
     private List<Comment> comments = new ArrayList<>();
 
-    public ArticleDto.BasicRes toBasicRes() {
+    public ArticleDto.basicRes toBasicRes() {
 
-        return ArticleDto.BasicRes.builder()
+        return ArticleDto.basicRes.builder()
                 .articleId(this.id)
-                .userId(this.user.getId())
+                .nickname(this.user.getNickname())
                 .title(this.title)
                 .build();
     }
 
-    public ArticleDto.DetailRes toDetailRes() {
+    public ArticleDto.detailRes toDetailRes() {
 
-        return ArticleDto.DetailRes.builder()
+        return ArticleDto.detailRes.builder()
                 .articleId(this.id)
                 .nickname(this.user.getNickname())
                 .title(this.title)

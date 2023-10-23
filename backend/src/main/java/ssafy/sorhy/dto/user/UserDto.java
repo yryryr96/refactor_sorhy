@@ -2,7 +2,8 @@ package ssafy.sorhy.dto.user;
 
 import lombok.Builder;
 import lombok.Data;
-import ssafy.sorhy.entity.User;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.gameresult.GameResult;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class UserDto {
 
         private String nickname;
         private int totalScore;
-        private List<GameResult> gameResults;
+        private List<GameResultDto.Basic> gameResults;
 
     }
 }

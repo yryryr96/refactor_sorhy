@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.User;
+import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.Response;
 
@@ -32,6 +32,7 @@ public class UserApiController {
 
     @GetMapping("/{nickname}")
     public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
+
         UserDto.findRes response = userService.findByNickname(nickname);
         return new Response(201,"닉네임으로 유저 전적 조회 성공", response);
     }

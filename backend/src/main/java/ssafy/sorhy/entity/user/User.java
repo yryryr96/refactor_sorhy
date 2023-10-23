@@ -1,13 +1,17 @@
-package ssafy.sorhy.entity;
+package ssafy.sorhy.entity.user;
 
 import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.entity.comment.Comment;
+import ssafy.sorhy.entity.company.Company;
+import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.gameresult.GameResult;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -27,9 +31,8 @@ public class User {
     @Builder.Default
     private int totalScore = 0;
 
-    @Builder.Default
     @OneToMany(mappedBy = "user")
-    private List<Article> articles = new ArrayList<>();
+    private List<Article> articles;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
@@ -47,11 +50,6 @@ public class User {
         this.totalScore += score;
     }
 
-    public void addGameResult(GameResult gameResult) {
-        gameResults.add(gameResult);
-    }
-    public void addArticle(Article article) {articles.add(article);}
-
     public UserDto.joinRes toJoinDto() {
 
         return UserDto.joinRes.builder()
@@ -65,8 +63,20 @@ public class User {
         return UserDto.findRes.builder()
                 .nickname(this.nickname)
                 .totalScore(this.totalScore)
-                .gameResults(this.gameResults)
+                .gameResults(getGameResultBasicDtoList())
                 .build();
     }
 
+    private List<GameResultDto.Basic> getGameResultBasicDtoList() {
+
+        return this.gameResults.stream()
+                .map(gameResult -> GameResultDto.Basic.builder()
+                        .characterId(gameResult.getCharacterId())
+                        .score(gameResult.getScore())
+                        .team(gameResult.getUserTeam())
+                        .gameTitle(gameResult.getGame().getGameTitle())
+                        .createdAt(gameResult.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }

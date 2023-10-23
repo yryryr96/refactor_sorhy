@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.User;
+import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.repository.user.UserRepository;
 
 import java.util.List;

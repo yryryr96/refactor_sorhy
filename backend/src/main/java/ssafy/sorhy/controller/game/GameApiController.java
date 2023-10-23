@@ -2,13 +2,14 @@ package ssafy.sorhy.controller.game;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.game.SaveGameDto;
+import ssafy.sorhy.entity.game.Game;
+import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.service.game.GameService;
 import ssafy.sorhy.util.Response;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,10 +18,16 @@ import ssafy.sorhy.util.Response;
 public class GameApiController {
 
     private final GameService gameService;
+    private final GameRepository gameRepository;
 
     @PostMapping
     public Response<SaveGameDto.Response> createGame(@RequestBody SaveGameDto.Request request) {
         SaveGameDto.Response response = gameService.createGame(request);
         return new Response(201, "게임 생성 완료", response);
+    }
+
+    @GetMapping
+    public List<Game> findAll() {
+        return gameRepository.findAll();
     }
 }

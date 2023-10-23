@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.entity.User;
+import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.UserTeam;
 import ssafy.sorhy.entity.game.Game;
 
@@ -48,7 +48,7 @@ public class GameResult {
 
         return GameResultDto.saveRes.builder()
                 .gameId(this.getGame().getId())
-                .userId(this.getUser().getId())
+                .nickname(this.getUser().getNickname())
                 .score(this.score)
                 .build();
     }

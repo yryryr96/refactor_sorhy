@@ -2,12 +2,8 @@ package ssafy.sorhy.dto.article;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
-import ssafy.sorhy.entity.Article;
-import ssafy.sorhy.entity.User;
-import ssafy.sorhy.repository.article.ArticleRepository;
-import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.entity.user.User;
 
 @Data
 public class ArticleDto {
@@ -30,16 +26,16 @@ public class ArticleDto {
 
     @Data
     @Builder
-    public static class BasicRes {
+    public static class basicRes {
 
         private Long articleId;
-        private Long userId;
+        private String nickname;
         private String title;
     }
 
     @Data
     @Builder
-    public static class DetailRes {
+    public static class detailRes {
 
         private Long articleId;
         private String nickname;

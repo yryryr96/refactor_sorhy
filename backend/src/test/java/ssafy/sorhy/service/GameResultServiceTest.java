@@ -9,6 +9,7 @@ import ssafy.sorhy.dto.gameresult.MatchRequestDto;
 import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.game.GameType;
+import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
