@@ -45,4 +45,11 @@ public class UserDto {
         private List<GameResultDto.Basic> gameResults;
 
     }
+
+    @Data
+    public static class loginReq {
+
+        private String nickname;
+        private String password;
+    }
 }

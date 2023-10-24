@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.jwt.JwtToken;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.Response;
 
@@ -33,12 +32,10 @@ public class UserApiController {
     public String login() {
         return "login";
     }
+
     @PostMapping("/login")
-    public ResponseEntity<JwtToken> login(@RequestBody Map<String, String> loginForm) {
-
-        JwtToken token = userService.login(loginForm.get("nickname"), loginForm.get("password"));
-
-        return ResponseEntity.ok(token);
+    public ResponseEntity<String> login(@RequestBody UserDto.loginReq request) {
+        return ResponseEntity.ok(userService.login(request));
     }
 
     @GetMapping("/users")

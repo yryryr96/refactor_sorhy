@@ -1,6 +1,7 @@
 package ssafy.sorhy.entity.user;
 
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.comment.Comment;
@@ -48,6 +49,11 @@ public class User {
 
     public void updateTotalScore(int score) {
         this.totalScore += score;
+    }
+
+    public User hashPassword(BCryptPasswordEncoder encoder) {
+        this.password = encoder.encode(this.password);
+        return this;
     }
 
     public UserDto.joinRes toJoinDto() {
