@@ -15,9 +15,9 @@ public class CommentApiController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{articleId}/comment")
-    public CommentDto.BasicRes save(@PathVariable Long articleId, @RequestBody CommentDto.saveReq request) {
-
-        commentService.save(articleId, request);
-    }
+//    @PostMapping("/{articleId}/comment")
+//    public CommentDto.BasicRes save(@PathVariable Long articleId, @RequestBody CommentDto.saveReq request) {
+//
+//        commentService.save(articleId, request);
+//    }
 }

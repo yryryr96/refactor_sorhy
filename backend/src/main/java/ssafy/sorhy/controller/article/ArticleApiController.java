@@ -6,6 +6,8 @@ import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.util.Response;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class ArticleApiController {
@@ -18,8 +20,15 @@ public class ArticleApiController {
         return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
     }
 
-    @GetMapping("/article")
-    public Response<ArticleDto.detailRes> findById(@RequestParam Long articleId) {
+    @GetMapping("/articles")
+    public Response<List<ArticleDto.basicRes>> findAll() {
+
+        List<ArticleDto.basicRes> response = articleService.findAll();
+        return new Response(200, "게시글 전체 조회 성공", response);
+    }
+
+    @GetMapping("/articles/{articleId}")
+    public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
 
         ArticleDto.detailRes response = articleService.findById(articleId);
         return new Response(200, "게시글을 조회했습니다.", response);

@@ -9,6 +9,9 @@ import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,15 @@ public class ArticleService {
         articleRepository.save(article);
 
         return article.toBasicRes();
+    }
+
+    public List<ArticleDto.basicRes> findAll() {
+
+        List<Article> articles = articleRepository.findAll();
+
+        return articles.stream()
+                .map(article -> article.toBasicRes())
+                .collect(Collectors.toList());
     }
 
     public ArticleDto.detailRes findById(Long articleId) {

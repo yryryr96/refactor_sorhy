@@ -15,10 +15,10 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final ArticleRepository articleRepository;
-    public CommentDto.basicRes save(Long articleId, CommentDto.saveReq request) {
-
-        Article article = articleRepository.findById(articleId).get();
-        request.to
-        commentRepository.save()
-    }
+//    public CommentDto.basicRes save(Long articleId, CommentDto.saveReq request) {
+//
+//        Article article = articleRepository.findById(articleId).get();
+//        request.to
+//        commentRepository.save()
+//    }
 }
