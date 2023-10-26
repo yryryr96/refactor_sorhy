@@ -67,7 +67,6 @@ public class GameResultService {
 
     public List<GameResultDto.companyRankRes> companyRank() {
         List<Company> companyRankList = companyRepository.findCompanyRank();
-        System.out.println("companyRankList= " + companyRankList.size());
         return companyRankList.stream()
                 .map(company -> company.toCompanyRankDto())
                 .collect(Collectors.toList());
