@@ -1,5 +1,5 @@
-package ssafy.sorhy.entity;
+package ssafy.sorhy.entity.gameresult;
 
-public enum UserTeam {
+public enum Team {
     RED, BLUE
 }
