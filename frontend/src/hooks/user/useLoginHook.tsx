@@ -37,6 +37,7 @@ export const useLoginHook = () => {
     const [user, setUser] = useState({
         nickname : "",
         password : ""
+        
     })
 
     const [inputState, setInputState] = useState({
@@ -65,7 +66,8 @@ export const useLoginHook = () => {
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
-        
+        console.log(user.nickname,"야")
+        console.log(user.password,"야")
         if (user.nickname === "") {
             setInputState({
                 ...inputState,
@@ -91,8 +93,7 @@ export const useLoginHook = () => {
                   url: `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
                   data: { ...user },
                 });
-                // setAccessToken(res.data.response.accessToken);
-                // setRefreshToken(res.data.response.refreshToken);
+
                 localStorage.setItem("nickname", user.nickname)
                 localStorage.setItem("password", user.password)
                 localStorage.setItem("accessToken", res.data.response.accessToken)
@@ -102,17 +103,7 @@ export const useLoginHook = () => {
                 if (isRemember) {
                   setCookie("rememberUserId", user.nickname, { path: '/' });
                 }
-          
-                const response = await axios({
-                  method: 'get',
-                  url: `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
-                  headers: {
-                    Authorization: `Bearer ${res.data.response.accessToken}`
-                  }
-                });
-                console.log(response.data.response)
-                await setUserInformation(response.data.response);
-                
+     
                 await router.push('/')
               } catch (err) {
                 console.log(err);
