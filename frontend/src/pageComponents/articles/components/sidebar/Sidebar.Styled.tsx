@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 
 const StyledSideBar = styled.div`
-    position: relative;
-    width: 100%;
-    height: 330px;
-    min-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+    gap: 20px;
 `;
 
 export { StyledSideBar };

@@ -6,3 +6,5 @@ const StyledContentsBox = styled.div`
     height: 330px;
     min-width: 1000px;
 `;
+
+export { StyledContentsBox };

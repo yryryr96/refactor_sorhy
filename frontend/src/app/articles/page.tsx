@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function Articles() {
     return (
         <>
-            <Article></Article>
+            <Article />
         </>
     );
 }
