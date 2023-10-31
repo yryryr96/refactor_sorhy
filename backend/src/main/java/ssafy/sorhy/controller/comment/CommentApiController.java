@@ -9,6 +9,7 @@ import ssafy.sorhy.service.comment.CommentService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +17,13 @@ public class CommentApiController {
 
     private final CommentService commentService;
     private final CommentRepository commentRepository;
+
+    @GetMapping("/{articleId}/comment/{page}")
+    public Response<List<CommentDto.basicRes>> paging(@PathVariable Long articleId, @PathVariable int page) {
+
+        List<CommentDto.basicRes> response = commentService.paging(articleId, page);
+        return new Response(200, "게시글 댓글", response);
+    }
 
     @PostMapping("/{articleId}/comment")
     public Response<CommentDto.basicRes> save(@PathVariable Long articleId, @RequestBody @Valid CommentDto.saveReq request, Authentication authentication) {
