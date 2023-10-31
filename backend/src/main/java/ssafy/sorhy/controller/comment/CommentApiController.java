@@ -13,16 +13,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/article")
 public class CommentApiController {
 
     private final CommentService commentService;
-    private final CommentRepository commentRepository;
 
     @GetMapping("/{articleId}/comment/{page}")
-    public Response<List<CommentDto.basicRes>> paging(@PathVariable Long articleId, @PathVariable int page) {
+    public Response<CommentDto.pagingRes> paging(@PathVariable Long articleId, @PathVariable int page) {
 
-        List<CommentDto.basicRes> response = commentService.paging(articleId, page);
-        return new Response(200, "게시글 댓글", response);
+        CommentDto.pagingRes response = commentService.paging(articleId, page);
+        return new Response(200, "댓글 조회 성공", response);
     }
 
     @PostMapping("/{articleId}/comment")

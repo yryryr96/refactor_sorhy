@@ -54,7 +54,6 @@ public class ArticleDto {
         private String content;
         private String createdAt;
         private String imgUrl;
-        private List<CommentDto.basicRes> comments;
     }
 
     @Data

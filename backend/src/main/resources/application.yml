@@ -14,7 +14,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      #h2 설정
+      hbm2ddl:
+        auto:update
+
+      #mysql 설정
+#      ddl-auto: create
     properties:
       hibernate:
         #        show_sql: true

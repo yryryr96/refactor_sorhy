@@ -1,6 +1,7 @@
 package ssafy.sorhy.service.comment;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,11 +64,19 @@ public class CommentService {
         }
     }
 
-    public List<CommentDto.basicRes> paging(Long articleId, int page) {
+    public CommentDto.pagingRes paging(Long articleId, int page) {
 
-        PageRequest pageable = PageRequest.of(page, 10);
-        return commentRepository.findByArticleId(articleId, pageable).stream()
-                .map(comment -> comment.toBasicRes())
-                .collect(Collectors.toList());
+        PageRequest pageable = PageRequest.of(page, 3);
+        Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
+        System.out.println(result.getTotalElements());
+        System.out.println(result.getTotalPages());
+
+        return CommentDto.pagingRes.builder()
+                .comments(result.stream()
+                        .map(comment -> comment.toBasicRes())
+                        .collect(Collectors.toList()))
+                .totalElement(result.getTotalElements())
+                .totalPage(result.getTotalPages())
+                .build();
     }
 }
