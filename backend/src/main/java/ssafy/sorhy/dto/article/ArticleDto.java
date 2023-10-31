@@ -8,6 +8,7 @@ import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -60,6 +61,17 @@ public class ArticleDto {
     public static class searchReq {
 
         private String searchCond;
+
+        @Length(min = 2)
         private String word;
+    }
+
+    @Data
+    @Builder
+    public static class pagingRes {
+
+        private int totalPage;
+        private long totalElement;
+        private List<basicRes> articles;
     }
 }
