@@ -79,7 +79,7 @@ public class ArticleService {
             return toDtoList(articleRepository.findByTitleContainingOrderByIdDesc(word));
         }
 
-        if (SearchCond.USER.toString().equals((request.getSearchCond()))) {
+        if (SearchCond.USER == (SearchCond.valueOf(request.getSearchCond()))) {
 
             return toDtoList(articleRepository.findByNicknameOrderByDesc(word));
         }
