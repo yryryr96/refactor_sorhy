@@ -12,11 +12,14 @@ const StyledInput = styeld.input.attrs<any>((props: any) => ({
 
         return css`
             padding-left: 10px;
-            width: ${props.width}px;
-            height: ${props.height}px;
+            width: ${props.width}vw;
+            height: ${props.height}vh;
             border-radius: ${props.border_radi}px;
             background-color: ${() => (disabled ? props.theme.colors.lightgray : props.theme.colors.white)};
-            border: 2px solid ${() => (inputState === 'true' ? 'white' : 'red')};
+            border: 3px solid ${() => (inputState === 'true' ? 'white' : 'red')};
+            outline: none;
+            font-family: ${(props) => props.theme.fonts.HangeulFontMedium || 'Arial'};
+            font-size: ${(props) => `${props.theme.fontSizes.medium}`};
         `;
     }}
 `;

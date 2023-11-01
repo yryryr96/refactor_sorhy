@@ -34,7 +34,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
 const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '15%' : '19%';
+        const size = props.pathname === '/makesurvey' ? '19%' : '19%';
         return css`
             width: ${size};
             margin-top: 0.4%;
@@ -44,8 +44,8 @@ const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
 
 const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/' || props.pathname === '/surveyresult' ? '85%' : '60%';
-        const jc = props.pathname === '/' ? 'left' : props.pathname === '/payment' ? 'space-between' : 'center';
+        const size = props.pathname === '/' || props.pathname === '/surveyresult' ? '85%' : '85%';
+        const jc = props.pathname === '/' ? 'left' : 'left';
 
         return css`
             width: ${size};
@@ -58,7 +58,7 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
 `;
 const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '10%' : '20%';
+        const size = props.pathname === '/makesurvey' ? '20%' : '20%';
         return css`
             width: ${size};
             display: flex;

@@ -8,21 +8,22 @@ const StyledMain = styled.div`
 
     width: 100vw;
     height: 70vh;
-    /* 
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-    font-size: ${(props) => props.theme.fontSizes.small};
-    color: ${(props) => props.theme.colors.black};
-    cursor: pointer; */
 `;
 
-const StyledMainSearchBox = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 860px;
-    height: 150px;
-    background-image: url('/MainText1.svg');
-    background-size: cover;
+const StyledMainSearchBox = styled.div.attrs<any>((props: any) => ({}))`
+    ${(props: any) => {
+        return css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 40vw;
+            height: 10vh;
+            border: 2px solid #0b4f8f;
+            border-radius: 40px;
+            gap: 2vw;
+        `;
+    }}
 `;
 
 export { StyledMain, StyledMainSearchBox };
