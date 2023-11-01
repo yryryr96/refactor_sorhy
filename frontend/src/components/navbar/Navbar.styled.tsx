@@ -34,9 +34,10 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
 const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '15%' : '20%';
+        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '15%' : '19%';
         return css`
             width: ${size};
+            margin-top: 0.4%;
         `;
     }};
 `;
@@ -45,12 +46,12 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
         const size = props.pathname === '/' || props.pathname === '/surveyresult' ? '85%' : '60%';
         const jc = props.pathname === '/' ? 'left' : props.pathname === '/payment' ? 'space-between' : 'center';
-        const ai = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? 'center' : '';
+
         return css`
             width: ${size};
             display: flex;
             justify-content: ${jc};
-            align-items: ${ai};
+            align-items: center;
             gap: 30px;
         `;
     }};
