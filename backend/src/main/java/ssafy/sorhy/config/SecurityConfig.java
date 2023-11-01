@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
-                    .antMatchers("/health/check").permitAll()
+                    .antMatchers("/health-check").permitAll()
                     .antMatchers("/user/**").permitAll()
                     .antMatchers(HttpMethod.GET,"/article/**").permitAll()
                     .antMatchers(HttpMethod.GET,"/articles/**").permitAll()
