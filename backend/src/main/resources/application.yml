@@ -16,7 +16,6 @@ spring:
     hibernate:
       #h2 설정
       ddl-auto: create
-
       #mysql 설정
 #      ddl-auto: create
     properties:
