@@ -9,6 +9,8 @@ import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.response.Response;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -25,4 +27,11 @@ public class GameResultApiController {
         GameResultDto.saveRes response = gameResultService.save(request, nickname);
         return new Response(201, "게임 결과를 저장했습니다.", response);
     }
+
+//    @GetMapping("/{nickname}")
+//    public Response<List<GameResultDto.otherUserDto>> getOtherUserRecords(@PathVariable String nickname) {
+//        System.out.println("CONTROLLER");
+//        List<GameResultDto.otherUserDto> response = gameResultService.getOtherUserRecord(nickname);
+//        return new Response(200, "게임 유저들 모두 조회", response);
+//    }
 }

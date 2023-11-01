@@ -5,10 +5,10 @@ import lombok.Data;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.entity.gameresult.GameResult;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
@@ -17,13 +17,18 @@ public class UserDto {
     @Data
     public static class joinReq {
 
-        @NotBlank(message = "닉네임을 입력해주세요.")
+        @NotBlank
+        @Pattern(regexp = "^[a-z0-9]{5,20}$", message = "아이디는 영어 소문자와 숫자만 사용하여 5~20자리여야 합니다.")
         private String nickname;
 
-        @NotBlank(message = "비밀번호를 입력해주세요.")
+        @NotBlank
+        @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
         private String password;
 
-        @NotBlank(message = "회사를 선택해주세요.")
+        @NotBlank
+        private String confirmPassword;
+
+        @NotNull
         private Long companyId;
 
         public User toEntity(Company company) {
@@ -54,7 +59,7 @@ public class UserDto {
         private int lose;
         private float winPercentage;
         private List<GameResultDto.top3Character> top3CharacterList;
-        private List<GameResultDto.basicRes> gameResults;
+        private List<GameResultDto.otherUserDto> gameResults;
     }
 
     @Data

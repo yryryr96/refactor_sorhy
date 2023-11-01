@@ -1,10 +1,12 @@
 package ssafy.sorhy.dto.gameresult;
 
 import lombok.*;
+import ssafy.sorhy.entity.game.GameType;
 import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 @RequiredArgsConstructor
@@ -14,10 +16,8 @@ public class GameResultDto {
     @Builder
     public static class basicRes {
 
+        private Long gameId;
         private GameTitle gameTitle;
-        private int score;
-        private Long characterId;
-        private Team team;
         private boolean winner;
         private String createdAt;
     }
@@ -77,5 +77,18 @@ public class GameResultDto {
             this.characterId = characterId;
             this.cnt = cnt;
         }
+    }
+
+    @Data
+    @Builder
+    public static class otherUserDto {
+
+        private Long gameId;
+        private GameTitle gameTitle;
+        private GameType gameType;
+        private Long characterId;
+        private boolean winner;
+        private String createdAt;
+        private List<OtherUserDto> enteredUsers;
     }
 }
