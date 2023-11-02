@@ -4,7 +4,7 @@ const StyledContentsBox = styled.div`
     display: flex;
     flex-direction: column;
     width: 50vw;
-    height: 68vh;
+    height: 74vh;
     padding: 2% 2%;
     border: 1px solid lightgray;
     border-radius: 20px;

@@ -4,7 +4,7 @@ const StyledSearchBar = styled.div`
     display: flex;
     flex-direction: column;
     width: 50vw;
-    height: 25vh;
+    height: 19vh;
     padding: 3% 3%;
     border: 1px solid lightgray;
     border-radius: 20px;
@@ -14,12 +14,14 @@ const StyledSearchBar = styled.div`
 `;
 
 const TopContainer = styled.div`
+    display : flex;
+    justify-content : space-between;
     width: 100%;
     height: 30%;
 
-    font-size: 30px;
+    font-size: 27px;
     font-weight: bold;
-    color: #318fff;
+    color: gray;
 `;
 
 const BottomContainer = styled.div`
@@ -30,6 +32,19 @@ const BottomContainer = styled.div`
     width: 30%; // 100%
     height: 70%;
     padding: 0% 2%;
-    gap: 10%;
+
 `;
-export { StyledSearchBar, TopContainer, BottomContainer };
+
+const ClickBox = styled.div.attrs<any>((props) => ({
+    color : props.color ||  '#318fff'
+}))`
+    display : flex;
+    align-items : center;
+    padding : 0% 20% 0% 0%;
+    font-size : 22px;
+    font-weight : bold;
+    color : ${(props) => props.color};
+    gap : 15px;
+
+`
+export { StyledSearchBar, TopContainer, BottomContainer ,ClickBox };

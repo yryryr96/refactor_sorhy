@@ -13,7 +13,7 @@ const StyledSideBar = styled.div`
 `;
 
 const StyledSideItem = styled.div.attrs<any>((props) => ({
-    font_size: props.font_size || props.theme.fontSizes.small,
+    font_size: props.font_size || props.theme.fontSizes.medium,
     font_weight: props.font_weight || 'normal',
     color: props.color || 'black',
 }))`
