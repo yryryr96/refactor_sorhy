@@ -22,7 +22,7 @@ public class CommentApiController {
 
     @GetMapping("/{articleId}/comment")
     public Response<CommentDto.pagingRes> paging(@PathVariable Long articleId,
-                                                 @PageableDefault(size=5) Pageable pageable) {
+                                                 @PageableDefault(size=6) Pageable pageable) {
 
         CommentDto.pagingRes response = commentService.paging(articleId, pageable);
         return new Response(200, "댓글 조회 성공", response);
