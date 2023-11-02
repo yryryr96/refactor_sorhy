@@ -6,12 +6,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.comment.CommentDto;
-import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.service.comment.CommentService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
