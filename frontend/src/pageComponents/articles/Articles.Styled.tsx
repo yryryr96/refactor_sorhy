@@ -8,7 +8,7 @@ const StyledArticles = styled.div`
     height: 100vh;
 
     padding: 6vh 3vw;
-    gap: 4vw;
+    gap: vw;
 `;
 
 export { StyledArticles };
