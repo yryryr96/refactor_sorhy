@@ -1,15 +1,19 @@
 'use client';
 
-import { StyledContentsBox, StyledContentContainer } from './Contents.Styled';
+import FreeBoard from './components/freeboard';
+import CompanyBoard from './components/companyboard';
+import Tips from './components/tips';
 
-const Contents = () => {
+const Contents = (props: any) => {
+    const path = props.selectbtn;
+
     return (
-        <StyledContentsBox>
-            <StyledContentContainer>1</StyledContentContainer>
-            <StyledContentContainer>2</StyledContentContainer>
-            <StyledContentContainer>3</StyledContentContainer>
-            <StyledContentContainer>3</StyledContentContainer>
-        </StyledContentsBox>
+        <>
+            {path === '1' && <FreeBoard />}
+            {path === '2' && <CompanyBoard />}
+            {path === '3' && <Tips />}
+            {/* {path === '4' && <BugReport />} */}
+        </>
     );
 };
 

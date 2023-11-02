@@ -4,7 +4,7 @@ import SideBar from './components/sidebar';
 import MainBar from './components/mainbar';
 import RightBar from './components/rightbar';
 import { StyledArticles } from './Articles.Styled';
-import { useArticleStore } from '@/stores/useMyPageStore';
+import { useArticleStore } from '@/stores/useArticleStore';
 useArticleStore;
 const Articles = () => {
     const selectbtn = useArticleStore((state) => state.selectbtn);
@@ -12,7 +12,7 @@ const Articles = () => {
     return (
         <StyledArticles>
             <SideBar selectbtn={selectbtn} />
-            <MainBar />
+            <MainBar selectbtn={selectbtn} />
             <RightBar />
         </StyledArticles>
     );
