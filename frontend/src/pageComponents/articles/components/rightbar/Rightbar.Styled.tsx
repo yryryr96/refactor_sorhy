@@ -6,7 +6,7 @@ const StyledRightBar = styled.div`
     height: 68vh;
     border: 1px solid lightgray;
     border-radius: 20px;
-    box-shadow: 1px 1px 2px 1px lightgray;
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 `;
 
 export { StyledRightBar };

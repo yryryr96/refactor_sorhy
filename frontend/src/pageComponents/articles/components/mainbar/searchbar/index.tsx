@@ -21,28 +21,7 @@ const SearchBar = () => {
                         setSelectedOption(selectedValue);
                     }}
                 />
-                {selectedOption && <p>Selected Option: {selectedOption}</p>}
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>반갑습니다: {selectedOption}</p>}
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>Selected Option: {selectedOption}</p>}
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>반갑습니다: {selectedOption}</p>}
+                {selectedOption}
             </BottomContainer>
         </StyledSearchBar>
     );
