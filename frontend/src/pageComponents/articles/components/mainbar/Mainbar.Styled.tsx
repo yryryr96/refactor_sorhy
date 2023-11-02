@@ -4,7 +4,7 @@ const StyledMainBar = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 90vw;
     height: 100vh;
     gap: 4vh;
 `;

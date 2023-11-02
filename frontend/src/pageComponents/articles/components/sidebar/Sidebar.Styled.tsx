@@ -24,8 +24,9 @@ const StyledSideItem = styled.div.attrs<any>((props) => ({
     /* border: 1px solid black; */
     font-size: ${(props) => props.font_size};
     font-weight: ${(props) => props.font_weight};
-    color: ${(props) => props.color};
+    color: ${(props) => (props.active ? '#318fff' : props.color === 'on' ? '#318fff' : 'black')};
     gap: 40%;
+    cursor: pointer;
 `;
 
 export { StyledSideBar, StyledSideItem };
