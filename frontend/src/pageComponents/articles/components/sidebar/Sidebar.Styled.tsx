@@ -2,14 +2,17 @@ import styled, { css } from 'styled-components';
 
 const StyledSideBar = styled.div`
     display: flex;
+    position : relative;
     flex-direction: column;
-    width: 26vw;
+    width: 30vw;
     height: 55vh;
     border: 1px solid lightgray;
+    background-color : #EEEEEE;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     gap: -1%;
+    z-index : 2;
 `;
 
 const StyledSideItem = styled.div.attrs<any>((props) => ({
