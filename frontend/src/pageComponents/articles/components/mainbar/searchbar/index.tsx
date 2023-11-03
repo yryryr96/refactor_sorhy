@@ -9,7 +9,7 @@ import {
     SearchInput,
     SearchButton,
 } from './Searchbar.Styled';
-import DropBox from '@/components/dropbox';
+import HR from '@/components/hr';
 import Image from 'next/image';
 
 const SearchBar = () => {
@@ -27,6 +27,7 @@ const SearchBar = () => {
                 검색 옵션
                 <Image src="/pencil_icon2.svg" width={30} height={30} alt="Pencil_Icon" />
             </TopContainer>
+            <HR />
             <BottomContainer>
                 <ClickBox>
                     <Image src="/recenticon.svg" width={35} height={35} alt="Recent" />
