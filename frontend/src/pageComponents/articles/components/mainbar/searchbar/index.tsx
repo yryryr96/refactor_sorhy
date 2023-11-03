@@ -11,21 +11,29 @@ import {
 } from './Searchbar.Styled';
 import HR from '@/components/hr';
 import Image from 'next/image';
+import Modal from '@/components/modal';
 
 const SearchBar = () => {
     const [selectedOption, setSelectedOption] = useState<String>('');
-
-    const options = [
-        { label: 'Option 1', value: 'option1' },
-        { label: 'Option 2', value: 'option2' },
-        { label: 'Option 3', value: 'option3' },
-    ];
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalText, setModalText] = useState('');
+    const openModal = () => {
+        setModalVisible(true);
+        setModalText('여러분의 이야기를 들려주세요 !');
+    };
 
     return (
         <StyledSearchBar>
             <TopContainer>
                 검색 옵션
-                <Image src="/pencil_icon2.svg" width={30} height={30} alt="Pencil_Icon" />
+                <Image
+                    src="/pencil_icon2.svg"
+                    width={30}
+                    height={30}
+                    alt="Pencil_Icon"
+                    onClick={openModal}
+                    style={{ cursor: 'pointer' }}
+                />
             </TopContainer>
             <HR />
             <BottomContainer>
@@ -44,6 +52,16 @@ const SearchBar = () => {
                 </SelectBox>
                 <SearchInput type="text" placeholder="키워드를 입력하세요" />
                 <SearchButton type="submit">검색</SearchButton>
+                {modalVisible && (
+                    <Modal
+                        isOpen={modalVisible}
+                        bigtext={modalText}
+                        confirm="확인"
+                        cancel="취소"
+                        onConfirmClick={() => setModalVisible(false)}
+                        onClose={() => setModalVisible(false)}
+                    />
+                )}
             </BottomContainer>
         </StyledSearchBar>
     );
