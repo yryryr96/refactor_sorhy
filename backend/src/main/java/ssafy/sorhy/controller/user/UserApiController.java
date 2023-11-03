@@ -44,11 +44,6 @@ public class UserApiController {
         return new Response(200, "로그인 성공", response);
     }
 
-    @GetMapping("/users")
-    public List<User> findAll(Authentication authentication) {
-        return userService.findAll();
-    }
-
     @GetMapping("/{nickname}")
     public Response<UserDto.findRes> findByNickname(@PathVariable String nickname,
                                                     @PageableDefault(size=6) Pageable pageable) {
