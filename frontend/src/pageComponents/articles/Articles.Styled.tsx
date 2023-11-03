@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const Container = styled.div`
     display: flex;
     position: relative;
-    
+
     width: 100vw;
     height: 100vh;
 `;
@@ -11,15 +11,15 @@ const Container = styled.div`
 const StyledArticles = styled.div`
     display: flex;
     flex-direction: row;
-    position : relative;
+    position: relative;
     width: 100vw;
     height: 110vh; //추후 수정 필요 임의값
-    background-image : url('/background1.jpg');
-    background-size : cover;
+    background-image: url('/background1.jpg');
+    background-size: cover;
 
     padding: 6vh 15vw;
-    gap : 2vw;
-    z-index : 1;
+    gap: 2vw;
+    z-index: 1;
 `;
 
-export { StyledArticles,Container };
+export { StyledArticles, Container };
