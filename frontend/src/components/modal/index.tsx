@@ -6,18 +6,31 @@ import { ModalType } from './Modal.type';
 import Input from '../input';
 import Image from 'next/image';
 import { SelectBox } from '@/pageComponents/articles/components/mainbar/searchbar/Searchbar.Styled';
+import articleSavePost from '@/api/article/articleSavePost';
 const Modal = (props: ModalType) => {
     const router = useRouter();
 
-    const boardOptions = ['자유게시판', '회사 게시판', 'tips'];
     const [title, setTitle] = useState('');
-    const [selectedBoard, setSelectedBoard] = useState('freeboard');
+    const [selectedBoard, setSelectedBoard] = useState('0');
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
 
-    const handleSubmit = (e : any) => {
-        e.preventDefault();
-        // 폼 데이터를 서버로 보내는 로직을 추가하세요
+    const handleSubmit = async () => {
+        alert("먼디")
+        const ArticleData = {
+            title,
+            content,
+            // selectedBoard,
+            companyArticle :1,
+            // image
+        }
+        console.log(ArticleData)
+        try {
+            await articleSavePost(ArticleData)   
+        } catch (error) {
+            console.error("게시글 저장 오류", error)
+        }
+
       };
 
     return props.isOpen ? (
@@ -54,10 +67,13 @@ const Modal = (props: ModalType) => {
                             <Label>[게시판 선택]</Label>
                         </RowForm>
 
-                        <SelectBox>
-                            <option value="freeboard">자유 게시판</option>
-                            <option value="companyboard">회사 게시판</option>
-                            <option value="tips">Tips</option>
+                        <SelectBox
+                        value={selectedBoard}
+                        onChange={(e) => setSelectedBoard(e.target.value)}
+                        >
+                            <option value="0">자유 게시판</option>
+                            <option value="1">회사 게시판</option>
+                            <option value="2">Tips</option>
                         </SelectBox>
 
                         <RowForm>
@@ -85,19 +101,13 @@ const Modal = (props: ModalType) => {
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
                     <div style={{ width: '43%', height: '38px' }}>
                         <Button
-                            use="bgGray"
-                            label={props.cancel}
-                            style={{ borderRadius: '5px' }}
-                            onClick={props.onClose}
-                        />
-                    </div>
-                    <div style={{ width: '43%', height: '38px' }}>
-                        <Button
                             use={'#318fff'}
+                            type="submit"
                             label={props.confirm}
                             style={{ borderRadius: '5px' }}
-                            onClick={() => {
+                            onClick={async () => {
                                 if (props.onConfirmClick) {
+                                    await handleSubmit()
                                     props.onConfirmClick();
                                 } else if (props.onDelete) {
                                     props.onDelete();
@@ -105,6 +115,15 @@ const Modal = (props: ModalType) => {
                             }}
                         />
                     </div>
+                    <div style={{ width: '43%', height: '38px' }}>
+                        <Button
+                            use="bgGray"
+                            label={props.cancel}
+                            style={{ borderRadius: '5px' }}
+                            onClick={props.onClose}
+                        />
+                    </div>
+
                 </div>
             </StyledModal>
         </StyledModalWrapper>
