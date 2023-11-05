@@ -1,10 +1,25 @@
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter} from 'next/navigation';
 import Button from '../button';
-import { StyledModalWrapper, StyledModal, StyledBigText, ModalHeader, ModalCenter } from './Modal.styled';
+import { StyledModalWrapper, StyledModal, StyledBigText, ModalHeader, ModalCenter,TextArea, Label,Form,RowForm } from './Modal.styled';
 import { ModalType } from './Modal.type';
-
+import Input from '../input';
+import Image from 'next/image';
+import { SelectBox } from '@/pageComponents/articles/components/mainbar/searchbar/Searchbar.Styled';
 const Modal = (props: ModalType) => {
     const router = useRouter();
+
+    const boardOptions = ['자유게시판', '회사 게시판', 'tips'];
+    const [title, setTitle] = useState('');
+    const [selectedBoard, setSelectedBoard] = useState('freeboard');
+    const [content, setContent] = useState('');
+    const [image, setImage] = useState(null);
+
+    const handleSubmit = (e : any) => {
+        e.preventDefault();
+        // 폼 데이터를 서버로 보내는 로직을 추가하세요
+      };
+
     return props.isOpen ? (
         <StyledModalWrapper>
             <StyledModal style={{ backgroundColor: 'white', width: '700px', height: '700px' }}>
@@ -14,14 +29,59 @@ const Modal = (props: ModalType) => {
                     ) : (
                         <img src="/pencil_icon2.svg" alt="Default Image" style={{ width: '8%', height: '47%' }} />
                     )}
-                    <p style={{ fontSize: '25px', fontWeight: 'bold' }}>글 작성</p>
+                    <p style={{ fontSize: '19px', fontWeight: 'bold' }}>글 작성</p>
                 </ModalHeader>
 
                 <StyledBigText>
                     <div className="title">{props.bigtext}</div>
                     {props.smalltext !== '' ? <div className="subtitle"> {props.smalltext} </div> : null}
                 </StyledBigText>
-                <ModalCenter></ModalCenter>
+                <ModalCenter>
+                <Form onSubmit={handleSubmit}>
+                        <RowForm>
+                            <Image src="/bluetitle.svg" width={19} height={19} alt="제목 사진" />
+                            <Label>[글 제목]</Label>
+                        </RowForm>
+
+                        <TextArea
+                            value={title}
+                            rows={1}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+
+                        <RowForm>
+                            <Image src="/blueboard.svg" width={19} height={19} alt="게시판 사진" />
+                            <Label>[게시판 선택]</Label>
+                        </RowForm>
+
+                        <SelectBox>
+                            <option value="freeboard">자유 게시판</option>
+                            <option value="companyboard">회사 게시판</option>
+                            <option value="tips">Tips</option>
+                        </SelectBox>
+
+                        <RowForm>
+                            <Image src="/bluecontents.svg" width={19} height={19} alt="내용 사진" />
+                            <Label>[글내용]</Label>
+                        </RowForm>
+                        <TextArea
+                            rows ={9}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+                        <RowForm>
+                            <Image src="/bluepicture.svg" width={19} height={19} alt="사진 첨부" />
+                            <Label>[사진 첨부]</Label>
+                        </RowForm>
+                        <Input
+                            font_size="15px"
+                            type="file"
+                            onChange={(e : any) => setImage(e.target.files[0])}
+                        />
+                    </Form>                  
+
+
+                </ModalCenter>
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
                     <div style={{ width: '43%', height: '38px' }}>
                         <Button
