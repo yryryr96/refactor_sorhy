@@ -16,7 +16,6 @@ const Modal = (props: ModalType) => {
     const [image, setImage] = useState(null);
 
     const handleSubmit = async () => {
-        alert("먼디")
         const ArticleData = {
             title,
             content,
@@ -24,7 +23,6 @@ const Modal = (props: ModalType) => {
             companyArticle :1,
             // image
         }
-        console.log(ArticleData)
         try {
             await articleSavePost(ArticleData)   
         } catch (error) {
@@ -53,7 +51,7 @@ const Modal = (props: ModalType) => {
                 <Form onSubmit={handleSubmit}>
                         <RowForm>
                             <Image src="/bluetitle.svg" width={19} height={19} alt="제목 사진" />
-                            <Label>[글 제목]</Label>
+                            <Label>글 제목</Label>
                         </RowForm>
 
                         <TextArea
@@ -64,7 +62,7 @@ const Modal = (props: ModalType) => {
 
                         <RowForm>
                             <Image src="/blueboard.svg" width={19} height={19} alt="게시판 사진" />
-                            <Label>[게시판 선택]</Label>
+                            <Label>게시판 선택</Label>
                         </RowForm>
 
                         <SelectBox
@@ -78,7 +76,7 @@ const Modal = (props: ModalType) => {
 
                         <RowForm>
                             <Image src="/bluecontents.svg" width={19} height={19} alt="내용 사진" />
-                            <Label>[글내용]</Label>
+                            <Label>글 내용</Label>
                         </RowForm>
                         <TextArea
                             rows ={9}
@@ -87,7 +85,7 @@ const Modal = (props: ModalType) => {
                         />
                         <RowForm>
                             <Image src="/bluepicture.svg" width={19} height={19} alt="사진 첨부" />
-                            <Label>[사진 첨부]</Label>
+                            <Label>사진 첨부</Label>
                         </RowForm>
                         <Input
                             font_size="15px"
@@ -101,7 +99,7 @@ const Modal = (props: ModalType) => {
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
                     <div style={{ width: '43%', height: '38px' }}>
                         <Button
-                            use={'#318fff'}
+                            use="blue"
                             type="submit"
                             label={props.confirm}
                             style={{ borderRadius: '5px' }}
@@ -117,7 +115,7 @@ const Modal = (props: ModalType) => {
                     </div>
                     <div style={{ width: '43%', height: '38px' }}>
                         <Button
-                            use="bgGray"
+                            use="bggray"
                             label={props.cancel}
                             style={{ borderRadius: '5px' }}
                             onClick={props.onClose}

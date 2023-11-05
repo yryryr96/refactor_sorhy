@@ -56,7 +56,7 @@ const SearchBar = () => {
                     <Modal
                         isOpen={modalVisible}
                         bigtext={modalText}
-                        confirm="확인"
+                        confirm="작성하기"
                         cancel="취소"
                         onConfirmClick={() => setModalVisible(false)}
                         onClose={() => setModalVisible(false)}

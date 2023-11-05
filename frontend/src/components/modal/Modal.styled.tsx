@@ -86,12 +86,12 @@ const TextArea = styled.textarea`
     border: 1px solid #ccc;
     border-radius: 4px;
 
-    border: 1px solid '#318fff';
+    border: 1px solid lightgray;
     resize: none;
 `;
 
 const Label = styled.label`
-
+    color : #318fff;
 `;
 
 const Form = styled.form`
