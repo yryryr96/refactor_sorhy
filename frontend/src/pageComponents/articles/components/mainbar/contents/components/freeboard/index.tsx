@@ -25,7 +25,6 @@ const FreeBoard = (props: any) => {
         articleReadGet(category)
             .then((res) => {
                 setFreeBoard(res.result.articles);
-                console.log(res.result.articles, '호');
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
