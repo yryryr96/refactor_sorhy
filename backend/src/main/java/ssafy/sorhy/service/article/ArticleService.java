@@ -69,7 +69,7 @@ public class ArticleService {
 
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
-
+        article.addViewCount();
         return article.toDetailRes();
     }
 
