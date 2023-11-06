@@ -54,7 +54,6 @@ public class ArticleApiController {
         }
         ArticleDto.pagingRes response = articleService.findHotArticles(nickname, category, pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
-
     }
 
     @GetMapping("/article/{articleId}")
