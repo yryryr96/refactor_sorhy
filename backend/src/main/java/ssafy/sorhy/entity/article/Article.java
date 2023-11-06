@@ -66,6 +66,7 @@ public class Article {
                 .articleId(this.id)
                 .nickname(this.user.getNickname())
                 .title(this.title)
+                .viewCount(this.viewCount)
                 .createdAt(this.createdAt)
                 .build();
     }

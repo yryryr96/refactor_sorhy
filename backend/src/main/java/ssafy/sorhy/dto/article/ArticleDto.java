@@ -26,6 +26,7 @@ public class ArticleDto {
         private Long articleId;
         private String nickname;
         private String title;
+        private int viewCount;
         private String createdAt;
     }
 
