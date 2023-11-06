@@ -41,9 +41,6 @@ public class ArticleDto {
         @NotNull
         private String category;
 
-        @Nullable
-        private MultipartFile image;
-
         public Article toEntity(User user, String imgUrl) {
 
             return Article.builder()

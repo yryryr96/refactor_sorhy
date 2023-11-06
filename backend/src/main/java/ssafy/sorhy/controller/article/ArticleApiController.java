@@ -22,11 +22,11 @@ public class ArticleApiController {
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
             @RequestPart @Valid ArticleDto.saveReq request,
-//            @RequestPart MultipartFile file,
+            @RequestPart MultipartFile file,
             Authentication authentication) throws IOException {
 
         String nickname = authentication.getName();
-        ArticleDto.basicRes response = articleService.save(nickname, request);
+        ArticleDto.basicRes response = articleService.save(nickname, file, request);
         return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
     }
 
@@ -36,7 +36,12 @@ public class ArticleApiController {
                                                          @PageableDefault(size=6) Pageable pageable,
                                                          Authentication authentication) {
 
-        String nickname = authentication.getName();
+        String nickname = null;
+
+        if (category.equals("COMPANY")) {
+            nickname = authentication.getName();
+        }
+        System.out.println(nickname);
         ArticleDto.pagingRes response = articleService.findAllArticle(nickname, category, pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
     }

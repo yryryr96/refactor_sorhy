@@ -31,11 +31,10 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
-    public ArticleDto.basicRes save(String nickname, ArticleDto.saveReq request) throws IOException {
+    public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq request) throws IOException {
 
         String imgUrl;
         User user = userRepository.findByNickname(nickname);
-        MultipartFile file = request.getImage();
 
         if (file != null) {
             imgUrl = s3UploadService.uploadFile(file);
