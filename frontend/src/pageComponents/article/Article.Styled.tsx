@@ -21,6 +21,13 @@ const StyledArticle = styled.div`
 
     padding: 6vh 6vw;
     z-index: 1;
+    gap: 6%;
+`;
+
+const StyledRightContent = styled.div`
+    display: flex;
+    width: 20%;
+    height: 90%;
 `;
 
 const StyledArticleContent = styled.div`
@@ -34,21 +41,48 @@ const StyledArticleContent = styled.div`
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-    gap: 10%;
+    gap: 20px;
 `;
 
 const StyledArticleHeader = styled.div`
     display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #218fff;
     width: 100%;
-    height: 20%;
-    border: 1px solid black;
+    height: 8%;
+    font-size: 28px;
+    font-weight: bold;
+    color: #218fff;
+`;
+
+const StyledArticleTop = styled.div`
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    height: 9%;
+    font-size: 30px;
+    /* padding: 0% 5%; */
 `;
 
 const StyledArticleBody = styled.div`
     display: flex;
     width: 100%;
     height: 70%;
-    border: 1px solid black;
+    padding: 3% 3%;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+        rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    gap: 10px;
 `;
 
-export { StyledArticle, ArticleContainer, StyledArticleContent, StyledArticleHeader, StyledArticleBody };
+export {
+    StyledArticleTop,
+    StyledArticle,
+    ArticleContainer,
+    StyledArticleContent,
+    StyledArticleHeader,
+    StyledArticleBody,
+    StyledRightContent,
+};

@@ -18,7 +18,8 @@ const RightTopContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 8%;
-
+    margin-left: 10px;
+    margin-top: 9px;
     font-size: 21px;
     font-weight: bold;
     color: #318fff;
