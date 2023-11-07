@@ -41,7 +41,7 @@ const StyledArticleContent = styled.div`
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-    gap: 15px;
+    gap: 25px;
 `;
 
 const StyledArticleHeader = styled.div`
@@ -97,7 +97,7 @@ const StyledCommentHeader = styled.div`
     width: 100%;
     height: 40%;
     border-bottom: 1px solid gray;
-    padding: 1% 2%;
+    padding: 1% 0;
     gap: 20px;
     font-size: 21px;
     color: #218fff;
@@ -110,8 +110,7 @@ const StyledCommentBody = styled.div`
     width: 100%;
     height: 60%;
 
-    padding: 1% 2%;
-    gap: 5px;
+    gap: 20px;
     font-size: 18px;
 `;
 
@@ -120,9 +119,12 @@ const StyledComment = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+   
     width: 100%;
     height: 15%;
     font-size: 16px;
+
 `;
 
 const StyledCommentTop = styled.div`

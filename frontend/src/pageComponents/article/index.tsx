@@ -26,16 +26,18 @@ import HR from '@/components/hr';
 const Article = (props: any) => {
     const { articleId } = props;
     const [articleDetail, setArticleDetail] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         articleDetailGet(articleId)
             .then((res) => {
                 setArticleDetail(res.result);
+                setLoading(false); 
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
             });
-    }, [articleId]);
-    console.log(articleDetail.comments['comments']);
+    }, []);
+
     return (
         <ArticleContainer>
             <StyledArticle>
@@ -70,14 +72,31 @@ const Article = (props: any) => {
                                     style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
                                 />
                                 <Button use="blue" label="작성" style={{ width: '10%' }} />
+
                             </StyledCommentTop>
+                            <StyledComment>
+                                <p>작성자</p>
+                                <p>댓글</p>
+                                <p>작성 일시</p>
+                                </StyledComment>
                         </StyledCommentHeader>
                         <StyledCommentBody>
-                            <StyledComment>
-                                <p>a</p>
-                                <p>b</p>
-                                <p>c</p>
-                            </StyledComment>
+                        {loading ? (
+                                <div>Loading...</div>
+                            ) : (
+                            
+                                articleDetail.comments['comments']  ? (
+                                    articleDetail.comments['comments'].map((comment: string, index: number) => (
+                                        <StyledComment key={index}>
+                                            <p>{comment.nickname}</p>
+                                            <p>{comment.content}</p>
+                                            <p>{comment.createdAt}</p>
+                                        </StyledComment>
+                                    ))
+                                ) : (
+                                    <div>댓글이 없습니다</div>
+                                )
+                            )}
                         </StyledCommentBody>
                     </StyledArticleComment>
                 </StyledArticleContent>

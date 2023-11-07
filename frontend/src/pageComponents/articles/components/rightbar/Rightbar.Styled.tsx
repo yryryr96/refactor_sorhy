@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const StyledRightBar = styled.div`
     display: flex;
     flex-direction: column;
-    width: 40vw;
+    width: 30vw;
     height: 68vh;
     border: 1px solid lightgray;
     padding: 2% 1.5%;
@@ -29,9 +29,11 @@ const RightBottomContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding : 10px 0;
     width: 100%; // 100%
     height: 91%;
     gap: 2px;
+
 `;
 
 const StyledRightItem = styled.div.attrs<any>((props) => ({
@@ -49,7 +51,7 @@ const StyledRightItem = styled.div.attrs<any>((props) => ({
     font-size: ${(props) => props.font_size};
     font-weight: ${(props) => props.font_weight};
     color: ${(props) => (props.active ? '#318fff' : props.color === 'on' ? '#318fff' : 'black')};
-    gap: 5px;
+    gap: 15px;
 
     white-space: nowrap;
     text-overflow: ellipsis;
