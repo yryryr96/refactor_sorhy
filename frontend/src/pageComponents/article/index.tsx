@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react';
 import articleDetailGet from '@/api/article/articleDetailGet';
 import {
+    StyledComment,
+    StyledCommentBody,
+    StyledCommentTop,
     StyledArticle,
     ArticleContainer,
     StyledArticleContent,
@@ -10,6 +13,8 @@ import {
     StyledArticleBody,
     StyledArticleTop,
     StyledRightContent,
+    StyledArticleComment,
+    StyledCommentHeader,
 } from './Article.Styled';
 import RightBar from '../articles/components/rightbar';
 
@@ -18,17 +23,9 @@ import Button from '@/components/button';
 import Input from '@/components/input';
 import HR from '@/components/hr';
 
-export interface ArticleDetail {
-    articleId?: number;
-    nickname?: string;
-    title?: string;
-    imageUrl?: any;
-    createdAt?: any;
-}
-
 const Article = (props: any) => {
     const { articleId } = props;
-    const [articleDetail, setArticleDetail] = useState<ArticleDetail[]>([]);
+    const [articleDetail, setArticleDetail] = useState<any[]>([]);
     useEffect(() => {
         articleDetailGet(articleId)
             .then((res) => {
@@ -38,7 +35,7 @@ const Article = (props: any) => {
                 console.error('에러 발생:', error);
             });
     }, [articleId]);
-    console.log(articleDetail);
+    console.log(articleDetail.comments['comments']);
     return (
         <ArticleContainer>
             <StyledArticle>
@@ -56,13 +53,33 @@ const Article = (props: any) => {
                             작성자 : {articleDetail.nickname} | 작성 일자 : {articleDetail.createdAt} | 조회 수 :
                             {articleDetail.viewCount}
                             <StyledArticleBody>
-                                <Image src={articleDetail.imgUrl} width={370} height={370} alt="업로드 이미지" />
+                                <Image src={articleDetail.imgUrl} width={375} height={375} alt="업로드 이미지" />
                                 {articleDetail.content}
                             </StyledArticleBody>
                         </>
                     ) : (
                         <div>Loading...</div>
                     )}
+                    <StyledArticleComment>
+                        <StyledCommentHeader>
+                            댓글
+                            <StyledCommentTop>
+                                <Input
+                                    font_size="17px"
+                                    type="text"
+                                    style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
+                                />
+                                <Button use="blue" label="작성" style={{ width: '10%' }} />
+                            </StyledCommentTop>
+                        </StyledCommentHeader>
+                        <StyledCommentBody>
+                            <StyledComment>
+                                <p>a</p>
+                                <p>b</p>
+                                <p>c</p>
+                            </StyledComment>
+                        </StyledCommentBody>
+                    </StyledArticleComment>
                 </StyledArticleContent>
                 <StyledRightContent>
                     <RightBar />
