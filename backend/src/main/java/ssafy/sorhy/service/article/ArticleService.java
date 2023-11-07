@@ -175,7 +175,7 @@ public class ArticleService {
         String word = request.getWord();
         SearchCond searchCond;
         Page<Article> result = null;
-        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
+        User user = findUser(nickname);
         Long companyId = user.getCompany().getId();
 
         try {
@@ -186,7 +186,7 @@ public class ArticleService {
 
         switch(searchCond) {
             case NONE:
-                result = articleRepository.searchCompanyArticleByTitleAndContent(word, word, companyId, pageable);
+                result = articleRepository.searchCompanyArticleByTitleAndContent(word, companyId, pageable);
                 break;
             case TITLE:
                 result = articleRepository.searchCompanyArticleByTitle(word, companyId, pageable);
