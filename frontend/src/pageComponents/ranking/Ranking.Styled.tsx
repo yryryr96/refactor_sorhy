@@ -65,11 +65,41 @@ const StyledRankingBody = styled.div`
     display: flex;
     flex-direction: column;
 
-    width: 95%;
-    height: 50%;
+    width: 96%;
+    height: 80%;
     padding: 0 2%;
-    border: 1px solid gray;
+    border: 1px solid #218fff;
     border-radius: 20px;
+    gap: 4%;
+`;
+
+const StyledInnerHeader = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 10%;
+    font-size: 18px;
+    border-bottom: 1px solid gray;
+`;
+
+const StyledInnerBody = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 89%;
+
+    gap: 4px;
+`;
+
+const StyledRankInfo = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 10%;
+    font-size: 18px;
 `;
 
 export {
@@ -79,4 +109,7 @@ export {
     StyledRankingTop,
     StyledRankingSelector,
     StyledRankingBody,
+    StyledInnerHeader,
+    StyledInnerBody,
+    StyledRankInfo,
 };
