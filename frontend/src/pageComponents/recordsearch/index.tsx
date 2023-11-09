@@ -1,6 +1,6 @@
 'use client';
 
-import { StyledRecordMain } from './RecordSearch.Styled';
+import { StyledRecordMain, StyledRecordFrame, StyledLeftContainer, StyledRightContainer } from './RecordSearch.Styled';
 import LeftBottom from './components/leftbottom';
 import LeftTop from './components/lefttop';
 import LeftMid from './components/leftmid';
@@ -11,10 +11,16 @@ const RecordSearch = (props: any) => {
 
     return (
         <StyledRecordMain>
-            <LeftTop userId={userId} />
-            <LeftMid userId={userId} />
-            <LeftBottom userId={userId} />
-            <Right userId={userId} />
+            <StyledRecordFrame>
+                <StyledLeftContainer>
+                    <LeftTop userId={userId} />
+                    <LeftMid userId={userId} />
+                    <LeftBottom userId={userId} />
+                </StyledLeftContainer>
+                <StyledRightContainer>
+                    <Right userId={userId} />
+                </StyledRightContainer>
+            </StyledRecordFrame>
         </StyledRecordMain>
     );
 };
