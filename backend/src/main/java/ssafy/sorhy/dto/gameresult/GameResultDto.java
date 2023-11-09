@@ -80,6 +80,7 @@ public class GameResultDto {
 
         private String companyName;
         private int companyScore;
+        private String companyFirstRankUser;
     }
 
     @Data
@@ -91,6 +92,13 @@ public class GameResultDto {
         private Long characterId;
         private String characterName;
         private Long cnt;
+    }
+
+    @Data
+    @Builder
+    public static class companyFirstRankUserRes {
+
+        private String nickname;
     }
 
     @Data

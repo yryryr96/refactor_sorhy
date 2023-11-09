@@ -26,5 +26,4 @@ public interface GameResultRepository extends JpaRepository<GameResult, Long> {
     @Query("select new ssafy.sorhy.dto.gameresult.OtherUserDto(u.nickname, gr.characterId, gr.score, u.company.companyName, gr.team) " +
             "from GameResult gr join gr.user u join gr.game g where g.id = :gameId")
     List<OtherUserDto> findOtherUserDtoByGameId(Long gameId);
-
 }

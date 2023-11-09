@@ -62,7 +62,7 @@ public class JwtFilter extends OncePerRequestFilter {
             throw new JwtException("만료된 토큰입니다.");
         } catch(Exception e) {
             SecurityContextHolder.clearContext();
-            throw new JwtException("토큰 유무를 확인해주세요.");
+            throw new JwtException(e.getMessage());
         }
     }
 }
