@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { StyledInnerBody, StyledInnerHeader, StyledRankInfo } from '../../Ranking.Styled';
 import { useState, useEffect } from 'react';
 import GameRankGet from '@/api/rank/GameRankGet';
@@ -40,29 +41,18 @@ const House = () => {
                             <p>{rank.company}</p>
                             <p>{rank.score}</p>
                             <p>
-                                <Image
-                                    src={`/chr${rank.top3Characters[0].characterId}.png`}
-                                    width={40}
-                                    height={40}
-                                    alt="캐릭1"
-                                    style={{ borderRadius: '20px' }}
-                                />
-                                {'    '}
-                                <Image
-                                    src={`/chr${rank.top3Characters[1].characterId}.png`}
-                                    width={40}
-                                    height={40}
-                                    alt="캐릭2"
-                                    style={{ borderRadius: '20px' }}
-                                />
-                                {'   '}
-                                <Image
-                                    src={`/chr${rank.top3Characters[2].characterId}.png`}
-                                    width={40}
-                                    height={40}
-                                    alt="캐릭3"
-                                    style={{ borderRadius: '20px' }}
-                                />
+                                {rank.top3Characters.map((character, characterIndex) => (
+                                    <React.Fragment key={characterIndex}>
+                                        <Image
+                                            src={`/chr${character.characterId}.png`}
+                                            width={40}
+                                            height={40}
+                                            alt={`캐릭${characterIndex + 1}`}
+                                            style={{ borderRadius: '20px' }}
+                                        />
+                                        {characterIndex < 2 && '   '}
+                                    </React.Fragment>
+                                ))}
                             </p>
                         </StyledRankInfo>
                     ))
