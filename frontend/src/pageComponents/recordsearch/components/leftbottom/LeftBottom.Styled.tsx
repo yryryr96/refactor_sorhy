@@ -15,7 +15,7 @@ const StyledBottomHeader = styled.div`
     align-items: center;
     width: 100%;
     height: 25%;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: bold;
 
     gap: 10px;
@@ -39,7 +39,7 @@ const StyledCharContent = styled.div`
     align-items: center;
     width: 100%;
     height: 30%;
-    font-size: 18px;
+    font-size: 17px;
 
     gap: 20px;
 `;

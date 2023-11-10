@@ -53,7 +53,7 @@ const Right = (props: any) => {
                                         style={{ borderRadius: '20px' }}
                                     />
                                 </p>
-                                <p style={{ fontSize: '17px' }}>강아지</p>
+                                <p style={{ fontSize: '16px' }}>강아지</p>
                             </StyledRecordBottomRight>
                         </StyledRecordMainBottom>
                     </StyledRecordMain>

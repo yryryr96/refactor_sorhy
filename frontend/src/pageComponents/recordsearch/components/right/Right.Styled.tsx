@@ -12,7 +12,7 @@ const StyledRightHeaderTop = styled.div`
     display: flex;
     width: 100%;
     height: 30%;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     /* border: 1px solid lightgray; */
     color: #86bebe;
@@ -68,6 +68,7 @@ const StyledRecordMainTop = styled.div<any>`
     width: 100%;
     height: 30%;
     padding: 0% 5%;
+    font-size: 15px;
 `;
 const StyledRecordMainBottom = styled.div<any>`
     display: flex;
@@ -91,7 +92,7 @@ const StyledRecordBottomRight = styled.div<any>`
     width: 60%;
     height: 100%;
 
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     gap: 3px;
 `;
@@ -120,7 +121,7 @@ const StyledTeamContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 15px;
     width: 100%;
     height: 20%;
 `;
