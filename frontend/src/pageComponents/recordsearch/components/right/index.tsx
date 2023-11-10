@@ -28,7 +28,7 @@ const Right = (props: any) => {
                     <Image src="/history.svg" width={38} height={38} alt="전적 히스토리" />
                     전적 히스토리
                 </StyledRightHeaderTop>
-                <StyledRightHeaderBottom>//여기 그래프랑 chart</StyledRightHeaderBottom>
+                <StyledRightHeaderBottom></StyledRightHeaderBottom>
             </StyledRightHeader>
             <StyledRightBody>
                 <StyledRecord>
