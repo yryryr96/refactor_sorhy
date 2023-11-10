@@ -13,19 +13,38 @@ const LeftBottom = (props: any) => {
     return (
         <StyledLeftBottomContainer>
             <StyledBottomHeader>
-                <Image src="/chr2.png" width={35} height={35} alt="내 최애 캐릭터" />내 최애 캐릭터는?
+                <Image src="/chr11.png" width={35} height={35} alt="내 최애 캐릭터" style={{ borderRadius: '20px' }} />
+                내 최애 캐릭터는?
             </StyledBottomHeader>
             <StyledBottomBody>
                 <StyledCharContent>
-                    <Image src="/chr2.png" width={35} height={35} alt="내 최애 캐릭터 1" />
+                    <Image
+                        src="/chr2.png"
+                        width={35}
+                        height={35}
+                        alt="내 최애 캐릭터 1"
+                        style={{ borderRadius: '20px' }}
+                    />
                     정영록정영록정영록
                 </StyledCharContent>
                 <StyledCharContent>
-                    <Image src="/chr3.png" width={35} height={35} alt="내 최애 캐릭터 2" />
+                    <Image
+                        src="/chr3.png"
+                        width={35}
+                        height={35}
+                        alt="내 최애 캐릭터 2"
+                        style={{ borderRadius: '20px' }}
+                    />
                     정영록정영록정영록
                 </StyledCharContent>
                 <StyledCharContent>
-                    <Image src="/chr4.png" width={35} height={35} alt="내 최애 캐릭터 3" />
+                    <Image
+                        src="/chr4.png"
+                        width={35}
+                        height={35}
+                        alt="내 최애 캐릭터 3"
+                        style={{ borderRadius: '20px' }}
+                    />
                     정영록정영록정영록
                 </StyledCharContent>
             </StyledBottomBody>
