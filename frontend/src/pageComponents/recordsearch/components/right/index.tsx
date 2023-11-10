@@ -1,6 +1,6 @@
 'use client';
 
-import { StyledRightHeader, StyledRightBody } from './Right.Styled';
+import { StyledRecord, StyledRightHeader, StyledRightBody } from './Right.Styled';
 
 const Right = (props: any) => {
     const { userId } = props;
@@ -8,12 +8,14 @@ const Right = (props: any) => {
     return (
         <>
             <StyledRightHeader>
-                <div>good</div>
-                <div>good</div>
+                <div>전적 히스토리</div>
             </StyledRightHeader>
             <StyledRightBody>
-                <div>good</div>
-                <div>good</div>
+                <StyledRecord />
+                <StyledRecord />
+                <StyledRecord />
+                <StyledRecord />
+                <StyledRecord />
             </StyledRightBody>
         </>
     );

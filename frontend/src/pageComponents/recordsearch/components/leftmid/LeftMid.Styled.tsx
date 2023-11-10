@@ -5,7 +5,7 @@ const StyledLeftMidContainer = styled.div`
     flex-direction: column;
     width: 85%;
     height: 25%;
-    padding: 5% 5%;
+    padding: 4% 5%;
     border: 1px solid gray;
     border-radius: 20px;
 `;
