@@ -3,9 +3,10 @@ import styled, { css } from 'styled-components';
 const StyledLeftBottomContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 85%;
     height: 30%;
-    border: 1px solid black;
+    border: 1px solid gray;
+    border-radius: 20px;
 `;
 
 export { StyledLeftBottomContainer };

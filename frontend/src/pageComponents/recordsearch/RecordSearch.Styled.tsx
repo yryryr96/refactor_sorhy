@@ -30,6 +30,8 @@ const StyledRecordFrame = styled.div`
 const StyledLeftContainer = styled.div`
     display: flex;
     flex-direction: column;
+
+    align-items: center;
     width: 40%;
     height: 100%;
     border: 1px solid black;

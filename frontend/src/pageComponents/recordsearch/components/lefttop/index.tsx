@@ -10,8 +10,10 @@ import {
     StyledLeftTopContainer,
     StyledPictureSide,
     StyledTitleInfo,
+    StyledUpdateText,
 } from './LeftTop.Styled';
 import Image from 'next/image';
+import Button from '@/components/button';
 
 const LeftTop = (props: any) => {
     const { userId } = props;
@@ -43,7 +45,10 @@ const LeftTop = (props: any) => {
                 </StyledTitleInfo>
             </StyledTopContainer>
             <StyledBottomContainer>
-                <StyledUpdateRecord>good</StyledUpdateRecord>
+                <StyledUpdateRecord>
+                    <Button use="blue" label="전적 업데이트" style={{ width: '100%', borderRadius: '8px' }} />
+                </StyledUpdateRecord>
+                <StyledUpdateText>15분전 갱신됨</StyledUpdateText>
             </StyledBottomContainer>
         </StyledLeftTopContainer>
     );
