@@ -13,7 +13,13 @@ const LeftBottom = (props: any) => {
     return (
         <StyledLeftBottomContainer>
             <StyledBottomHeader>
-                <Image src="/chr11.png" width={35} height={35} alt="내 최애 캐릭터" style={{ borderRadius: '20px' }} />
+                <Image
+                    src="/cuteflower.svg"
+                    width={35}
+                    height={35}
+                    alt="내 최애 캐릭터"
+                    style={{ borderRadius: '20px' }}
+                />
                 내 최애 캐릭터는?
             </StyledBottomHeader>
             <StyledBottomBody>

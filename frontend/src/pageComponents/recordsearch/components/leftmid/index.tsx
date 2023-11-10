@@ -15,8 +15,7 @@ const LeftMid = (props: any) => {
     return (
         <StyledLeftMidContainer>
             <StyledMidHeader>
-                <Image src="/chr1.png" width={35} height={35} alt="내 점수" style={{ borderRadius: '20px' }} />내
-                점수는?
+                <Image src="/scorestandard2.svg" width={35} height={35} alt="내 점수" />내 점수는?
             </StyledMidHeader>
             <StyledMidBody>
                 <StyledScoreHeader>2555점</StyledScoreHeader>

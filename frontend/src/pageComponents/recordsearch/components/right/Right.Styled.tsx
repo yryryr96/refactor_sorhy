@@ -15,7 +15,9 @@ const StyledRightHeaderTop = styled.div`
     font-size: 32px;
     font-weight: bold;
     /* border: 1px solid lightgray; */
-    color: #86bebe;
+    /* color: #86bebe; */
+    color: #218fff;
+    gap: 15px;
 `;
 const StyledRightHeaderBottom = styled.div`
     display: flex;
