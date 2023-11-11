@@ -49,7 +49,7 @@ const Right = (props: any) => {
                             </StyledRecordBottomLeft>
                             <StyledRecordBottomRight>
                                 <p style={{ color: '#218fff' }}>
-                                    {game.enteredUsers[0].score}점
+                                    {game.score}점
                                     <Image
                                         src="/cuteline.svg"
                                         width={30}
