@@ -12,12 +12,12 @@ import userSearchGet from '@/api/search/userSearchGet';
 const RecordSearch = (props: any) => {
     const { userId } = props;
     const [userInfo, setUserInfo] = useState<any>([]);
-    const [loading,setLoading] = useState(true);
+    const [loading,setLoading] = useState(false);
     useEffect(() => {
         userSearchGet(userId)
             .then((res) => {
                 setUserInfo(res.result);
-                setLoading(false);
+                setLoading(true);
             })
             .catch((error) => {
                 console.error('에러가 발생하였습니다:', error);
@@ -26,18 +26,19 @@ const RecordSearch = (props: any) => {
     console.log(userInfo)
     return (
         <>
-            <StyledRecordMain>
+            {loading ?    (      <StyledRecordMain>
                 <StyledRecordFrame>
                     <StyledLeftContainer>
-                        <LeftTop userId={userId} />
-                        <LeftMid userId={userId} />
-                        <LeftBottom userId={userId} />
+                        <LeftTop nickname={userInfo.nickname} company={userInfo.companyName} />
+                        <LeftMid totalScore={userInfo.totalScore} rankPercent={userInfo.rankPercent} personalRanking={userInfo.personalRanking} />
+                        <LeftBottom top3Characters={userInfo.top3Characters} />
                     </StyledLeftContainer>
                     <StyledRightContainer>
-                        <Right userId={userId} />
+                        <Right gameResult={userInfo.gameResults} />
                     </StyledRightContainer>
                 </StyledRecordFrame>
-            </StyledRecordMain>
+            </StyledRecordMain> ): <div>Loading...</div>}
+
         </>
     );
 };
