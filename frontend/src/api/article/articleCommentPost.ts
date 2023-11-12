@@ -1,8 +1,7 @@
 // 댓글 작성 post
 
 import api from "../api";
-import dotenv from 'dotenv'
-require('dotenv').config()
+
 const articleCommentPost = async (articleId: any, commentDatas: any) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
