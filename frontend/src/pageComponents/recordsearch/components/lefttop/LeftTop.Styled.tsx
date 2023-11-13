@@ -6,7 +6,7 @@ const StyledLeftTopContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 45%;
+    height: 55%;
 `;
 
 const StyledTopContainer = styled.div`
