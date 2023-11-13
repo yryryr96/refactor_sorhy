@@ -37,12 +37,14 @@ const Right = (props: any) => {
                         <StyledRecordColor iswinner={game.winner} />
                         <StyledRecordMain>
                             <StyledRecordMainTop>
-                                {game.winner ? '승' : '패'}
-                                <Image src="/spear.svg" width={15} height={15} alt="slash" />
+                                <p style={{ fontWeight: 'bold', color: game.winner ? '#218fff' : 'red' }}>
+                                    {game.winner ? '승' : '패'}
+                                </p>
+                                <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {game.gameType === 'MULTI' ? '멀티' : '싱글'}
-                                <Image src="/spear.svg" width={15} height={15} alt="slash" />
+                                <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {game.gameTitle}
-                                <Image src="/spear.svg" width={15} height={15} alt="slash" />
+                                <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {game.createdAt}
                             </StyledRecordMainTop>
                             <StyledRecordMainBottom>
