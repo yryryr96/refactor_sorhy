@@ -79,7 +79,7 @@ const StyledInnerHeader = styled.div`
 
     width: 100%;
     height: 10%;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #218fff;
     border-bottom: 1px solid gray;
@@ -112,7 +112,19 @@ const StyledInfoContainer = styled.div.attrs<any>({})`
     gap: 18px;
 `;
 
+const StyledEmptyText = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    font-size: 40px;
+    font-weight: bold;
+`;
+
 export {
+    StyledEmptyText,
     StyledInfoContainer,
     StyledRankingMain,
     StyledRankingFrame,

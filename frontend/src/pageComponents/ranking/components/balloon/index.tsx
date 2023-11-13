@@ -1,7 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { StyledInfoContainer, StyledInnerBody, StyledInnerHeader, StyledRankInfo } from '../../Ranking.Styled';
+import {
+    StyledEmptyText,
+    StyledInfoContainer,
+    StyledInnerBody,
+    StyledInnerHeader,
+    StyledRankInfo,
+} from '../../Ranking.Styled';
 import GameRankGet from '@/api/rank/GameRankGet';
 import Image from 'next/image';
 
@@ -39,7 +45,7 @@ const Balloon = () => {
             </StyledInnerHeader>
             <StyledInnerBody>
                 {loading ? (
-                    <div>Loading...</div>
+                    <StyledEmptyText>Loading...</StyledEmptyText>
                 ) : BalloonDetail.length > 0 ? (
                     BalloonDetail.map((rank: any, index: number) => (
                         <StyledRankInfo key={index}>
@@ -64,7 +70,7 @@ const Balloon = () => {
                         </StyledRankInfo>
                     ))
                 ) : (
-                    <div>랭킹 정보가 없습니다</div>
+                    <StyledEmptyText>랭킹 정보가 없습니다</StyledEmptyText>
                 )}
             </StyledInnerBody>
         </>
