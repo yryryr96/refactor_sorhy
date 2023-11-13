@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ssafy.sorhy.dto.ranking.CompanyRankDto;
 import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
@@ -51,7 +52,12 @@ public class RankingService {
     }
 
     public List<RankingDto.companyRankRes> companyRank() {
-
+        List<CompanyRankDto> companyTopRankUser = companyRepository.findCompanyTopRankUser();
+        for (CompanyRankDto companyRankDto : companyTopRankUser) {
+            System.out.println("companyRankDto.getCompanyFirstRankUser() = " + companyRankDto.getCompanyFirstRankUser());
+            System.out.println("companyRankDto.getCompanyScore() = " + companyRankDto.getCompanyScore());
+            System.out.println("============================");
+        }
         List<Company> companyRankList = companyRepository.findAllByOrderByCompanyScoreDesc();
         return companyRankList.stream()
                 .map(company -> company.toCompanyRankDto(userRepository.findCompanyFirstRankUser(company.getId())))
