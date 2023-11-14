@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.ranking.CompanyRankDto;
 import ssafy.sorhy.dto.ranking.RankingDto;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.ranking.Ranking;
@@ -16,6 +15,7 @@ import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,17 +51,9 @@ public class RankingService {
         }
     }
 
-    public List<RankingDto.companyRankRes> companyRank() {
-        List<CompanyRankDto> companyTopRankUser = companyRepository.findCompanyTopRankUser();
-        for (CompanyRankDto companyRankDto : companyTopRankUser) {
-            System.out.println("companyRankDto.getCompanyFirstRankUser() = " + companyRankDto.getCompanyFirstRankUser());
-            System.out.println("companyRankDto.getCompanyScore() = " + companyRankDto.getCompanyScore());
-            System.out.println("============================");
-        }
-        List<Company> companyRankList = companyRepository.findAllByOrderByCompanyScoreDesc();
-        return companyRankList.stream()
-                .map(company -> company.toCompanyRankDto(userRepository.findCompanyFirstRankUser(company.getId())))
-                .collect(Collectors.toList());
+    public List<CompanyRankDto> companyRank() {
+
+        return companyRepository.findCompanyTopRankUser();
     }
 
     public List<RankingDto.personalRankRes> eachGameRank(String gameTitle, Pageable pageable) {
