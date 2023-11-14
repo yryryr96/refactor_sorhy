@@ -7,6 +7,7 @@ import { useLoginHook } from '@/hooks/user/useLoginHook';
 import { StyledLoginButtonBox, StyledLoginForm, StyledLoginFormButton, StyledLoginFrame, StyledLoginInputBox, StyledLoginMain, StyledLoginTextContainer, StyledSignupButton } from './Login.Styled';
 import { useRouter } from 'next/navigation';
 import { StyledTextContainer, StyledTextPtag } from '../signup/SignUp.Styled';
+import HR from '@/components/hr';
 
 const Login = () => {
     const router = useRouter();
@@ -28,8 +29,10 @@ const Login = () => {
             <StyledLoginFrame>                
                 <StyledLoginForm onSubmit={handleSubmit}>
                     <StyledTextContainer>
-                        <h2>로그인</h2>
+                        <h2 style={{textAlign:"center"}}>로그인</h2>
+                        <HR />
                     </StyledTextContainer>
+
                     <div>
                         <StyledTextPtag>닉네임</StyledTextPtag>
                         <StyledLoginInputBox>

@@ -17,7 +17,7 @@ const StyledLoginFrame = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 30%;
-    height: 70%;
+    height: 80%;
     padding: 2% 2%;
     border: 1px solid lightgray;
     border-radius: 20px;
@@ -33,7 +33,7 @@ const StyledLoginForm = styled.form`
     flex-direction: column;
     justify-content: space-between;
     width : 100%;
-    height : 70%;
+    height : 90%;
     background-color: white;
     gap: 10px;
     
@@ -91,7 +91,7 @@ const StyledLoginButtonBox = styled.div.attrs<any>((props: any) => ({}))`
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-top:20px;
+            /* margin-top:10px; */
         `;
     }}
 `;

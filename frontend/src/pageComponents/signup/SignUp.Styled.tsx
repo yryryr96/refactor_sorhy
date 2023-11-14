@@ -33,7 +33,7 @@ const StyledSignupForm = styled.form`
     flex-direction: column;
     justify-content: space-between;
     width : 100%;
-    height : 90%;
+    height : 95%;
     background-color: white;
     gap: 20px;
     
@@ -47,7 +47,7 @@ const StyledSignupFormButton = styled.button`
     border : transparent;
     background-color: #318fff;
     width: 100%;
-    height : 14%;
+    height : 10%;
     margin-top:10px;
     cursor : pointer;
 `

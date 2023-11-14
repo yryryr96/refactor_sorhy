@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useSignupHook } from '@/hooks/user/useSignupHook';
 import { StyledLoginForm, StyledLoginFrame, StyledLoginInputBox, StyledLoginMain, StyledLoginTextContainer } from '../login/Login.Styled';
 import { StyledSignupForm, StyledSignupFormButton, StyledSignupFrame, StyledSignupMain, StyledTextContainer, StyledTextPtag } from './SignUp.Styled';
+import HR from '@/components/hr';
 
 const Signup = () => {
     const { user, inputState, handleChange, handleSubmit } = useSignupHook();
@@ -16,8 +17,8 @@ const Signup = () => {
                 <StyledSignupForm onSubmit={handleSubmit}>
                     <StyledTextContainer>
                         <h2 style={{textAlign:"center"}}>회원가입</h2>
+                        <HR />
                     </StyledTextContainer>                    
-                        
                     <div>
                     <StyledTextPtag>닉네임</StyledTextPtag>
                     <StyledLoginInputBox>
