@@ -45,7 +45,7 @@ const CompanyBoard = (props: any) => {
         <>
             {isToken ? (
                 <StyledContentsBox>
-                    {companyBoard.length > 0 ? companyBoard.map(article => (
+                    {companyBoard.length > 0 ? companyBoard.map((article,index) => (
                         <StyledContentContainer onClick={() => handleContentClick(article.articleId)}>
                             <StyledLeftContainer>
                                 <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
