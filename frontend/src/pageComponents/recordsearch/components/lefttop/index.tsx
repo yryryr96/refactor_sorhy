@@ -1,6 +1,5 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyledUpdateRecord,
     StyledTopTitle,
@@ -22,6 +21,9 @@ const LeftTop = (props: any) => {
         const newRandomNumber = Math.floor(Math.random() * 10) + 1;
 
         setRandomNumber(newRandomNumber);
+    };
+    const handleRefreshClick = () => {
+        window.location.reload();
     };
     useEffect(() => {
         getRandomNumber();
@@ -49,7 +51,12 @@ const LeftTop = (props: any) => {
             </StyledTopContainer>
             <StyledBottomContainer>
                 <StyledUpdateRecord>
-                    <Button use="blue" label="전적 업데이트" style={{ width: '100%', borderRadius: '8px' }} />
+                    <Button
+                        use="blue"
+                        label="전적 업데이트"
+                        onClick={handleRefreshClick}
+                        style={{ width: '100%', borderRadius: '8px' }}
+                    />
                 </StyledUpdateRecord>
                 <StyledUpdateText>15분전 갱신됨</StyledUpdateText>
             </StyledBottomContainer>
