@@ -29,7 +29,7 @@ const Modal = (props: ModalType) => {
         const ArticleData = {
             title: title,
             content: content,
-            category: 'FREE',
+            category: 'TIP',
         };
         const jsonArticle = JSON.stringify(ArticleData);
         const ArticleForm = new FormData();
