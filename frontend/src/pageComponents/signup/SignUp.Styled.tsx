@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const StyledSignupMain = styled.div`
     display: flex;
@@ -9,6 +9,8 @@ const StyledSignupMain = styled.div`
     padding: 4% 0;
     width: 100vw;
     height: 100vh;
+    background-image: url('/background12.jpg');
+    background-size: cover;
 `;
 
 const StyledSignupFrame = styled.div`
@@ -28,37 +30,34 @@ const StyledSignupFrame = styled.div`
 `;
 
 const StyledSignupForm = styled.form`
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width : 100%;
-    height : 95%;
+    width: 100%;
+    height: 95%;
     background-color: white;
     gap: 20px;
-    
-`
+`;
 
 const StyledSignupFormButton = styled.button`
-
-    color : #fff;
-    font-size : 15px;
-    border-radius : 10px;
-    border : transparent;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 10px;
+    border: transparent;
     background-color: #318fff;
     width: 100%;
-    height : 10%;
-    margin-top:10px;
-    cursor : pointer;
-`
+    height: 10%;
+    margin-top: 10px;
+    cursor: pointer;
+`;
 const StyledTextPtag = styled.p`
     margin-bottom: 5px;
-`
+`;
 
 const StyledTextContainer = styled.div`
-    display:"flex";
-    width:"100%"; 
-    justify-content:"center";
+    display: 'flex';
+    width: '100%';
+    justify-content: 'center';
 `;
 export {
     StyledSignupMain,
@@ -66,5 +65,5 @@ export {
     StyledSignupFormButton,
     StyledSignupForm,
     StyledTextPtag,
-    StyledTextContainer
-}
+    StyledTextContainer,
+};
