@@ -58,7 +58,7 @@ const LeftTop = (props: any) => {
                         style={{ width: '100%', borderRadius: '8px' }}
                     />
                 </StyledUpdateRecord>
-                <StyledUpdateText>15분전 갱신됨</StyledUpdateText>
+                <StyledUpdateText>너무 잦은 업데이트는 No No!</StyledUpdateText>
             </StyledBottomContainer>
         </StyledLeftTopContainer>
     );
