@@ -33,8 +33,8 @@ const Tips = (props: any) => {
     };
     return (
         <StyledContentsBox>
-            {tipsBoard.length > 0 ? tipsBoard.map((article,index) => (
-                <StyledContentContainer onClick={() => handleContentClick(article.articleId)}>
+            {tipsBoard.length > 0 ? tipsBoard.map((article:any,index:any) => (
+                <StyledContentContainer key={index} onClick={() => handleContentClick(article.articleId)}>
                     <StyledLeftContainer>
                         <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
                         {article.articleId}

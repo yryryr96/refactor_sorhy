@@ -35,8 +35,8 @@ const FreeBoard = (props: any) => {
     console.log(freeBoard)
     return (
         <StyledContentsBox>
-            {freeBoard.length > 0 ? freeBoard.map(article => (
-                <StyledContentContainer onClick={() => handleContentClick(article.articleId)}>
+            {freeBoard.length > 0 ? freeBoard.map((article : any,index : any) => (
+                <StyledContentContainer key={index} onClick={() => handleContentClick(article.articleId)}>
                     <StyledLeftContainer>
                         <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
                         {article.articleId}
