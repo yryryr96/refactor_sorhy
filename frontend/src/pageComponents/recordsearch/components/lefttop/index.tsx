@@ -16,7 +16,7 @@ import Image from 'next/image';
 import Button from '@/components/button';
 
 const LeftTop = (props: any) => {
-    const { nickname, company } = props;
+    const { nickname, company, win, lose } = props;
     const [randomNumber, setRandomNumber] = useState<number>(1);
     const getRandomNumber = () => {
         const newRandomNumber = Math.floor(Math.random() * 10) + 1;
@@ -42,6 +42,9 @@ const LeftTop = (props: any) => {
                 <StyledTitleInfo>
                     <StyledTopTitle>{nickname}</StyledTopTitle>
                     <StyledBottomTitle>소속 : {company}</StyledBottomTitle>
+                    <StyledBottomTitle>
+                        통합 전적 : {win} 승 {lose} 패
+                    </StyledBottomTitle>
                 </StyledTitleInfo>
             </StyledTopContainer>
             <StyledBottomContainer>
