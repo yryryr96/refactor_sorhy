@@ -26,7 +26,7 @@ const StyledLoginFrame = styled.div`
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-    gap: 20px;
+    gap: 5px;
 `;
 
 const StyledLoginForm = styled.form`
@@ -36,7 +36,7 @@ const StyledLoginForm = styled.form`
     width: 100%;
     height: 90%;
     background-color: white;
-    gap: 10px;
+    gap: 5px;
 `;
 
 const StyledLoginInnerForm = styled.div`
@@ -55,7 +55,7 @@ const StyledLoginInnerFormInput = styled.input`
 `;
 
 const StyledLoginInputBox = styled.div`
-    border: 1px solid black;
+    height: 60%;
 `;
 
 const StyledLoginFormButton = styled.button`
