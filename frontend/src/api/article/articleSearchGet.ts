@@ -11,7 +11,7 @@ const articleSearchGet = async (category: string, keywordData: any) => {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        return res.data;
+        return res;
     } catch (err) {
         console.log(err);
     }
