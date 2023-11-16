@@ -2,11 +2,11 @@
 ### BE
 ```
 💡 Jenkins
-[http://43.202.51.52:9090/](http://43.202.51.52:9090/)
+http://43.202.51.52:9090/
 ID: sorhy / PW: sorhy
 
 💡 서버 헬스체크
-[http://43.202.51.52:8080/health-check](http://43.202.51.52:8080/health-check)
+http://43.202.51.52:8080/health-check
 
 💡 MySQL
 43.202.51.52:3306
@@ -17,8 +17,8 @@ PW: ssafy
 
 ```
 💡 Jenkins
-[http://54.180.136.113:9090/](http://54.180.136.113:9090/)
-[http://54.180.136.113:3000/](http://54.180.136.113:3000/)
+http://54.180.136.113:9090/
+http://54.180.136.113:3000/
 ID: sorhy / PW: sorhy
 ```
 gitlab access token: 3JDJWwWM1ss7wYL5FKdu
