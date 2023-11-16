@@ -36,7 +36,7 @@ const Ranking = () => {
                     </StyledRankingSelector>
                     <StyledRankingSelector onClick={() => handleItemClick('2')}>
                         <Image src="/watermelon.svg" width={35} height={35} alt="balloon" />
-                        수박 부시기
+                        수박 부수기
                     </StyledRankingSelector>
                     <StyledRankingSelector onClick={() => handleItemClick('3')}>
                         <Image src="/swim.svg" width={35} height={35} alt="swim" />
