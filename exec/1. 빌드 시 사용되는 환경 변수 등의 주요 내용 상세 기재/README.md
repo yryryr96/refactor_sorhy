@@ -1,40 +1,26 @@
 # 1. 빌드 시 사용되는 환경 변수 등의 주요 내용 상세 기재
 ### BE
-
-<aside>
+```
 💡 Jenkins
 [http://43.202.51.52:9090/](http://43.202.51.52:9090/)
 ID: sorhy / PW: sorhy
 
-
-</aside>
-
-<aside>
 💡 서버 헬스체크
 [http://43.202.51.52:8080/health-check](http://43.202.51.52:8080/health-check)
 
-
-</aside>
-
-<aside>
 💡 MySQL
 43.202.51.52:3306
 PW: ssafy
-
-
-</aside>
+```
 
 ### FE
 
-<aside>
+```
 💡 Jenkins
 [http://54.180.136.113:9090/](http://54.180.136.113:9090/)
 [http://54.180.136.113:3000/](http://54.180.136.113:3000/)
 ID: sorhy / PW: sorhy
-
-
-</aside>
-
+```
 gitlab access token: 3JDJWwWM1ss7wYL5FKdu
 
 ### EC2 초기 설정
