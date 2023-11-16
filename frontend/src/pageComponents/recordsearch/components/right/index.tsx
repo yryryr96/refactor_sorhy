@@ -15,8 +15,10 @@ import {
     StyledRightHeader,
     StyledRightBody,
     StyledTeamContainer,
+    StyledChart,
 } from './Right.Styled';
 import Image from 'next/image';
+import GameResultChart from './components/resultChart';
 
 const Right = (props: any) => {
     const { gameResult } = props;
@@ -29,7 +31,9 @@ const Right = (props: any) => {
                     <Image src="/history.svg" width={38} height={38} alt="전적 히스토리" />
                     전적 히스토리
                 </StyledRightHeaderTop>
-                <StyledRightHeaderBottom></StyledRightHeaderBottom>
+                <StyledRightHeaderBottom>
+                    <GameResultChart gameResult={gameResult} />
+                </StyledRightHeaderBottom>
             </StyledRightHeader>
             <StyledRightBody>
                 {gameResult.map((game: any, index: number) => (
@@ -70,7 +74,7 @@ const Right = (props: any) => {
                                 </StyledRecordBottomLeft>
                                 <StyledRecordBottomRight>
                                     <p style={{ color: '#218fff' }}>
-                                        {game.score}점
+                                        {game.score.toLocaleString()}점
                                         <Image
                                             src="/cuteline.svg"
                                             width={30}
