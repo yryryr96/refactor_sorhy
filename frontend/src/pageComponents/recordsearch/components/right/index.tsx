@@ -23,7 +23,7 @@ import GameResultChart from './components/resultChart';
 const Right = (props: any) => {
     const { gameResult } = props;
 
-    console.log(gameResult.characterId);
+    console.log(gameResult);
     return (
         <>
             <StyledRightHeader>
@@ -97,7 +97,7 @@ const Right = (props: any) => {
                                 {game.teamMember.map((team: any, index: any) => (
                                     <StyledTeamContainer key={index} style={{ gap: '7px' }}>
                                         <Image
-                                            src="/chr5.png"
+                                            src={`/chr${team.characterId}.png`}
                                             width={20}
                                             height={20}
                                             alt="팀원 1"
@@ -109,18 +109,31 @@ const Right = (props: any) => {
                             </StyledVsContainer>
                             <Image src="/versa.svg" width={35} height={35} alt="versa" />
                             <StyledVsContainer>
-                                {game.enemy.map((user: any, index: any) => (
-                                    <StyledTeamContainer key={index} style={{ gap: '7px' }}>
+                                {game.enemy.length > 0 ? (
+                                    game.enemy.map((user: any, index: any) => (
+                                        <StyledTeamContainer key={index} style={{ gap: '7px' }}>
+                                            <Image
+                                                src={`/chr${user.characterId}.png`}
+                                                width={20}
+                                                height={20}
+                                                alt="팀원 1"
+                                                style={{ borderRadius: '20px' }}
+                                            />
+                                            {user.nickname}
+                                        </StyledTeamContainer>
+                                    ))
+                                ) : (
+                                    <StyledTeamContainer style={{ gap: '7px' }}>
                                         <Image
-                                            src="/chr5.png"
+                                            src={`/chr${game.teamMember[0].characterId}.png`}
                                             width={20}
                                             height={20}
                                             alt="팀원 1"
                                             style={{ borderRadius: '20px' }}
                                         />
-                                        {user.nickname}
+                                        {game.teamMember[0].nickname}
                                     </StyledTeamContainer>
-                                ))}
+                                )}
                             </StyledVsContainer>
                         </StyledRecordVS>
                     </StyledRecord>
