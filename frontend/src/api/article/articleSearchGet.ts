@@ -1,12 +1,12 @@
 import api from '../api';
 
-const articleSearchGet = async (category: string, keywordData: any) => {
+const articleSearchGet = async (keywordData: any) => {
     const accessToken = localStorage.getItem('accessToken');
     console.log(keywordData, '키워드대ㅔ이터');
-    const keyData = JSON.stringify(keywordData);
+    const keyData = keywordData;
     console.log(keyData, '키데이트');
     try {
-        const res = await api.post(`/articles/search?category=${category}`, keyData, {
+        const res = await api.post(`/articles/search`, keyData, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },

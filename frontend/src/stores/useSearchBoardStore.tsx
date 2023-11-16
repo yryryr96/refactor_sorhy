@@ -10,7 +10,7 @@ export type SearchBoardType = {
 };
 
 export const useSearchBoardStore = create<SearchBoardType>((set) => ({
-    searchOption: '',
+    searchOption: 'NONE',
     nowboard: '',
     searchKeyword: '',
     setSearchKeyword: (keyword) => set({ searchKeyword: keyword }),

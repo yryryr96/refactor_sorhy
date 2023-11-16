@@ -17,31 +17,30 @@ import { useArticleStore } from '@/stores/useArticleStore';
 import { useSearchBoardStore } from '@/stores/useSearchBoardStore';
 import articleSearchGet from '@/api/article/articleSearchGet';
 const Searching = () => {
-    const { searchOption, setSearchOption, nowboard, setNowboard, searchKeyword, setSearchKeyword } =
-        useSearchBoardStore();
+    const { searchOption, setSearchOption, nowboard, setNowboard, searchKeyword, setSearchKeyword } = useSearchBoardStore();
     const { selectbtn, setselectbtn } = useArticleStore();
     const [searching, setSearching] = useState<any[]>([]);
     const router = useRouter();
-
+    console.log("검색", searchOption);
     useEffect(() => {
         const datas = {
             searchCond: searchOption,
             word: searchKeyword,
+            category: nowboard
         };
-        console.log(datas, '데타쓰');
-        articleSearchGet(nowboard, datas)
+        articleSearchGet(datas)
             .then((res) => {
-                console.log(res, '아으');
-                setSearching(res.result.articles);
+                setSearching(res.data.result.articles);
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
             });
     }, [searchOption]);
+    
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-
+    
     return (
         <StyledContentsBox>
             {searching.length > 0 ? (
