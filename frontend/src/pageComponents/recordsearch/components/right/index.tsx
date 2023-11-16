@@ -1,6 +1,9 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
+import userSearchGet from '@/api/search/userSearchGet';
 import {
+    StyledPageContent,
+    StyledPageContainer,
     StyledRightHeaderTop,
     StyledRightHeaderBottom,
     StyledVsContainer,
@@ -19,11 +22,23 @@ import {
 } from './Right.Styled';
 import Image from 'next/image';
 import GameResultChart from './components/resultChart';
+import { useState } from 'react';
 
 const Right = (props: any) => {
-    const { gameResult } = props;
+    const { gameResult, nickname } = props;
+    const [gameInfo, setGameInfo] = useState<any>(gameResult);
+    const router = useRouter();
 
-    console.log(gameResult);
+    const handlePageClick = async (pageNumber: number) => {
+        try {
+            const res = await userSearchGet(nickname, pageNumber - 1);
+            setGameInfo(res.result.gameResults);
+
+            router.push(`/recordsearch/${nickname}?page=${pageNumber - 1}`);
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    };
     return (
         <>
             <StyledRightHeader>
@@ -32,11 +47,11 @@ const Right = (props: any) => {
                     전적 히스토리
                 </StyledRightHeaderTop>
                 <StyledRightHeaderBottom>
-                    <GameResultChart gameResult={gameResult} />
+                    <GameResultChart gameResult={gameInfo.gameRecordInfo} />
                 </StyledRightHeaderBottom>
             </StyledRightHeader>
             <StyledRightBody>
-                {gameResult.map((game: any, index: number) => (
+                {gameInfo.gameRecordInfo.map((game: any, index: number) => (
                     <StyledRecord key={index}>
                         <StyledRecordColor iswinner={game.winner} />
                         <StyledRecordMain>
@@ -138,6 +153,13 @@ const Right = (props: any) => {
                         </StyledRecordVS>
                     </StyledRecord>
                 ))}
+                <StyledPageContainer>
+                    {Array.from({ length: gameInfo.totalPage }, (_, index) => index + 1).map((pageNumber) => (
+                        <StyledPageContent onClick={() => handlePageClick(pageNumber)} key={pageNumber}>
+                            {pageNumber}
+                        </StyledPageContent>
+                    ))}
+                </StyledPageContainer>
             </StyledRightBody>
         </>
     );
