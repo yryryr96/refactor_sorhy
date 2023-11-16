@@ -91,7 +91,7 @@ public class ArticleApiController {
         return new Response<>(204, "삭제 안료", response);
     }
 
-    @GetMapping("/articles/search")
+    @PostMapping("/articles/search")
     public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
                                                         @RequestParam String category,
                                                         @PageableDefault(size=6) Pageable pageable,
