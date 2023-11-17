@@ -57,7 +57,7 @@
 ## 💻 프로젝트 제작 시 사용된 기술
 
 - 게임 제작 : Unity
-- Back-end : Spring, S3 
+- Back-end : SpringBoot,JPA, MySQL, S3 
 - Front-end : Next.js,React,TypeScript,Zustand,Styled-components
 - Infra : Docker, Jenkins
 <div>
