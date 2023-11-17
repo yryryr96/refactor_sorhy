@@ -203,6 +203,7 @@ Merge 후 git pull 잊지 않기. 😎
 
 ### 7. 커뮤니티 페이지
 
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/9434fd50-ab1b-4361-a160-3eb6721eb4ee" width="600" height="400"/>
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
