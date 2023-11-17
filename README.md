@@ -169,6 +169,10 @@ Merge 후 git pull 잊지 않기. 😎
 ### 5. 전적 검색 페이지
 
 
+
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/eec56e19-3993-47df-835f-cb73068a5ace" width="600" height="400"/>
+
+
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
 | 1 |  |  |
