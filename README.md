@@ -82,11 +82,11 @@
 
 ## 🖇️ 개발문서
 
- - 첨부할 것 있으면 추가 !
+ - [Update 예정]
 
 ## 💻 ERD
 
- - 첨부할 것 있으면 추가 !
+ - [Update 예정]
 
 ## 🎓 Git Rule
 
@@ -115,17 +115,12 @@ Merge 후 git pull 잊지 않기. 😎
 
 ### 1. SoRhy 메인 페이지
 
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/c425877f-cd7a-4236-ac07-a6f8f559f679" width="600" height="400" border="1px solid gray"/>
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
-| 1 |  |  |
-| 2 |  |  |
-| 3 |  |  |
-| 4 |  |  |
-| 5 |  |  |
-| 6 |  |  |
-| 7 |  |  |
-| 8 |  |  |
+| 1 | 로그인 및 회원가입 | 로그인 및 회원가입 진행 |
+| 2 | Soma 연동 | Soma 가상 오피스와 연동 |
 
 ### 2. 수영 레이싱 게임 페이지
 
