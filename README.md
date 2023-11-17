@@ -156,8 +156,8 @@ Merge 후 git pull 잊지 않기. 😎
 
 ### 4. SoRhy 전적 검색 메인 페이지
 
-![MainPage](https://github.com/gitDaeHyun/Next-pjt/assets/122415799/4bb05584-a60e-4178-901e-3f6d6fb9d96e)
 
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/4bb05584-a60e-4178-901e-3f6d6fb9d96e.png" width="200" height="400"/>
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
