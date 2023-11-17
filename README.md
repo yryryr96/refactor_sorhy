@@ -129,6 +129,7 @@ Merge 후 git pull 잊지 않기. 😎
 
 ### 2. 수영 레이싱 게임 페이지
 
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/24a56ad5-874e-4ce2-8462-0ff717e4178e" width="600" height="400"/>
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -142,6 +143,8 @@ Merge 후 git pull 잊지 않기. 😎
 | 8 |  |  |
 
 ### 3. 수박 부수기 게임 페이지
+
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/d3386c09-fc66-46ea-a403-a21452f44091" width="600" height="400"/>
 
 
 | 구분 | 항목 | 내용 |
