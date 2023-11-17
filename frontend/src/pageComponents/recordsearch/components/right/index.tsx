@@ -66,7 +66,7 @@ const Right = (props: any) => {
                                     ? '수영 레이싱'
                                     : game.gameTitle === 'HOUSE'
                                     ? '내 집 마련'
-                                    : '수박 부시기'}
+                                    : '수박 깨기'}
                                 <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {/* 어질어질 */}
                                 <p>
