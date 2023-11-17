@@ -223,7 +223,7 @@ Merge 후 git pull 잊지 않기. 😎
 
 ### 8. 글 작성 및 글 디테일 페이지
 
-<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/e5bf3ac0-7752-4388-901c-7ef0eca90646" width="600" height="400"/>
+<img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/23a52552-2d9b-4895-9baa-68f5dd49d21d" width="600" height="400"/>
 
 <img src="https://github.com/gitDaeHyun/Next-pjt/assets/122415799/364b7a9f-ea58-45e3-97a7-74dc81e4fae6" width="600" height="400"/>
 
