@@ -9,6 +9,7 @@ const GameResultChart = (props: any) => {
     const { gameResult } = props;
     const [winCount, setWinCount] = useState<number>(0);
     const [winPercent, setWinpercent] = useState<number>(0);
+    const [totalGameCount, setTotalGameCount] = useState<number>(0);
 
     const data = {
         datasets: [
@@ -25,6 +26,7 @@ const GameResultChart = (props: any) => {
     useEffect(() => {
         let count = 0;
         gameResult.map((result) => (result.winner === true ? count++ : null));
+        setTotalGameCount(gameResult.length)
         setWinCount(count);
         setWinpercent((count / 5) * 100);
     }, []);
@@ -38,7 +40,7 @@ const GameResultChart = (props: any) => {
             <StyledResultContainer>
                 <div style={{ fontSize: '18px', fontWeight: 'bold' }}>최근 5경기 통계</div>
                 <div style={{ fontSize: '17px' }}>
-                    {winCount} 승 {5 - winCount} 패
+                    {winCount} 승 {totalGameCount - winCount} 패
                     <Image src="/cuteline.svg" width={30} height={30} alt="내 점수" style={{ borderRadius: '20px' }} />
                 </div>
             </StyledResultContainer>
