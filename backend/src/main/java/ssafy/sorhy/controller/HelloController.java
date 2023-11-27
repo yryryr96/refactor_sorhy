@@ -10,6 +10,6 @@ public class HelloController {
 
     @GetMapping("/health-check")
     public String hello() {
-        return "노창현 수고했어";
+        return "health-check 페이지 입니다.";
     }
 }
