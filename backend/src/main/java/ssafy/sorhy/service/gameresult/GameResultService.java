@@ -48,7 +48,7 @@ public class GameResultService {
         GameTitle gameTitle = game.getGameTitle();
         int score = gameResult.getScore();
 
-        userCharacterService.findByUserIdAndCharacterId(user, characterId);
+        userCharacterService.addCharacterUseCount(user, characterId);
         rankingService.updateRanking(user, gameTitle, score);
         gameResultRepository.save(gameResult);
 

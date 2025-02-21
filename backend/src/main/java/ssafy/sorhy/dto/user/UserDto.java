@@ -5,12 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.domain.company.Company;
-import ssafy.sorhy.domain.user.User;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
@@ -38,27 +33,6 @@ public class UserDto {
         private double rankPercent;
         private List<top3Character> top3Characters;
         private GameResultDto.searchGameRecordRes gameResults;
-    }
-
-    @Data
-    public static class loginReq {
-
-        @NotBlank
-        private String nickname;
-        @NotBlank
-        private String password;
-    }
-
-    @Data
-    @Builder
-    public static class loginRes {
-
-        @NotBlank
-        private String token;
-        @NotBlank
-        private Long companyId;
-        @NotBlank
-        private String nickname;
     }
 
     @Data

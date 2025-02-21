@@ -3,29 +3,34 @@ package ssafy.sorhy.service.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.exception.*;
-import ssafy.sorhy.service.user.request.UserCreateRequest;
-import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.dto.user.UserEachGameScore;
-import ssafy.sorhy.dto.user.UserRankInfoDto;
 import ssafy.sorhy.domain.company.Company;
 import ssafy.sorhy.domain.log.LoginHistory;
 import ssafy.sorhy.domain.user.User;
+import ssafy.sorhy.domain.usercharacter.UserCharacter;
+import ssafy.sorhy.dto.character.CharacterDto;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.dto.user.UserEachGameScore;
+import ssafy.sorhy.dto.user.UserRankInfoDto;
+import ssafy.sorhy.exception.*;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.repository.usercharacter.UserCharacterRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.history.HistoryService;
+import ssafy.sorhy.service.user.request.UserCreateRequest;
 import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
 import ssafy.sorhy.service.user.response.UserLoginResponse;
+import ssafy.sorhy.service.user.response.UserProfileResponse;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import java.util.List;
@@ -40,6 +45,7 @@ public class UserService {
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
     private final CompanyRepository companyRepository;
+    private final UserCharacterRepository  userCharacterRepository;
     private final GameResultService gameResultService;
     private final UserCharacterService userCharacterService;
     private final HistoryService historyService;
@@ -106,14 +112,19 @@ public class UserService {
         return encoder.matches(request.getPassword(), user.getPassword());
     }
 
-    public UserDto.profileRes findProfileByNickname(String nickname) {
+    public UserProfileResponse getProfileByNickname(String nickname) {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
-        List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
+        List<UserCharacter> mostUse3Characters =
+                userCharacterRepository.findMostUse3CharactersByUserId(user.getId(), PageRequest.of(0, 3));
+        List<CharacterDto> top3Characters = mostUse3Characters.stream()
+                .map(uc -> CharacterDto.from(uc.getUseCount(), uc.getCharacter()))
+                .toList();
 
-        return user.toProfileDto(articleCount, commentCount, top3Characters);
+        return UserProfileResponse.of(user, articleCount, commentCount, top3Characters);
     }
 
     // 전체 유저 조회
@@ -131,7 +142,7 @@ public class UserService {
         Long personalRanking = userRankInfo.getPersonalRank();
         double rankPercent = userRankInfo.getRankPercent();
 
-        List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
+        List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Characters(user.getId());
         GameResultDto.searchGameRecordRes gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
         return user.toRecordRes(top3Characters, gameResults, personalRanking, rankPercent);
     }

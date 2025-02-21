@@ -175,4 +175,8 @@ public class User extends BaseEntity {
     public void changeToEncodedPassword(String encodedPassword) {
         this.password = encodedPassword;
     }
+
+    public String getCompanyName() {
+        return this.company.getCompanyName();
+    }
 }

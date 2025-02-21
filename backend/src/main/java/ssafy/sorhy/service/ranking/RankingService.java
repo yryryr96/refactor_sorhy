@@ -56,7 +56,7 @@ public class RankingService {
         GameTitle title = GameTitle.valueOf(gameTitle);
         return rankingRepository.findByGameTitleOrderByDesc(title, pageable).stream()
                 .map(ranking -> new RankingDto.personalRankRes(ranking,
-                        userCharacterService.findTop3Character(ranking.getUser().getId())))
+                        userCharacterService.findTop3Characters(ranking.getUser().getId())))
                 .collect(Collectors.toList());
     }
 }

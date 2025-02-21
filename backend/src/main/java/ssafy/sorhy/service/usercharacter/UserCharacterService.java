@@ -7,8 +7,7 @@ import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.character.Character;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
-import ssafy.sorhy.exception.CustomException;
-import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.character.CharacterRepository;
 import ssafy.sorhy.repository.usercharacter.UserCharacterRepository;
 
@@ -24,12 +23,13 @@ public class UserCharacterService {
     private final UserCharacterRepository userCharacterRepository;
     private final CharacterRepository characterRepository;
 
-    public void findByUserIdAndCharacterId(User user, Long characterId) {
+    public void addCharacterUseCount(User user, Long characterId) {
 
         Optional<UserCharacter> userCharacterInfo = userCharacterRepository.findByUserIdAndCharacterId(user.getId(), characterId);
+
         if (userCharacterInfo.isEmpty()) {
 
-            Character character = characterRepository.findById(characterId).orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
+            Character character = characterRepository.findById(characterId).orElseThrow(() -> new ResourceNotFoundException("Character"));
             UserCharacter newInfo = UserCharacter.builder()
                     .user(user)
                     .character(character)
@@ -43,7 +43,7 @@ public class UserCharacterService {
         userCharacterInfo.get().addUseCount();
     }
 
-    public List<UserDto.top3Character> findTop3Character(Long userId) {
+    public List<UserDto.top3Character> findTop3Characters(Long userId) {
 
         return userCharacterRepository.findTop3CharacterByUserId(userId).stream()
                 .map(UserCharacter::toTop3Character)

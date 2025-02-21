@@ -14,6 +14,7 @@ import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
 import ssafy.sorhy.service.user.response.UserLoginResponse;
+import ssafy.sorhy.service.user.response.UserProfileResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
@@ -35,18 +36,17 @@ public class UserApiController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<UserLoginResponse> login(@RequestBody UserLoginRequest request) {
+    public ApiResponse<UserLoginResponse> login(@Valid @RequestBody UserLoginRequest request) {
         UserLoginResponse response = userService.login(request);
         return ApiResponse.ok(response);
     }
 
     @GetMapping("/profile")
-    public Response<UserDto.profileRes> profile(Authentication authentication) {
+    public ApiResponse<UserProfileResponse> profile(Authentication authentication) {
 
         String nickname = authentication.getName();
-        UserDto.profileRes response = userService.findProfileByNickname(nickname);
-
-        return new Response(200, "프로필 조회 성공", response);
+        UserProfileResponse response = userService.getProfileByNickname(nickname);
+        return ApiResponse.ok(response);
     }
 
     @GetMapping("/{nickname}")
