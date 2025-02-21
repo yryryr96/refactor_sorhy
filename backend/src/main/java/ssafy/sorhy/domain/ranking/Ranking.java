@@ -2,6 +2,7 @@ package ssafy.sorhy.domain.ranking;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.user.User;
 
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Ranking {
+public class Ranking extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,6 @@ public class Ranking {
 
     private GameTitle gameTitle;
     private int score = 0;
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -33,8 +33,6 @@ public class Ranking {
     }
 
     public void updateRankingScore(int score) {
-
         this.score = score;
-        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.game.GameDto;
 import ssafy.sorhy.domain.gameresult.GameResult;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Game {
+public class Game extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +31,6 @@ public class Game {
 
     @Enumerated(EnumType.STRING)
     private GameTitle gameTitle;
-
-    @Builder.Default
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
     @OneToMany(mappedBy = "game")
     @Builder.Default

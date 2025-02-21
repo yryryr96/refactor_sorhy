@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +26,6 @@ public class Comment {
     private Long id;
 
     private String content;
-
-    @Builder.Default
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -43,12 +41,10 @@ public class Comment {
                 .commentId(this.id)
                 .nickname(this.user.getNickname())
                 .content(this.content)
-                .createdAt(this.createdAt)
                 .build();
     }
 
     public void update(CommentDto.saveReq request) {
-
         this.content = request.getContent();
     }
 }
