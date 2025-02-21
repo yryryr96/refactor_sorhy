@@ -28,7 +28,6 @@ public class RankingDto {
             this.nickname = ranking.getUser().getNickname();
             this.company = ranking.getUser().getCompany().getCompanyName();
             this.score = ranking.getScore();
-            this.createdAt = ranking.getCreatedAt();
             this.top3Characters = top3Characters;
         }
     }

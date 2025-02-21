@@ -86,7 +86,6 @@ public class GameResultDto {
             this.score = gameResult.getScore();
             this.characterId = gameResult.getCharacterId();
             this.winner = gameResult.isWinner();
-            this.createdAt = gameResult.getCreatedAt();
             this.teamMember = teamMember;
             this.enemy = enemy;
         }
