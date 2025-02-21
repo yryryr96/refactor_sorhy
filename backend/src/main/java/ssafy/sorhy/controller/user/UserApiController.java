@@ -4,11 +4,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ssafy.sorhy.service.user.request.UserCreateRequest;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.service.user.UserService;
+import ssafy.sorhy.service.user.request.UserLoginRequest;
+import ssafy.sorhy.service.user.response.UserCreateResponse;
+import ssafy.sorhy.service.user.response.UserLoginResponse;
+import ssafy.sorhy.service.user.response.UserProfileResponse;
+import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
@@ -23,25 +30,23 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public Response<UserDto.joinRes> save(@Valid @RequestBody UserDto.joinReq request) {
-
-        UserDto.joinRes response = userService.save(request);
-        return new Response(201, "회원가입에 성공했습니다.", response);
-    }
-
-    @GetMapping("/profile")
-    public Response<UserDto.profileRes> profile(Authentication authentication) {
-
-        String nickname = authentication.getName();
-        UserDto.profileRes response = userService.findProfileByNickname(nickname);
-
-        return new Response(200, "프로필 조회 성공", response);
+    public ApiResponse<UserCreateResponse> save(@Valid @RequestBody UserCreateRequest request) {
+        UserCreateResponse response = userService.createUser(request);
+        return ApiResponse.of(HttpStatus.CREATED, response);
     }
 
     @PostMapping("/login")
-    public Response<UserDto.loginRes> login(@RequestBody UserDto.loginReq request) {
-        UserDto.loginRes response = userService.login(request);
-        return new Response(200, "로그인 성공", response);
+    public ApiResponse<UserLoginResponse> login(@Valid @RequestBody UserLoginRequest request) {
+        UserLoginResponse response = userService.login(request);
+        return ApiResponse.ok(response);
+    }
+
+    @GetMapping("/profile")
+    public ApiResponse<UserProfileResponse> profile(Authentication authentication) {
+
+        String nickname = authentication.getName();
+        UserProfileResponse response = userService.getProfileByNickname(nickname);
+        return ApiResponse.ok(response);
     }
 
     @GetMapping("/{nickname}")
