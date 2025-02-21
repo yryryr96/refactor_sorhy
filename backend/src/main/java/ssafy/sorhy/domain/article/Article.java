@@ -1,4 +1,4 @@
-package ssafy.sorhy.entity.article;
+package ssafy.sorhy.domain.article;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,15 +7,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.dto.comment.CommentDto;
-import ssafy.sorhy.entity.comment.Comment;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.comment.Comment;
+import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -24,7 +23,8 @@ import java.util.stream.Collectors;
 @Getter
 public class Article {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Long id;
 

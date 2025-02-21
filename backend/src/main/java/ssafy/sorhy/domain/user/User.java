@@ -1,15 +1,17 @@
-package ssafy.sorhy.entity.user;
+package ssafy.sorhy.domain.user;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.comment.Comment;
-import ssafy.sorhy.entity.company.Company;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.entity.gameresult.GameResult;
-import ssafy.sorhy.entity.usercharacter.UserCharacter;
+import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.comment.Comment;
+import ssafy.sorhy.domain.company.Company;
+import ssafy.sorhy.domain.gameresult.GameResult;
+import ssafy.sorhy.domain.usercharacter.UserCharacter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,7 +24,8 @@ import java.util.List;
 @Getter
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 

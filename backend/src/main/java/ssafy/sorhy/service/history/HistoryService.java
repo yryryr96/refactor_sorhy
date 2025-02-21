@@ -3,7 +3,7 @@ package ssafy.sorhy.service.history;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.entity.log.LoginHistory;
+import ssafy.sorhy.domain.log.LoginHistory;
 import ssafy.sorhy.repository.history.HistoryRepository;
 
 @Transactional

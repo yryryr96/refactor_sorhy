@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.comment.CommentDto;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.entity.comment.Comment;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.comment.Comment;
+import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.article.ArticleRepository;
@@ -31,7 +31,7 @@ public class CommentService {
 
         User user = findUser(nickname);
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         Comment comment = request.toEntity(user, article);
         commentRepository.save(comment);
@@ -42,7 +42,7 @@ public class CommentService {
 
         User user = findUser(nickname);
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         if (comment.getUser().equals(user)) {
 
@@ -57,7 +57,7 @@ public class CommentService {
 
         User user = findUser(nickname);
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         if (comment.getUser().equals(user)) {
 

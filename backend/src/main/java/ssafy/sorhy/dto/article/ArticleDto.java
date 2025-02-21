@@ -4,9 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import ssafy.sorhy.dto.comment.CommentDto;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.entity.article.Category;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.article.Category;
+import ssafy.sorhy.domain.user.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

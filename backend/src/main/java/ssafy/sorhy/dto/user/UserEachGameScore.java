@@ -1,13 +1,13 @@
 package ssafy.sorhy.dto.user;
 
 import lombok.Getter;
-import ssafy.sorhy.entity.game.GameTitle;
+import ssafy.sorhy.domain.game.GameTitle;
 
 @Getter
 public class UserEachGameScore {
 
-    private String gameTitle;
-    private int score;
+    private final String gameTitle;
+    private final int score;
 
     public UserEachGameScore(GameTitle gameTitle, int score) {
         this.gameTitle = gameTitle.toString();

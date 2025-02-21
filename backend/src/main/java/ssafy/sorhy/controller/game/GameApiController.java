@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.game.GameDto;
-import ssafy.sorhy.entity.game.Game;
+import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.service.game.GameService;
 import ssafy.sorhy.util.response.Response;

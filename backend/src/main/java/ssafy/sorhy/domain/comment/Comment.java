@@ -1,12 +1,12 @@
-package ssafy.sorhy.entity.comment;
+package ssafy.sorhy.domain.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.comment.CommentDto;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +19,8 @@ import java.time.format.DateTimeFormatter;
 @Getter
 public class Comment {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
 

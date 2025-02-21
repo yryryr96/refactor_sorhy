@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.entity.company.Company;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.company.Company;
+import ssafy.sorhy.domain.user.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -8,21 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.gameresult.OtherUserDto;
-import ssafy.sorhy.dto.ranking.RankingDto;
-import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.company.Company;
-import ssafy.sorhy.entity.game.Game;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.game.GameType;
-import ssafy.sorhy.entity.gameresult.GameResult;
-import ssafy.sorhy.entity.gameresult.Team;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.game.Game;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.domain.gameresult.GameResult;
+import ssafy.sorhy.domain.gameresult.Team;
+import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
-import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
-import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
@@ -30,7 +24,6 @@ import ssafy.sorhy.service.usercharacter.UserCharacterService;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +42,7 @@ public class GameResultService {
         User user = findUser(nickname);
         Long characterId = request.getCharacterId();
         Game game = gameRepository.findById(request.getGameId())
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         GameResult gameResult = request.toEntity(user, game);
         GameTitle gameTitle = game.getGameTitle();

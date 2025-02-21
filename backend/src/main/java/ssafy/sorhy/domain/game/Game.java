@@ -1,11 +1,11 @@
-package ssafy.sorhy.entity.game;
+package ssafy.sorhy.domain.game;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.game.GameDto;
-import ssafy.sorhy.entity.gameresult.GameResult;
+import ssafy.sorhy.domain.gameresult.GameResult;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,7 +20,8 @@ import java.util.List;
 @Getter
 public class Game {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
     private Long id;
 

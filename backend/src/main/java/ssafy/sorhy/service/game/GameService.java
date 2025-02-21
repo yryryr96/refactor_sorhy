@@ -3,8 +3,8 @@ package ssafy.sorhy.service.game;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.dto.game.GameDto;
+import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.repository.game.GameRepository;
 
 @Service

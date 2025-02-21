@@ -1,12 +1,15 @@
 package ssafy.sorhy.dto.gameresult;
 
-import lombok.*;
-import ssafy.sorhy.entity.game.Game;
-import ssafy.sorhy.entity.game.GameType;
-import ssafy.sorhy.entity.gameresult.GameResult;
-import ssafy.sorhy.entity.gameresult.Team;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import ssafy.sorhy.domain.game.Game;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.domain.game.GameType;
+import ssafy.sorhy.domain.gameresult.GameResult;
+import ssafy.sorhy.domain.gameresult.Team;
+import ssafy.sorhy.domain.user.User;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -76,7 +79,7 @@ public class GameResultDto {
         private List<OtherUserDto> teamMember;
         private List<OtherUserDto> enemy;
 
-        public gameRecordInfo(Game game, GameResult gameResult, List<OtherUserDto> teamMember, List<OtherUserDto> enemy ) {
+        public gameRecordInfo(Game game, GameResult gameResult, List<OtherUserDto> teamMember, List<OtherUserDto> enemy) {
             this.gameId = game.getId();
             this.gameTitle = game.getGameTitle();
             this.gameType = game.getGameType();

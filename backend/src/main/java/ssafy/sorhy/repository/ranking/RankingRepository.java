@@ -4,9 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.ranking.Ranking;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.domain.ranking.Ranking;
+import ssafy.sorhy.domain.user.User;
 
 import java.util.Optional;
 

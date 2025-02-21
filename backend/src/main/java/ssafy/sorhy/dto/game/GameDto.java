@@ -2,9 +2,9 @@ package ssafy.sorhy.dto.game;
 
 import lombok.Builder;
 import lombok.Data;
-import ssafy.sorhy.entity.game.Game;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.game.GameType;
+import ssafy.sorhy.domain.game.Game;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.domain.game.GameType;
 
 import javax.validation.constraints.NotBlank;
 

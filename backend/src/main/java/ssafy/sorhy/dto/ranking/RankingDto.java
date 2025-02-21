@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.ranking.Ranking;
+import ssafy.sorhy.domain.ranking.Ranking;
 
 import java.util.List;
 

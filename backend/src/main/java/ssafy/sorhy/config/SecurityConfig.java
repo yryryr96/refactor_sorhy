@@ -21,10 +21,9 @@ import ssafy.sorhy.jwt.JwtFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtExceptionFilter jwtExceptionFilter;
     @Value("${jwt.secret}")
     private String secretKey;
-
-    private final JwtExceptionFilter jwtExceptionFilter;
 
     @Bean
     public BCryptPasswordEncoder encoder() {
@@ -49,14 +48,14 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
-                    .antMatchers("/health-check").permitAll()
-                    .antMatchers("/user/profile").authenticated()
-                    .antMatchers("/user/**").permitAll()
-                    .antMatchers(HttpMethod.GET,"/article/**").permitAll()
-                    .antMatchers("/articles/**").permitAll()
-                    .antMatchers("/game").permitAll()
-                    .antMatchers(HttpMethod.GET,"/rank/**").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/health-check").permitAll()
+                .antMatchers("/user/profile").authenticated()
+                .antMatchers("/user/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/article/**").permitAll()
+                .antMatchers("/articles/**").permitAll()
+                .antMatchers("/game").permitAll()
+                .antMatchers(HttpMethod.GET, "/rank/**").permitAll()
+                .anyRequest().authenticated()
 
                 .and()
                 .addFilterBefore(new JwtFilter(secretKey), UsernamePasswordAuthenticationFilter.class)

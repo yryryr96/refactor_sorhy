@@ -1,9 +1,9 @@
-package ssafy.sorhy.entity.ranking;
+package ssafy.sorhy.domain.ranking;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +14,8 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 public class Ranking {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private GameTitle gameTitle;

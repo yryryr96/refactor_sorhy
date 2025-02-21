@@ -11,16 +11,15 @@ import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
-import ssafy.sorhy.entity.company.Company;
-import ssafy.sorhy.entity.log.LoginHistory;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.company.Company;
+import ssafy.sorhy.domain.log.LoginHistory;
+import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
-import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.history.HistoryService;
@@ -30,12 +29,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 @Slf4j
 public class UserService {
-
-    @Value("${jwt.secret}")
-    private String secretKey;
 
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
@@ -44,10 +40,13 @@ public class UserService {
     private final GameResultService gameResultService;
     private final UserCharacterService userCharacterService;
     private final HistoryService historyService;
-
     private final BCryptPasswordEncoder encoder;
 
+    @Value("${jwt.secret}")
+    private String secretKey;
+
     // 계정 저장
+    @Transactional
     public UserDto.joinRes save(UserDto.joinReq request) {
 
         if (userRepository.existsByNickname(request.getNickname())) {
@@ -59,7 +58,7 @@ public class UserService {
         }
 
         Company company = companyRepository.findById(request.getCompanyId())
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         User user = request.toEntity(company);
         User saveUser = userRepository.save(user.hashPassword(encoder));
@@ -68,6 +67,7 @@ public class UserService {
     }
 
     // 로그인
+    @Transactional
     public UserDto.loginRes login(UserDto.loginReq request) {
 
         String nickname = request.getNickname();
@@ -111,7 +111,7 @@ public class UserService {
 
         return userRepository.findAll();
     }
-    
+
     // 유저 닉네임으로 유저 정보 조회
     public UserDto.recordRes findByNickname(String nickname, Pageable pageable) {
 

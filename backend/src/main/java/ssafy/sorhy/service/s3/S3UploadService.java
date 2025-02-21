@@ -16,10 +16,9 @@ import java.util.UUID;
 @Slf4j
 public class S3UploadService {
 
+    private final AmazonS3 amazonS3;
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
-
-    private final AmazonS3 amazonS3;
 
     public String uploadFile(MultipartFile file) throws IOException {
 

@@ -8,9 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
-import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.user.UserService;
-import ssafy.sorhy.service.usercharacter.UserCharacterService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
@@ -48,10 +46,10 @@ public class UserApiController {
 
     @GetMapping("/{nickname}")
     public Response<UserDto.recordRes> findByNickname(@PathVariable String nickname,
-                                                      @PageableDefault(size=5) Pageable pageable) {
+                                                      @PageableDefault(size = 5) Pageable pageable) {
 
         UserDto.recordRes response = userService.findByNickname(nickname, pageable);
-        return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
+        return new Response(200, "닉네임으로 유저 전적 조회 성공", response);
     }
 
     @GetMapping("/eachGameScore")

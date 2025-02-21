@@ -3,11 +3,11 @@ package ssafy.sorhy.exception;
 import lombok.Getter;
 
 @Getter
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
 
-    private String result;
-    private ErrorCode errorCode;
-    private String message;
+    private final String result;
+    private final ErrorCode errorCode;
+    private final String message;
 
     public CustomException(ErrorCode errorCode) {
 

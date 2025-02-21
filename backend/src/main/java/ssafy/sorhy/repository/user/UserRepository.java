@@ -2,10 +2,9 @@ package ssafy.sorhy.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.user.User;
 
 import java.util.List;
 import java.util.Optional;

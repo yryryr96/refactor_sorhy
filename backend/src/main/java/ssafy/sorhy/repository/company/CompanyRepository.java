@@ -3,7 +3,7 @@ package ssafy.sorhy.repository.company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ssafy.sorhy.dto.ranking.CompanyRankDto;
-import ssafy.sorhy.entity.company.Company;
+import ssafy.sorhy.domain.company.Company;
 
 import java.util.List;
 

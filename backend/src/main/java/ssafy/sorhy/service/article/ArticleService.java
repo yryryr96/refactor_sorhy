@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.dto.comment.CommentDto;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.entity.article.Category;
-import ssafy.sorhy.entity.article.SearchCond;
-import ssafy.sorhy.entity.comment.Comment;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.article.Category;
+import ssafy.sorhy.domain.article.SearchCond;
+import ssafy.sorhy.domain.comment.Comment;
+import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.article.ArticleRepository;
@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ssafy.sorhy.entity.article.SearchCond.*;
+import static ssafy.sorhy.domain.article.SearchCond.valueOf;
 
 @Transactional
 @Service
@@ -189,7 +189,7 @@ public class ArticleService {
             throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
 
-        switch(searchCond) {
+        switch (searchCond) {
             case NONE:
                 result = articleRepository.searchCompanyArticleByTitleAndContent(word, companyId, pageable);
                 break;

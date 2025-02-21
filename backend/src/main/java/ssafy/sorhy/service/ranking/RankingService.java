@@ -6,14 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.ranking.CompanyRankDto;
 import ssafy.sorhy.dto.ranking.RankingDto;
-import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.entity.ranking.Ranking;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.domain.ranking.Ranking;
+import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,15 +35,14 @@ public class RankingService {
 
         Ranking ranking = rankingRepository.findByUserAndGameTitle(user, gameTitle).orElse(null);
 
-        if(ranking == null) {
+        if (ranking == null) {
             save(user, gameTitle, score);
             return;
         }
 
-        if(ranking.getScore() < score) {
+        if (ranking.getScore() < score) {
 
             ranking.updateRankingScore(score);
-            return;
         }
     }
 

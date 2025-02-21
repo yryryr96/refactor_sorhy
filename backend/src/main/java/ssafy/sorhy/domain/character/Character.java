@@ -1,7 +1,7 @@
-package ssafy.sorhy.entity.character;
+package ssafy.sorhy.domain.character;
 
 import lombok.Getter;
-import ssafy.sorhy.entity.usercharacter.UserCharacter;
+import ssafy.sorhy.domain.usercharacter.UserCharacter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "Characters")
 public class Character {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "character_id")
     private Long id;
 

@@ -35,7 +35,7 @@ public class ArticleApiController {
     // 자유 게시판 글 전체 조회
     @GetMapping("/articles")
     public Response<ArticleDto.pagingRes> findAllArticle(@RequestParam String category,
-                                                         @PageableDefault(size=4) Pageable pageable,
+                                                         @PageableDefault(size = 4) Pageable pageable,
                                                          Authentication authentication) {
 
         String nickname = null;
@@ -48,8 +48,8 @@ public class ArticleApiController {
 
     @GetMapping("/articles/hot")
     public Response<ArticleDto.pagingRes> findHotArticles(@RequestParam String category,
-                                                         @PageableDefault(size=4) Pageable pageable,
-                                                         Authentication authentication) {
+                                                          @PageableDefault(size = 4) Pageable pageable,
+                                                          Authentication authentication) {
         String nickname = null;
         if (category.equals("COMPANY")) {
             nickname = authentication.getName();
@@ -59,7 +59,7 @@ public class ArticleApiController {
     }
 
     @GetMapping("/articles/issue")
-    public Response<List<ArticleDto.issueRes>> findCurrentIssue(@PageableDefault(size=6) Pageable pageable) {
+    public Response<List<ArticleDto.issueRes>> findCurrentIssue(@PageableDefault(size = 6) Pageable pageable) {
 
         List<ArticleDto.issueRes> response = articleService.findCurrentIssue(pageable);
         return new Response(200, "실시간 핫이슈 조회 성공", response);
@@ -67,7 +67,7 @@ public class ArticleApiController {
 
     @GetMapping("/article/{articleId}")
     public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId,
-                                                   @PageableDefault(size=4) Pageable pageable) {
+                                                   @PageableDefault(size = 4) Pageable pageable) {
 
         ArticleDto.detailRes response = articleService.findById(articleId, pageable);
         return new Response(200, "게시글을 조회했습니다.", response);
@@ -93,7 +93,7 @@ public class ArticleApiController {
 
     @PostMapping("/articles/search")
     public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
-                                                        @PageableDefault(size=6) Pageable pageable,
+                                                        @PageableDefault(size = 6) Pageable pageable,
                                                         Authentication authentication) {
 
         ArticleDto.pagingRes response;

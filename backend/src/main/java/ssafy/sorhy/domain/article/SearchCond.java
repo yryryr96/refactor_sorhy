@@ -1,4 +1,4 @@
-package ssafy.sorhy.entity.article;
+package ssafy.sorhy.domain.article;
 
 public enum SearchCond {
     NONE, TITLE, CONTENT, NICKNAME

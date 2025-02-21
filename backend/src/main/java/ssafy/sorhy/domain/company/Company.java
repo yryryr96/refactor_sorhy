@@ -1,20 +1,19 @@
-package ssafy.sorhy.entity.company;
+package ssafy.sorhy.domain.company;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.dto.ranking.RankingDto;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @NoArgsConstructor
 @Getter
 public class Company {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private Long id;
 

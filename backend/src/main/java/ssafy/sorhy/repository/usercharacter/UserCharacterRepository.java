@@ -2,7 +2,7 @@ package ssafy.sorhy.repository.usercharacter;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ssafy.sorhy.entity.usercharacter.UserCharacter;
+import ssafy.sorhy.domain.usercharacter.UserCharacter;
 
 import java.util.List;
 import java.util.Optional;

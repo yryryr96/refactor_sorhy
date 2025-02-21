@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

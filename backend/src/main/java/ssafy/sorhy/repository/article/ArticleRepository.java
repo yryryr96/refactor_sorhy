@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.entity.article.Category;
+import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.article.Category;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 

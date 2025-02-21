@@ -1,13 +1,12 @@
-package ssafy.sorhy.entity.usercharacter;
+package ssafy.sorhy.domain.usercharacter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.character.Character;
-import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.domain.character.Character;
+import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.*;
 
@@ -18,7 +17,8 @@ import javax.persistence.*;
 @Getter
 public class UserCharacter {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_character_id")
     private Long id;
 

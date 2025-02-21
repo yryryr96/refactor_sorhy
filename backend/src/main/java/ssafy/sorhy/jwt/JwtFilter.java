@@ -35,14 +35,14 @@ public class JwtFilter extends OncePerRequestFilter {
             final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             log.info("-----authorization : {}", authorization);
 
-            if(authorization == null || !authorization.startsWith("Bearer ")){
+            if (authorization == null || !authorization.startsWith("Bearer ")) {
                 log.error("authorization error");
                 filterChain.doFilter(request, response);
                 return;
             }
 
             String token = authorization.split(" ")[1];
-            if(JwtTokenUtil.isExpired(token, secretKey)) {
+            if (JwtTokenUtil.isExpired(token, secretKey)) {
                 log.error("Token is expired");
                 filterChain.doFilter(request, response);
                 return;
@@ -60,7 +60,7 @@ public class JwtFilter extends OncePerRequestFilter {
             throw new JwtException("유효하지 않은 토큰입니다.");
         } catch (ExpiredJwtException e) {//유효 기간이 지난 JWT를 수신한 경우
             throw new JwtException("만료된 토큰입니다.");
-        } catch(Exception e) {
+        } catch (Exception e) {
             SecurityContextHolder.clearContext();
             throw new JwtException(e.getMessage());
         }
