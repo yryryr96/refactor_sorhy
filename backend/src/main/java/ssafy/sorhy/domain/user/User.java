@@ -1,9 +1,6 @@
 package ssafy.sorhy.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
@@ -19,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
     @Id
@@ -34,17 +29,10 @@ public class User extends BaseEntity {
     private String nickname;
     private String password;
 
-    @Builder.Default
-    private int win = 0;
-
-    @Builder.Default
-    private int lose = 0;
-
-    @Builder.Default
-    private float winPercentage = 0;
-
-    @Builder.Default
-    private int totalScore = 0;
+    private int win;
+    private int lose;
+    private float winPercentage;
+    private int totalScore;
 
     @OneToMany(mappedBy = "user")
     private List<Article> articles;
@@ -52,17 +40,60 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<UserCharacter> characters;
 
-    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
 
-    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<GameResult> gameResults = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @Builder
+    private User(Long id,
+                String nickname,
+                String password,
+                int win,
+                int lose,
+                float winPercentage,
+                int totalScore,
+                List<Article> articles,
+                List<UserCharacter> characters,
+                List<Comment> comments,
+                List<GameResult> gameResults,
+                Company company) {
+
+        this.id = id;
+        this.nickname = nickname;
+        this.password = password;
+        this.win = win;
+        this.lose = lose;
+        this.winPercentage = winPercentage;
+        this.totalScore = totalScore;
+        this.articles = articles;
+        this.characters = characters;
+        this.comments = comments;
+        this.gameResults = gameResults;
+        this.company = company;
+    }
+
+    public static User of(String nickname,
+                          String password,
+                          int win,
+                          int lose,
+                          float winPercentage,
+                          int totalScore,
+                          List<Article> articles,
+                          List<UserCharacter> characters,
+                          List<Comment> comments,
+                          List<GameResult> gameResults,
+                          Company company) {
+
+        return User.builder()
+                .nickname(nickname)
+                .build();
+    }
 
     public void updateScoreAndWinOrLose(int score, boolean winner) {
 
