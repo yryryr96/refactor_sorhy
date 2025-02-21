@@ -16,32 +16,6 @@ import java.util.List;
 @Data
 public class UserDto {
 
-    @Data
-    public static class joinReq {
-
-        @NotBlank
-        @Pattern(regexp = "^[a-z0-9]{5,20}$", message = "아이디는 영어 소문자와 숫자만 사용하여 5~20자리여야 합니다.")
-        private String nickname;
-
-        @NotBlank
-        @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
-        private String password;
-
-        @NotBlank
-        private String confirmPassword;
-
-        @NotNull
-        private Long companyId;
-
-        public User toEntity(Company company) {
-
-            return User.builder()
-                    .password(this.password)
-                    .nickname(this.nickname)
-                    .company(company)
-                    .build();
-        }
-    }
 
     @Builder
     @Data
@@ -85,7 +59,6 @@ public class UserDto {
         private Long companyId;
         @NotBlank
         private String nickname;
-
     }
 
     @Data

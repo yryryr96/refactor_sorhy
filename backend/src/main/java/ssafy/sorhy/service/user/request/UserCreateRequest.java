@@ -1,4 +1,4 @@
-package ssafy.sorhy.dto.user;
+package ssafy.sorhy.service.user.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,13 +26,4 @@ public class UserCreateRequest {
 
     @NotNull
     private Long companyId;
-
-    public User toEntity(Company company) {
-
-        return User.builder()
-                .password(this.password)
-                .nickname(this.nickname)
-                .company(company)
-                .build();
-    }
 }

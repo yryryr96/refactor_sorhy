@@ -8,16 +8,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.user.UserCreateRequest;
+import ssafy.sorhy.exception.*;
+import ssafy.sorhy.service.user.request.UserCreateRequest;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
 import ssafy.sorhy.domain.company.Company;
 import ssafy.sorhy.domain.log.LoginHistory;
 import ssafy.sorhy.domain.user.User;
-import ssafy.sorhy.exception.CustomException;
-import ssafy.sorhy.exception.DuplicateNicknameException;
-import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
@@ -25,7 +23,9 @@ import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.history.HistoryService;
-import ssafy.sorhy.service.user.response.UserResponse;
+import ssafy.sorhy.service.user.request.UserLoginRequest;
+import ssafy.sorhy.service.user.response.UserCreateResponse;
+import ssafy.sorhy.service.user.response.UserLoginResponse;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import java.util.List;
@@ -48,12 +48,14 @@ public class UserService {
     @Value("${jwt.secret}")
     private String secretKey;
 
+    private int TOKEN_EXPIRE_TIME_MILLISECOND = 60 * 1000 * 60 * 24;
+
     // 계정 저장
     @Transactional
-    public UserResponse createUser(UserCreateRequest request) {
+    public UserCreateResponse createUser(UserCreateRequest request) {
 
         if (existedNickname(request)) {
-            throw new DuplicateNicknameException("이미 존재하는 닉네임입니다.");
+            throw new DuplicateNicknameException();
         }
 
         if (doesNotMatchPasswordAndConfirmPassword(request)) {
@@ -68,7 +70,7 @@ public class UserService {
         user.changeToEncodedPassword(encodedPassword);
 
         User savedUser = userRepository.save(user);
-        return UserResponse.of(savedUser);
+        return UserCreateResponse.of(savedUser);
     }
 
     private boolean doesNotMatchPasswordAndConfirmPassword(UserCreateRequest request) {
@@ -81,37 +83,32 @@ public class UserService {
 
     // 로그인
     @Transactional
-    public UserDto.loginRes login(UserDto.loginReq request) {
+    public UserLoginResponse login(UserLoginRequest request) {
 
         String nickname = request.getNickname();
 
         if (!userRepository.existsByNickname(nickname)) {
-
             throw new CustomException(ErrorCode.DATA_NOT_FOUND);
         }
 
-        User user = findUser(nickname);
-        if (encoder.matches(request.getPassword(), user.getPassword())) {
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        if (isMatchesPassword(request, user)) {
 
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24);// 만료시간 하루
+            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, TOKEN_EXPIRE_TIME_MILLISECOND);// 만료시간 하루
             historyService.save(new LoginHistory(nickname));
-            return UserDto.loginRes.builder()
-                    .token(token)
-                    .companyId(user.getCompany().getId())
-                    .nickname(nickname)
-                    .build();
+            return UserLoginResponse.of(token, user);
         } else {
-            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+            throw new NotMatchedPasswordException();
         }
     }
 
-    private User findUser(String nickname) {
-        return userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
+    private boolean isMatchesPassword(UserLoginRequest request, User user) {
+        return encoder.matches(request.getPassword(), user.getPassword());
     }
 
     public UserDto.profileRes findProfileByNickname(String nickname) {
 
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
         List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
@@ -128,7 +125,7 @@ public class UserService {
     // 유저 닉네임으로 유저 정보 조회
     public UserDto.recordRes findByNickname(String nickname, Pageable pageable) {
 
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
 
         UserRankInfoDto userRankInfo = userRepository.findUserRankInfo(nickname);
         Long personalRanking = userRankInfo.getPersonalRank();

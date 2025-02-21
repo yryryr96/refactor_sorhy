@@ -1,10 +1,9 @@
 package ssafy.sorhy.domain.user;
 
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.user.UserCreateRequest;
+import ssafy.sorhy.service.user.request.UserCreateRequest;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.comment.Comment;
