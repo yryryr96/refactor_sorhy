@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.user.UserCreateRequest;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.comment.Comment;
@@ -34,13 +35,13 @@ public class User extends BaseEntity {
     private float winPercentage;
     private int totalScore;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Article> articles;
 
     @OneToMany(mappedBy = "user")
     private List<UserCharacter> characters;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
@@ -92,6 +93,24 @@ public class User extends BaseEntity {
 
         return User.builder()
                 .nickname(nickname)
+                .password(password)
+                .win(win)
+                .lose(lose)
+                .winPercentage(winPercentage)
+                .totalScore(totalScore)
+                .articles(articles)
+                .characters(characters)
+                .comments(comments)
+                .gameResults(gameResults)
+                .company(company)
+                .build();
+    }
+
+    public static User create(UserCreateRequest request, Company company) {
+        return User.builder()
+                .password(request.getPassword())
+                .nickname(request.getNickname())
+                .company(company)
                 .build();
     }
 
@@ -109,11 +128,6 @@ public class User extends BaseEntity {
         if (this.win != 0 || this.lose != 0) {
             this.winPercentage = ((float) this.win / (this.win + this.lose)) * 100;
         }
-    }
-
-    public User hashPassword(BCryptPasswordEncoder encoder) {
-        this.password = encoder.encode(this.password);
-        return this;
     }
 
     public UserDto.joinRes toJoinDto() {
@@ -157,5 +171,9 @@ public class User extends BaseEntity {
                 .winPercentage(this.winPercentage)
                 .top3Characters(top3CharacterList)
                 .build();
+    }
+
+    public void changeToEncodedPassword(String encodedPassword) {
+        this.password = encodedPassword;
     }
 }

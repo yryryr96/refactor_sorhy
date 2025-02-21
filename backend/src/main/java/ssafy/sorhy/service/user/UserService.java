@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.user.UserCreateRequest;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
@@ -15,6 +16,7 @@ import ssafy.sorhy.domain.company.Company;
 import ssafy.sorhy.domain.log.LoginHistory;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
+import ssafy.sorhy.exception.DuplicateNicknameException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
@@ -23,6 +25,7 @@ import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.history.HistoryService;
+import ssafy.sorhy.service.user.response.UserResponse;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import java.util.List;
@@ -47,23 +50,33 @@ public class UserService {
 
     // 계정 저장
     @Transactional
-    public UserDto.joinRes save(UserDto.joinReq request) {
+    public UserResponse createUser(UserCreateRequest request) {
 
-        if (userRepository.existsByNickname(request.getNickname())) {
-            throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
+        if (existedNickname(request)) {
+            throw new DuplicateNicknameException("이미 존재하는 닉네임입니다.");
         }
 
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+        if (doesNotMatchPasswordAndConfirmPassword(request)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         Company company = companyRepository.findById(request.getCompanyId())
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() ->  new IllegalArgumentException("해당 회사 데이터를 찾을 수 없습니다."));
 
-        User user = request.toEntity(company);
-        User saveUser = userRepository.save(user.hashPassword(encoder));
+        User user = User.create(request, company);
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.changeToEncodedPassword(encodedPassword);
 
-        return saveUser.toJoinDto();
+        User savedUser = userRepository.save(user);
+        return UserResponse.of(savedUser);
+    }
+
+    private boolean doesNotMatchPasswordAndConfirmPassword(UserCreateRequest request) {
+        return !request.getPassword().equals(request.getConfirmPassword());
+    }
+
+    private boolean existedNickname(UserCreateRequest request) {
+        return userRepository.existsByNickname(request.getNickname());
     }
 
     // 로그인

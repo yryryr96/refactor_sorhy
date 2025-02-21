@@ -4,11 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ssafy.sorhy.dto.user.UserCreateRequest;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.service.user.UserService;
+import ssafy.sorhy.service.user.response.UserResponse;
+import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
@@ -23,10 +27,9 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public Response<UserDto.joinRes> save(@Valid @RequestBody UserDto.joinReq request) {
-
-        UserDto.joinRes response = userService.save(request);
-        return new Response(201, "회원가입에 성공했습니다.", response);
+    public ApiResponse<UserResponse> save(@Valid @RequestBody UserCreateRequest request) {
+        UserResponse userResponse = userService.createUser(request);
+        return ApiResponse.of(HttpStatus.CREATED, userResponse);
     }
 
     @GetMapping("/profile")
