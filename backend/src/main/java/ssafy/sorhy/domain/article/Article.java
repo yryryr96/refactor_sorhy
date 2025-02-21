@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.mapping.Bag;
 import org.springframework.lang.Nullable;
+import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.domain.comment.Comment;
@@ -21,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Article {
+public class Article extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +39,6 @@ public class Article {
 
     @Nullable
     private String imgUrl;
-
-    @Builder.Default
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -66,7 +65,6 @@ public class Article {
                 .title(this.title)
                 .viewCount(this.viewCount)
                 .imageUrl(this.imgUrl)
-                .createdAt(this.createdAt)
                 .build();
     }
 
@@ -79,7 +77,6 @@ public class Article {
                 .content(this.content)
                 .category(this.category)
                 .viewCount(this.viewCount)
-                .createdAt(this.createdAt)
                 .imgUrl(this.imgUrl)
                 .comments(comments)
                 .build();

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.user.User;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class GameResult {
+public class GameResult extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +31,6 @@ public class GameResult {
 
     @Enumerated(EnumType.STRING)
     private Team team;
-
-    @Builder.Default
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

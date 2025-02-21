@@ -38,7 +38,6 @@ public class UserCharacter {
     }
 
     public UserDto.top3Character toTop3Character() {
-
         return UserDto.top3Character.builder()
                 .characterId(this.character.getId())
                 .characterName(this.character.getName())

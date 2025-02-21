@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.article.Article;
@@ -22,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
