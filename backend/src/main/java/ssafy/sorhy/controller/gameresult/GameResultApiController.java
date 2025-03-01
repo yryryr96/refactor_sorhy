@@ -13,6 +13,8 @@ import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -22,11 +24,11 @@ public class GameResultApiController {
     private final GameResultService gameResultService;
 
     @PostMapping
-    public ApiResponse<GameResultCreateResponse> save(@RequestBody GameResultCreateRequest request,
+    public ApiResponse<GameResultCreateResponse> createGameResult(@RequestBody @Valid GameResultCreateRequest request,
                                                       Authentication authentication) {
 
         String nickname = authentication.getName();
-        GameResultCreateResponse response = gameResultService.save(request, nickname);
+        GameResultCreateResponse response = gameResultService.create(request, nickname);
         return ApiResponse.of(HttpStatus.CREATED, "게임 결과를 저장했습니다.", response);
     }
 }

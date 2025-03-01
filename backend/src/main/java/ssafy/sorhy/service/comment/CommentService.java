@@ -11,10 +11,15 @@ import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.exception.ResourceNotFoundException;
+import ssafy.sorhy.exception.UnAuthorizedException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.comment.dto.CommentDto;
+import ssafy.sorhy.service.comment.request.CommentCreateRequest;
+import ssafy.sorhy.service.comment.response.CommentCreateResponse;
+import ssafy.sorhy.service.comment.response.CommentRemoveResponse;
 import ssafy.sorhy.service.comment.response.CommentsResponse;
 
 import java.util.List;
@@ -29,30 +34,29 @@ public class CommentService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
-    public CommentDto2.basicRes save(Long articleId, String nickname, CommentDto2.saveReq request) {
+    public CommentCreateResponse create(Long articleId, String nickname, CommentCreateRequest request) {
 
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new ResourceNotFoundException("Article"));
 
-        Comment comment = request.toEntity(user, article);
-        commentRepository.save(comment);
-        return comment.toBasicRes();
+        Comment comment = Comment.from(request, user, article);
+        Comment savedComment = commentRepository.save(comment);
+        return CommentCreateResponse.from(savedComment, user);
     }
 
-    public String delete(Long commentId, String nickname) {
+    public CommentRemoveResponse remove(Long commentId, String nickname) {
 
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new ResourceNotFoundException("Comment"));
 
         if (comment.getUser().equals(user)) {
-
             commentRepository.delete(comment);
-            return "delete success";
+            return CommentRemoveResponse.of("댓글 삭제 완료");
         }
 
-        throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
+        throw new UnAuthorizedException();
     }
 
     public String update(Long commentId, String nickname, CommentDto2.saveReq request) {

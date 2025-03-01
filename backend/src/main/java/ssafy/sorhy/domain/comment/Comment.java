@@ -1,21 +1,17 @@
 package ssafy.sorhy.domain.comment;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.comment.CommentDto2;
+import ssafy.sorhy.service.comment.request.CommentCreateRequest;
 
 import javax.persistence.*;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Comment extends BaseEntity {
 
     @Id
@@ -32,6 +28,22 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
     private Article article;
+
+    @Builder
+    private Comment(Long id, String content, User user, Article article) {
+        this.id = id;
+        this.content = content;
+        this.user = user;
+        this.article = article;
+    }
+
+    public static Comment from(CommentCreateRequest request, User user, Article article) {
+        return Comment.builder()
+                .content(request.getContent())
+                .user(user)
+                .article(article)
+                .build();
+    }
 
     public CommentDto2.basicRes toBasicRes() {
 

@@ -3,10 +3,14 @@ package ssafy.sorhy.controller.comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.CommentService;
+import ssafy.sorhy.service.comment.request.CommentCreateRequest;
+import ssafy.sorhy.service.comment.response.CommentCreateResponse;
+import ssafy.sorhy.service.comment.response.CommentRemoveResponse;
 import ssafy.sorhy.service.comment.response.CommentsResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
@@ -29,21 +33,22 @@ public class CommentApiController {
     }
 
     @PostMapping("/{articleId}/comment")
-    public Response<CommentDto2.basicRes> save(@PathVariable Long articleId,
-                                               @RequestBody @Valid CommentDto2.saveReq request,
-                                               Authentication authentication) {
+    public ApiResponse<CommentCreateResponse> create(@PathVariable Long articleId,
+                                        @RequestBody @Valid CommentCreateRequest request,
+                                        Authentication authentication) {
 
         String nickname = authentication.getName();
-        return new Response(201, "댓글 생성 완료", commentService.save(articleId, nickname, request));
+        CommentCreateResponse response = commentService.create(articleId, nickname, request);
+        return ApiResponse.of(HttpStatus.CREATED, "댓글 생성 완료", response);
     }
 
     @DeleteMapping("/{articleId}/comment/{commentId}")
-    public Response<String> delete(@PathVariable Long articleId, @PathVariable Long commentId,
-                                   Authentication authentication) {
+    public ApiResponse<CommentRemoveResponse> remove(@PathVariable Long commentId,
+                                                     Authentication authentication) {
 
         String nickname = authentication.getName();
-        commentService.delete(commentId, nickname);
-        return new Response(204, "댓글 삭제 완료", "comment delete success!!");
+        CommentRemoveResponse response = commentService.remove(commentId, nickname);
+        return ApiResponse.of(HttpStatus.NO_CONTENT, response);
     }
 
     @PutMapping("/{articleId}/comment/{commentId}")
