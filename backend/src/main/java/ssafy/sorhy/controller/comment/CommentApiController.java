@@ -5,8 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.dto.comment.CommentDto;
+import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.CommentService;
+import ssafy.sorhy.service.comment.response.CommentsResponse;
+import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
@@ -19,17 +21,17 @@ public class CommentApiController {
     private final CommentService commentService;
 
     @GetMapping("/{articleId}/comment")
-    public Response<CommentDto.pagingRes> findComments(@PathVariable Long articleId,
-                                                       @PageableDefault(size = 6) Pageable pageable) {
+    public ApiResponse<CommentsResponse> getCommentsByArticleId(@PathVariable Long articleId,
+                                                                @PageableDefault(size = 6) Pageable pageable) {
 
-        CommentDto.pagingRes response = commentService.findComments(articleId, pageable);
-        return new Response(200, "댓글 조회 성공", response);
+        CommentsResponse response = commentService.getCommentsBy(articleId, pageable);
+        return ApiResponse.ok( "댓글 조회 성공", response);
     }
 
     @PostMapping("/{articleId}/comment")
-    public Response<CommentDto.basicRes> save(@PathVariable Long articleId,
-                                              @RequestBody @Valid CommentDto.saveReq request,
-                                              Authentication authentication) {
+    public Response<CommentDto2.basicRes> save(@PathVariable Long articleId,
+                                               @RequestBody @Valid CommentDto2.saveReq request,
+                                               Authentication authentication) {
 
         String nickname = authentication.getName();
         return new Response(201, "댓글 생성 완료", commentService.save(articleId, nickname, request));
@@ -47,7 +49,7 @@ public class CommentApiController {
     @PutMapping("/{articleId}/comment/{commentId}")
     public Response<String> update(@PathVariable Long articleId,
                                    @PathVariable Long commentId,
-                                   @RequestBody @Valid CommentDto.saveReq request,
+                                   @RequestBody @Valid CommentDto2.saveReq request,
                                    Authentication authentication) {
 
         String nickname = authentication.getName();

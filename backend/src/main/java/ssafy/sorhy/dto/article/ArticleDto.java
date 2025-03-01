@@ -3,7 +3,7 @@ package ssafy.sorhy.dto.article;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import ssafy.sorhy.dto.comment.CommentDto;
+import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.domain.user.User;
@@ -72,7 +72,7 @@ public class ArticleDto {
         private int viewCount;
         private String createdAt;
         private String imgUrl;
-        private CommentDto.pagingRes comments;
+        private CommentDto2.pagingRes comments;
     }
 
     @Data

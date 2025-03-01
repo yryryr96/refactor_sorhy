@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.dto.comment.CommentDto;
+import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.domain.article.SearchCond;
@@ -101,7 +101,7 @@ public class ArticleService {
                 .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(article.getId(), pageable);
-        CommentDto.pagingRes comments = CommentDto.pagingRes.builder()
+        CommentDto2.pagingRes comments = CommentDto2.pagingRes.builder()
                 .comments(result.stream()
                         .map(Comment::toBasicRes)
                         .collect(Collectors.toList()))

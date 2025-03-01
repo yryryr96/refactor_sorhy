@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
-import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
+import ssafy.sorhy.dto.comment.CommentDto2;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @NoArgsConstructor
@@ -35,16 +33,16 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    public CommentDto.basicRes toBasicRes() {
+    public CommentDto2.basicRes toBasicRes() {
 
-        return CommentDto.basicRes.builder()
+        return CommentDto2.basicRes.builder()
                 .commentId(this.id)
                 .nickname(this.user.getNickname())
                 .content(this.content)
                 .build();
     }
 
-    public void update(CommentDto.saveReq request) {
+    public void update(CommentDto2.saveReq request) {
         this.content = request.getContent();
     }
 }

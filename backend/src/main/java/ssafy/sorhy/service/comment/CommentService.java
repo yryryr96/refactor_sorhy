@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.dto.comment.CommentDto;
+import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
@@ -14,6 +14,8 @@ import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.comment.dto.CommentDto;
+import ssafy.sorhy.service.comment.response.CommentsResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +29,7 @@ public class CommentService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
-    public CommentDto.basicRes save(Long articleId, String nickname, CommentDto.saveReq request) {
+    public CommentDto2.basicRes save(Long articleId, String nickname, CommentDto2.saveReq request) {
 
         User user = findUser(nickname);
         Article article = articleRepository.findById(articleId)
@@ -53,7 +55,7 @@ public class CommentService {
         throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
     }
 
-    public String update(Long commentId, String nickname, CommentDto.saveReq request) {
+    public String update(Long commentId, String nickname, CommentDto2.saveReq request) {
 
         User user = findUser(nickname);
         Comment comment = commentRepository.findById(commentId)
@@ -68,18 +70,24 @@ public class CommentService {
         throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
     }
 
-    public CommentDto.pagingRes findComments(Long articleId, Pageable pageable) {
+//    public CommentDto2.pagingRes getCommentsBy(Long articleId, Pageable pageable) {
+//
+//        Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
+//        List<CommentDto2.basicRes> comments = result.stream()
+//                .map(Comment::toBasicRes)
+//                .collect(Collectors.toList());
+//
+//        return CommentDto2.pagingRes.builder()
+//                .comments(comments)
+//                .totalElement(result.getTotalElements())
+//                .totalPage(result.getTotalPages())
+//                .build();
+//    }
+
+    public CommentsResponse getCommentsBy(Long articleId, Pageable pageable) {
 
         Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
-        List<CommentDto.basicRes> comments = result.stream()
-                .map(Comment::toBasicRes)
-                .collect(Collectors.toList());
-
-        return CommentDto.pagingRes.builder()
-                .comments(comments)
-                .totalElement(result.getTotalElements())
-                .totalPage(result.getTotalPages())
-                .build();
+        return CommentsResponse.of(result);
     }
 
     private User findUser(String nickname) {
