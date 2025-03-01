@@ -30,7 +30,6 @@ public class ArticleDto {
     @Data
     @Builder
     public static class issueRes {
-
         private Long articleId;
         private String title;
         private Category category;

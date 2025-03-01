@@ -15,9 +15,16 @@ import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.exception.ResourceNotFoundException;
+import ssafy.sorhy.exception.UnAuthorizedException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.article.request.ArticleCreateRequest;
+import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
+import ssafy.sorhy.service.article.response.ArticleListResponse;
+import ssafy.sorhy.service.article.response.ArticleUpdateResponse;
+import ssafy.sorhy.service.article.response.CreateArticleResponse;
 import ssafy.sorhy.service.s3.S3UploadService;
 
 import java.io.IOException;
@@ -26,7 +33,7 @@ import java.util.stream.Collectors;
 
 import static ssafy.sorhy.domain.article.SearchCond.valueOf;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -36,10 +43,14 @@ public class ArticleService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-    public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq request) throws IOException {
+    @Transactional
+    public CreateArticleResponse create(String nickname,
+                                        MultipartFile file,
+                                        ArticleCreateRequest request) throws IOException {
 
         String imgUrl;
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new ResourceNotFoundException("User"));
 
         if (file != null) {
             imgUrl = s3UploadService.uploadFile(file);
@@ -47,52 +58,39 @@ public class ArticleService {
             imgUrl = null;
         }
 
-        Article article = request.toEntity(user, imgUrl);
-        articleRepository.save(article);
+        Article article = Article.from(request, user, imgUrl);
+        Article savedArticle = articleRepository.save(article);
 
-        return article.toBasicRes();
+        return CreateArticleResponse.from(savedArticle);
     }
 
-    public ArticleDto.pagingRes findAllArticle(String nickname, String category, Pageable pageable) {
-
-        Category articleCategory = Category.valueOf(category);
-        if (category.equals("COMPANY")) {
-
-            User user = findUser(nickname);
-            Long companyId = user.getCompany().getId();
-            Page<Article> result = articleRepository.findAllCompanyArticleByOrderByIdDesc(companyId, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        Page<Article> result = articleRepository.findAllArticleByOrderByIdDesc(articleCategory, pageable);
-        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+    public ArticleListResponse getAllArticlesByCategory(Category category, Pageable pageable) {
+        Page<Article> articles = articleRepository.findAllArticleOrderByIdDesc(category, pageable);
+        return ArticleListResponse.from(articles);
     }
 
-    public ArticleDto.pagingRes findHotArticles(String nickname, String category, Pageable pageable) {
-
-        Category articleCategory = Category.valueOf(category);
-        if (category.equals("COMPANY")) {
-
-            User user = findUser(nickname);
-            Long companyId = user.getCompany().getId();
-            Page<Article> result = articleRepository.findHotCompanyArticleByOrderByViewCountDesc(companyId, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        Page<Article> result = articleRepository.findHotArticleByOrderByViewCountDesc(articleCategory, pageable);
-        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+    public ArticleListResponse getAllCompanyArticles(String nickname, Pageable pageable) {
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Long companyId = user.getCompany().getId();
+        Page<Article> articles = articleRepository.findCompanyArticlesOrderByDesc(companyId, pageable);
+        return ArticleListResponse.from(articles);
     }
 
-    public List<ArticleDto.issueRes> findCurrentIssue(Pageable pageable) {
+    public ArticleListResponse getCompanyHotArticles(String nickname, Pageable pageable) {
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Long companyId = user.getCompany().getId();
+        Page<Article> articles = articleRepository.findCompanyHotArticles(companyId, pageable);
+        return ArticleListResponse.from(articles);
+    }
 
-        Page<Article> currentIssueArticle = articleRepository.findCurrentIssue(pageable);
-        return currentIssueArticle.stream()
-                .map(article -> ArticleDto.issueRes.builder()
-                        .articleId(article.getId())
-                        .title(article.getTitle())
-                        .category(article.getCategory())
-                        .build())
-                .collect(Collectors.toList());
+    public ArticleListResponse getHotArticles(Category category, Pageable pageable) {
+        Page<Article> articles = articleRepository.findHotArticles(category, pageable);
+        return ArticleListResponse.from(articles);
+    }
+
+    public ArticleListResponse getCurrentIssueArticles(Pageable pageable) {
+        Page<Article> articles = articleRepository.findCurrentIssueArticles(pageable);
+        return ArticleListResponse.from(articles);
     }
 
     public ArticleDto.detailRes findById(Long articleId, Pageable pageable) {
@@ -113,17 +111,18 @@ public class ArticleService {
         return article.toDetailRes(comments);
     }
 
-    public String update(Long articleId, String nickname, ArticleDto.saveReq request) {
+    @Transactional
+    public ArticleUpdateResponse update(Long articleId, String nickname, ArticleUpdateRequest request) {
 
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new ResourceNotFoundException("Article"));
 
-        if (article.getUser().equals(user)) {
+        if (article.isUser(user)) {
             article.update(request);
-            return "ok";
+            return ArticleUpdateResponse.of("게시글 수정 완료");
         } else {
-            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
+            throw new UnAuthorizedException();
         }
     }
 

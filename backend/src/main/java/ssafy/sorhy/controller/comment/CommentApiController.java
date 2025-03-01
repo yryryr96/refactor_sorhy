@@ -6,7 +6,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.CommentService;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
 import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
@@ -15,7 +14,6 @@ import ssafy.sorhy.service.comment.response.CommentRemoveResponse;
 import ssafy.sorhy.service.comment.response.CommentUpdateResponse;
 import ssafy.sorhy.service.comment.response.CommentsResponse;
 import ssafy.sorhy.util.response.ApiResponse;
-import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
 

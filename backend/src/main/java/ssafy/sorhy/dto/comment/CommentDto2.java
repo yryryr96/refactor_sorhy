@@ -22,21 +22,6 @@ public class CommentDto2 {
         private String createdAt;
     }
 
-    @Data
-    public static class saveReq {
-
-        @NotBlank
-        private String content;
-
-        public Comment toEntity(User user, Article article) {
-
-            return Comment.builder()
-                    .user(user)
-                    .article(article)
-                    .content(this.content)
-                    .build();
-        }
-    }
 
     @Data
     @Builder
