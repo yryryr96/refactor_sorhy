@@ -10,13 +10,13 @@ import ssafy.sorhy.domain.article.Category;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select a from Article a where a.category = :category order by a.id desc")
-    Page<Article> findAllArticleByOrderByIdDesc(Category category, Pageable pageable);
+    Page<Article> findAllArticleOrderByIdDesc(Category category, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
             "where a.category = 'COMPANY' and u.company.id = :companyId " +
             "order by a.id desc")
-    Page<Article> findAllCompanyArticleByOrderByIdDesc(Long companyId, Pageable pageable);
+    Page<Article> findCompanyArticlesOrderByDesc(Long companyId, Pageable pageable);
 
     @Query("select a from Article a where a.category = :category order by a.viewCount desc")
     Page<Article> findHotArticleByOrderByViewCountDesc(Category category, Pageable pageable);

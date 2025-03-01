@@ -15,9 +15,13 @@ import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.article.request.CreateArticleRequest;
+import ssafy.sorhy.service.article.response.ArticleListResponse;
+import ssafy.sorhy.service.article.response.CreateArticleResponse;
 import ssafy.sorhy.service.s3.S3UploadService;
 
 import java.io.IOException;
@@ -26,7 +30,7 @@ import java.util.stream.Collectors;
 
 import static ssafy.sorhy.domain.article.SearchCond.valueOf;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -36,10 +40,14 @@ public class ArticleService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-    public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq request) throws IOException {
+    @Transactional
+    public CreateArticleResponse create(String nickname,
+                                        MultipartFile file,
+                                        CreateArticleRequest request) throws IOException {
 
         String imgUrl;
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new ResourceNotFoundException("User"));
 
         if (file != null) {
             imgUrl = s3UploadService.uploadFile(file);
@@ -47,25 +55,22 @@ public class ArticleService {
             imgUrl = null;
         }
 
-        Article article = request.toEntity(user, imgUrl);
-        articleRepository.save(article);
+        Article article = Article.from(request, user, imgUrl);
+        Article savedArticle = articleRepository.save(article);
 
-        return article.toBasicRes();
+        return CreateArticleResponse.from(savedArticle);
     }
 
-    public ArticleDto.pagingRes findAllArticle(String nickname, String category, Pageable pageable) {
+    public ArticleListResponse getAllArticlesByCategory(Category category, Pageable pageable) {
+        Page<Article> articles = articleRepository.findAllArticleOrderByIdDesc(category, pageable);
+        return ArticleListResponse.from(articles);
+    }
 
-        Category articleCategory = Category.valueOf(category);
-        if (category.equals("COMPANY")) {
-
-            User user = findUser(nickname);
-            Long companyId = user.getCompany().getId();
-            Page<Article> result = articleRepository.findAllCompanyArticleByOrderByIdDesc(companyId, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        Page<Article> result = articleRepository.findAllArticleByOrderByIdDesc(articleCategory, pageable);
-        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+    public ArticleListResponse getAllCompanyArticles(String nickname, Pageable pageable) {
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Long companyId = user.getCompany().getId();
+        Page<Article> articles = articleRepository.findCompanyArticlesOrderByDesc(companyId, pageable);
+        return ArticleListResponse.from(articles);
     }
 
     public ArticleDto.pagingRes findHotArticles(String nickname, String category, Pageable pageable) {

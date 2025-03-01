@@ -3,12 +3,18 @@ package ssafy.sorhy.controller.article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.service.article.ArticleService;
+import ssafy.sorhy.service.article.request.CreateArticleRequest;
+import ssafy.sorhy.service.article.response.ArticleListResponse;
+import ssafy.sorhy.service.article.response.CreateArticleResponse;
+import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
@@ -22,28 +28,29 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @PostMapping("/article")
-    public Response<ArticleDto.basicRes> save(
-            @RequestPart @Valid ArticleDto.saveReq request,
+    public ApiResponse<CreateArticleResponse> save(
+            @RequestPart @Valid CreateArticleRequest request,
             @RequestPart @Nullable MultipartFile file,
             Authentication authentication) throws IOException {
 
         String nickname = authentication.getName();
-        ArticleDto.basicRes response = articleService.save(nickname, file, request);
-        return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
+        CreateArticleResponse response = articleService.create(nickname, file, request);
+        return ApiResponse.of(HttpStatus.CREATED, "게시글을 정상적으로 작성했습니다.", response);
     }
 
-    // 자유 게시판 글 전체 조회
     @GetMapping("/articles")
-    public Response<ArticleDto.pagingRes> findAllArticle(@RequestParam String category,
-                                                         @PageableDefault(size = 4) Pageable pageable,
-                                                         Authentication authentication) {
-
-        String nickname = null;
-        if (category.equals("COMPANY")) {
-            nickname = authentication.getName();
+    public ApiResponse<ArticleListResponse> getAllArticlesByCategory(@RequestParam Category category,
+                                                                     @PageableDefault(size = 4) Pageable pageable,
+                                                                     Authentication authentication) {
+        ArticleListResponse response;
+        if (Category.isCompany(category)) {
+            String nickname = authentication.getName();
+            response = articleService.getAllCompanyArticles(nickname, pageable);
+        } else {
+            response = articleService.getAllArticlesByCategory(category, pageable);
         }
-        ArticleDto.pagingRes response = articleService.findAllArticle(nickname, category, pageable);
-        return new Response(200, "게시글 전체 조회 성공", response);
+
+        return ApiResponse.ok("게시글 전체 조회 성공", response);
     }
 
     @GetMapping("/articles/hot")
