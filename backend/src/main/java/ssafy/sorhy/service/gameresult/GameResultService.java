@@ -5,33 +5,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.gameresult.OtherUserDto;
+import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.gameresult.GameResult;
 import ssafy.sorhy.domain.gameresult.Team;
 import ssafy.sorhy.domain.user.User;
-import ssafy.sorhy.exception.CustomException;
-import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.service.gameresult.dto.OtherUserDto;
 import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
-@Slf4j
+@Transactional(readOnly = true)
 public class GameResultService {
 
     private final GameResultRepository gameResultRepository;
@@ -40,7 +36,7 @@ public class GameResultService {
     private final UserCharacterService userCharacterService;
     private final RankingService rankingService;
 
-
+    @Transactional
     public GameResultCreateResponse save(GameResultCreateRequest request, String nickname) {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
@@ -59,25 +55,23 @@ public class GameResultService {
         return GameResultCreateResponse.from(gameResult);
     }
 
-    public GameResultDto.searchGameRecordRes getGameRecordInfo(String nickname, Pageable pageable) {
+    public GameRecordInfo getGameRecordInfo(String nickname, Pageable pageable) {
 
-        List<GameResultDto.gameRecordInfo> result = new ArrayList<>();
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-
         Page<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
-
         int totalPages = gameResults.getTotalPages();
-        for (GameResult gameResult : gameResults.getContent()) {
+        List<GameResult> contents = gameResults.getContent();
 
+        List<ssafy.sorhy.service.gameresult.dto.GameResultDto> result = new ArrayList<>();
+        for (GameResult gameResult : contents) {
             Game game = gameResult.getGame();
             Team team = gameResult.getTeam();
             List<OtherUserDto> teamMember = gameResultRepository.findTeamOtherUserDtoByGameId(game.getId(), team);
             List<OtherUserDto> enemy = gameResultRepository.findEnemyOtherUserDtoByGameId(game.getId(), team);
 
-            result.add(new GameResultDto.gameRecordInfo(game, gameResult, teamMember, enemy));
+            result.add(ssafy.sorhy.service.gameresult.dto.GameResultDto.of(game, gameResult, teamMember, enemy));
         }
 
-        return new GameResultDto.searchGameRecordRes(totalPages, result);
+        return GameRecordInfo.of(totalPages, result);
     }
-
 }

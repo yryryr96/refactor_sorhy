@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.util.response.ApiResponse;
-import ssafy.sorhy.util.response.Response;
 
 @RestController
 @RequiredArgsConstructor

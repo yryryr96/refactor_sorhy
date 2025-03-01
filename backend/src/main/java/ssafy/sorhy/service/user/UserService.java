@@ -13,8 +13,8 @@ import ssafy.sorhy.domain.log.LoginHistory;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
 import ssafy.sorhy.dto.character.CharacterDto;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
+import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
 import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 import ssafy.sorhy.exception.*;
 import ssafy.sorhy.jwt.JwtTokenUtil;
@@ -31,7 +31,6 @@ import ssafy.sorhy.service.user.response.UserCreateResponse;
 import ssafy.sorhy.service.user.response.UserLoginResponse;
 import ssafy.sorhy.service.user.response.UserProfileResponse;
 import ssafy.sorhy.service.user.response.UserRecordResponse;
-import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -144,8 +143,8 @@ public class UserService {
         UserRankInfoDto userRankInfo = userRepository.findUserRankInfo(nickname);
 
         List<CharacterDto> mostUse3Characters = getMostUse3Characters(user);
-        GameResultDto.searchGameRecordRes gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
-        return UserRecordResponse.of(user, userRankInfo, mostUse3Characters, gameResults);
+        GameRecordInfo gameRecordInfo = gameResultService.getGameRecordInfo(nickname, pageable);
+        return UserRecordResponse.of(user, userRankInfo, mostUse3Characters, gameRecordInfo);
     }
 
     // 차후에 책임 이동 -> Game

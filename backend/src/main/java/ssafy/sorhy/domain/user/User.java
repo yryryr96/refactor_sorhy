@@ -2,9 +2,7 @@ package ssafy.sorhy.domain.user;
 
 import lombok.*;
 import ssafy.sorhy.domain.BaseEntity;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.service.user.request.UserCreateRequest;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.company.Company;

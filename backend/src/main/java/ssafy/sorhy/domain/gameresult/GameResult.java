@@ -1,9 +1,10 @@
 package ssafy.sorhy.domain.gameresult;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GameResult extends BaseEntity {
 
     @Id
@@ -43,17 +45,6 @@ public class GameResult extends BaseEntity {
         this.team = team;
         this.user = user;
         this.game = game;
-    }
-
-    public GameResultDto.saveRes toSaveResDto() {
-
-        return GameResultDto.saveRes.builder()
-                .gameId(this.getGame().getId())
-                .score(this.score)
-                .characterId(this.characterId)
-                .winner(this.isWin)
-                .team(this.team)
-                .build();
     }
 
     public static GameResult from(User user, Game game, GameResultCreateRequest request) {
