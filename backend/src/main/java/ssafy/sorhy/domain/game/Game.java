@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.gameresult.GameResult;
-import ssafy.sorhy.dto.game.GameDto;
 import ssafy.sorhy.service.game.request.GameCreateRequest;
 
 import javax.persistence.*;
