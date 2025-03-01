@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import ssafy.sorhy.domain.gameresult.GameResult;
 import ssafy.sorhy.domain.gameresult.Team;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 
 @Getter
 public class GameResultCreateResponse {
@@ -23,7 +22,6 @@ public class GameResultCreateResponse {
         this.characterId = characterId;
         this.isWin = isWin;
     }
-
 
     public static GameResultCreateResponse from(GameResult gameResult) {
         return GameResultCreateResponse.builder()

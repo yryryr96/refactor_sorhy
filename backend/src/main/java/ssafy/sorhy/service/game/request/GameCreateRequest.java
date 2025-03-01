@@ -1,7 +1,6 @@
 package ssafy.sorhy.service.game.request;
 
 import lombok.Getter;
-import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.game.GameType;
 

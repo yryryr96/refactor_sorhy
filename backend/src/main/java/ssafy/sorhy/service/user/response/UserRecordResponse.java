@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.character.CharacterDto;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
 import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 
 import java.util.List;
@@ -23,10 +23,10 @@ public class UserRecordResponse {
     private Long personalRanking;
     private double rankPercent;
     private List<CharacterDto> top3Characters;
-    private GameResultDto.searchGameRecordRes gameResults;
+    private GameRecordInfo gameRecordInfo;
 
     @Builder
-    public UserRecordResponse(String nickname,
+    private UserRecordResponse(String nickname,
                               int totalScore,
                               String companyName,
                               int win,
@@ -35,7 +35,7 @@ public class UserRecordResponse {
                               Long personalRanking,
                               double rankPercent,
                               List<CharacterDto> top3Characters,
-                              GameResultDto.searchGameRecordRes gameResults) {
+                              GameRecordInfo gameRecordInfo) {
         this.nickname = nickname;
         this.totalScore = totalScore;
         this.companyName = companyName;
@@ -45,13 +45,13 @@ public class UserRecordResponse {
         this.personalRanking = personalRanking;
         this.rankPercent = rankPercent;
         this.top3Characters = top3Characters;
-        this.gameResults = gameResults;
+        this.gameRecordInfo = gameRecordInfo;
     }
 
     public static UserRecordResponse of(User user,
                                         UserRankInfoDto userRankInfo,
                                         List<CharacterDto> mostUse3Characters,
-                                        GameResultDto.searchGameRecordRes gameResults) {
+                                        GameRecordInfo gameRecordInfo) {
         return UserRecordResponse.builder()
                 .nickname(user.getNickname())
                 .totalScore(user.getTotalScore())
@@ -61,7 +61,7 @@ public class UserRecordResponse {
                 .winPercentage(user.getWinPercentage())
                 .personalRanking(userRankInfo.getPersonalRank())
                 .top3Characters(mostUse3Characters)
-                .gameResults(gameResults)
+                .gameRecordInfo(gameRecordInfo)
                 .build();
     }
 }
