@@ -4,17 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.Bag;
 import org.springframework.lang.Nullable;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.dto.comment.CommentDto;
+import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +65,7 @@ public class Article extends BaseEntity {
                 .build();
     }
 
-    public ArticleDto.detailRes toDetailRes(CommentDto.pagingRes comments) {
+    public ArticleDto.detailRes toDetailRes(CommentDto2.pagingRes comments) {
 
         return ArticleDto.detailRes.builder()
                 .articleId(this.id)

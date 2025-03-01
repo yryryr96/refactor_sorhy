@@ -1,7 +1,6 @@
 package ssafy.sorhy.service.gameresult;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class GameResultService {
     private final RankingService rankingService;
 
     @Transactional
-    public GameResultCreateResponse save(GameResultCreateRequest request, String nickname) {
+    public GameResultCreateResponse create(GameResultCreateRequest request, String nickname) {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Game game = gameRepository.findById(request.getGameId()).orElseThrow(() -> new ResourceNotFoundException("Game"));

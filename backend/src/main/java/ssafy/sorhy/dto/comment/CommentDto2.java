@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
-public class CommentDto {
+public class CommentDto2 {
 
     @Data
     @Builder

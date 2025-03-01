@@ -1,23 +1,18 @@
 package ssafy.sorhy.domain.comment;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ssafy.sorhy.domain.BaseEntity;
-import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
+import ssafy.sorhy.dto.comment.CommentDto2;
+import ssafy.sorhy.service.comment.request.CommentCreateRequest;
+import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Comment extends BaseEntity {
 
     @Id
@@ -35,16 +30,32 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    public CommentDto.basicRes toBasicRes() {
+    @Builder
+    private Comment(Long id, String content, User user, Article article) {
+        this.id = id;
+        this.content = content;
+        this.user = user;
+        this.article = article;
+    }
 
-        return CommentDto.basicRes.builder()
+    public static Comment from(CommentCreateRequest request, User user, Article article) {
+        return Comment.builder()
+                .content(request.getContent())
+                .user(user)
+                .article(article)
+                .build();
+    }
+
+    public CommentDto2.basicRes toBasicRes() {
+
+        return CommentDto2.basicRes.builder()
                 .commentId(this.id)
                 .nickname(this.user.getNickname())
                 .content(this.content)
                 .build();
     }
 
-    public void update(CommentDto.saveReq request) {
+    public void update(CommentUpdateRequest request) {
         this.content = request.getContent();
     }
 }

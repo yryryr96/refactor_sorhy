@@ -1,5 +1,6 @@
 package ssafy.sorhy.domain.game;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Game extends BaseEntity {
 
     @Id
@@ -31,7 +32,7 @@ public class Game extends BaseEntity {
     private List<GameResult> gameResults = new ArrayList<>();
 
     @Builder
-    public Game(Long id, GameType gameType, GameTitle gameTitle, List<GameResult> gameResults) {
+    private Game(Long id, GameType gameType, GameTitle gameTitle, List<GameResult> gameResults) {
         this.id = id;
         this.gameType = gameType;
         this.gameTitle = gameTitle;

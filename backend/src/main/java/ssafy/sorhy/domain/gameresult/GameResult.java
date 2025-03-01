@@ -8,6 +8,7 @@ import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
+import ssafy.sorhy.util.converter.BooleanToYNConverter;
 
 import javax.persistence.*;
 
@@ -23,6 +24,8 @@ public class GameResult extends BaseEntity {
 
     private int score;
     private Long characterId;
+
+    @Convert(converter = BooleanToYNConverter.class)
     private boolean isWin;
 
     @Enumerated(EnumType.STRING)
