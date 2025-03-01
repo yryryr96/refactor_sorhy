@@ -15,7 +15,7 @@ import ssafy.sorhy.domain.usercharacter.UserCharacter;
 import ssafy.sorhy.dto.character.CharacterDto;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
-import ssafy.sorhy.dto.user.UserRankInfoDto;
+import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 import ssafy.sorhy.exception.*;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;

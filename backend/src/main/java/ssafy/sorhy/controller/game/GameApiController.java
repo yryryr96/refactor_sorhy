@@ -1,19 +1,19 @@
 package ssafy.sorhy.controller.game;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.dto.game.GameDto;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.service.game.GameService;
-import ssafy.sorhy.util.response.Response;
+import ssafy.sorhy.service.game.request.GameCreateRequest;
+import ssafy.sorhy.service.game.response.GameCreateResponse;
+import ssafy.sorhy.util.response.ApiResponse;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 @RequestMapping("/game")
 public class GameApiController {
 
@@ -21,9 +21,9 @@ public class GameApiController {
     private final GameRepository gameRepository;
 
     @PostMapping
-    public Response<GameDto.Response> createGame(@RequestBody GameDto.Request request) {
-        GameDto.Response response = gameService.createGame(request);
-        return new Response(201, "게임 생성 완료", response);
+    public ApiResponse<GameCreateResponse> createGame(@RequestBody GameCreateRequest request) {
+        GameCreateResponse response = gameService.createGame(request);
+        return ApiResponse.of(HttpStatus.CREATED, response);
     }
 
     @GetMapping

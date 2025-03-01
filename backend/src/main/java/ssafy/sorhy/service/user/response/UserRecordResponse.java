@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.character.CharacterDto;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.dto.user.UserRankInfoDto;
+import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 
 import java.util.List;
 

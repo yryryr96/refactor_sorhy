@@ -3,7 +3,7 @@ package ssafy.sorhy.repository.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ssafy.sorhy.dto.user.UserEachGameScore;
-import ssafy.sorhy.dto.user.UserRankInfoDto;
+import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 import ssafy.sorhy.domain.user.User;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByNickname(String nickname);
 
-    @Query(value = "select new ssafy.sorhy.dto.user.UserRankInfoDto(count(u), " +
+    @Query(value = "select new ssafy.sorhy.service.user.dto.UserRankInfoDto(count(u), " +
             "(select count(u)+1 from User u where u.totalScore > (select u2.totalScore from User u2 where u2.nickname = :nickname))) from User u")
     UserRankInfoDto findUserRankInfo(String nickname);
 
