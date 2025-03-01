@@ -129,43 +129,6 @@ public class User extends BaseEntity {
         }
     }
 
-
-    public UserDto.recordRes toRecordRes(List<UserDto.top3Character> top3Characters,
-                                         GameResultDto.searchGameRecordRes gameResults,
-                                         Long personalRanking,
-                                         double rankPercent) {
-
-        return UserDto.recordRes.builder()
-                .nickname(this.nickname)
-                .totalScore(this.totalScore)
-                .companyName(this.company.getCompanyName())
-                .win(this.win)
-                .lose(this.lose)
-                .winPercentage(this.winPercentage)
-                .personalRanking(personalRanking)
-                .rankPercent(rankPercent)
-                .top3Characters(top3Characters)
-                .gameResults(gameResults)
-                .build();
-    }
-
-    public UserDto.profileRes toProfileDto(Long articleCount,
-                                           Long commentCount,
-                                           List<UserDto.top3Character> top3CharacterList) {
-
-        return UserDto.profileRes.builder()
-                .nickname(this.nickname)
-                .articleCount(articleCount)
-                .commentCount(commentCount)
-                .companyName(this.company.getCompanyName())
-                .totalScore(this.totalScore)
-                .win(this.win)
-                .lose(this.lose)
-                .winPercentage(this.winPercentage)
-                .top3Characters(top3CharacterList)
-                .build();
-    }
-
     public void changeToEncodedPassword(String encodedPassword) {
         this.password = encodedPassword;
     }

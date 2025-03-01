@@ -1,4 +1,4 @@
-package ssafy.sorhy.dto.user;
+package ssafy.sorhy.service.user.dto;
 
 import lombok.Data;
 

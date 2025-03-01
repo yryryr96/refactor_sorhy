@@ -1,23 +1,19 @@
 package ssafy.sorhy.domain.game;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
-import ssafy.sorhy.dto.game.GameDto;
 import ssafy.sorhy.domain.gameresult.GameResult;
+import ssafy.sorhy.dto.game.GameDto;
+import ssafy.sorhy.service.game.request.GameCreateRequest;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 public class Game extends BaseEntity {
 
@@ -33,14 +29,20 @@ public class Game extends BaseEntity {
     private GameTitle gameTitle;
 
     @OneToMany(mappedBy = "game")
-    @Builder.Default
     private List<GameResult> gameResults = new ArrayList<>();
 
-    public GameDto.Response toSaveGameDto() {
-        return GameDto.Response.builder()
-                .id(this.id)
-                .gameTitle(this.gameTitle)
-                .gameType(this.gameType)
+    @Builder
+    public Game(Long id, GameType gameType, GameTitle gameTitle, List<GameResult> gameResults) {
+        this.id = id;
+        this.gameType = gameType;
+        this.gameTitle = gameTitle;
+        this.gameResults = gameResults;
+    }
+
+    public static Game from(GameCreateRequest request) {
+        return Game.builder()
+                .gameTitle(request.getGameTitle())
+                .gameType(request.getGameType())
                 .build();
     }
 }

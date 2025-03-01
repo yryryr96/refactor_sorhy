@@ -29,21 +29,6 @@ public class UserDto {
 
     @Data
     @Builder
-    public static class profileRes {
-
-        private String nickname;
-        private int totalScore;
-        private Long articleCount;
-        private Long commentCount;
-        private String companyName;
-        private int win;
-        private int lose;
-        private float winPercentage;
-        private List<top3Character> top3Characters;
-    }
-
-    @Data
-    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class top3Character {
