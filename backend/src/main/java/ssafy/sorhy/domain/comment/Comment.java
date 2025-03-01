@@ -6,6 +6,7 @@ import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
+import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
 
 import javax.persistence.*;
 
@@ -54,7 +55,7 @@ public class Comment extends BaseEntity {
                 .build();
     }
 
-    public void update(CommentDto2.saveReq request) {
+    public void update(CommentUpdateRequest request) {
         this.content = request.getContent();
     }
 }

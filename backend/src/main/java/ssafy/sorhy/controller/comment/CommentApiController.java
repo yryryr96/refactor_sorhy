@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.CommentService;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
+import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
 import ssafy.sorhy.service.comment.response.CommentCreateResponse;
 import ssafy.sorhy.service.comment.response.CommentRemoveResponse;
+import ssafy.sorhy.service.comment.response.CommentUpdateResponse;
 import ssafy.sorhy.service.comment.response.CommentsResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
@@ -52,13 +54,12 @@ public class CommentApiController {
     }
 
     @PutMapping("/{articleId}/comment/{commentId}")
-    public Response<String> update(@PathVariable Long articleId,
-                                   @PathVariable Long commentId,
-                                   @RequestBody @Valid CommentDto2.saveReq request,
+    public ApiResponse<CommentUpdateResponse> update(@PathVariable Long commentId,
+                                   @RequestBody @Valid CommentUpdateRequest request,
                                    Authentication authentication) {
 
         String nickname = authentication.getName();
-        commentService.update(commentId, nickname, request);
-        return new Response(200, "댓글 수정 완료", "comment update success!!");
+        CommentUpdateResponse response = commentService.update(commentId, nickname, request);
+        return ApiResponse.ok(response);
     }
 }
