@@ -19,16 +19,16 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findCompanyArticlesOrderByDesc(Long companyId, Pageable pageable);
 
     @Query("select a from Article a where a.category = :category order by a.viewCount desc")
-    Page<Article> findHotArticleByOrderByViewCountDesc(Category category, Pageable pageable);
+    Page<Article> findHotArticles(Category category, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
             "where a.category = 'COMPANY' and u.company.id = :companyId " +
             "order by a.viewCount desc")
-    Page<Article> findHotCompanyArticleByOrderByViewCountDesc(Long companyId, Pageable pageable);
+    Page<Article> findCompanyHotArticles(Long companyId, Pageable pageable);
 
     @Query("select a from Article a where a.category != 'COMPANY' and a.viewCount != 0 order by a.viewCount desc")
-    Page<Article> findCurrentIssue(Pageable pageable);
+    Page<Article> findCurrentIssueArticles(Pageable pageable);
 
     @Query("select count(a) from Article a where a.user.nickname = :nickname")
     Long countArticleByNickname(String nickname);

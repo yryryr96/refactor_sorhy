@@ -10,7 +10,8 @@ import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.dto.comment.CommentDto2;
-import ssafy.sorhy.service.article.request.CreateArticleRequest;
+import ssafy.sorhy.service.article.request.ArticleCreateRequest;
+import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -62,16 +63,21 @@ public class Article extends BaseEntity {
         this.comments = comments;
     }
 
-    public void update(ArticleDto.saveReq dto) {
+    public void update(ArticleUpdateRequest dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
+        this.category = dto.getCategory();
     }
 
     public void addViewCount() {
         this.viewCount += 1;
     }
 
-    public static Article from(CreateArticleRequest request, User user, String imgUrl) {
+    public boolean isUser(User user) {
+        return this.user.equals(user);
+    }
+
+    public static Article from(ArticleCreateRequest request, User user, String imgUrl) {
         return Article.builder()
                 .user(user)
                 .title(request.getTitle())

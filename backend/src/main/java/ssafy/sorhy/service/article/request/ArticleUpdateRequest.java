@@ -1,26 +1,26 @@
 package ssafy.sorhy.service.article.request;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.article.Category;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@NoArgsConstructor
-public class CreateArticleRequest {
+public class ArticleUpdateRequest {
 
     @NotBlank(message = "제목을 입력하세요.")
-    private String title;
+    private final String title;
 
     @NotBlank(message = "내용을 입력하세요.")
-    private String content;
+    private final String content;
 
     @NotNull
-    private Category category;
+    private final Category category;
 
-    public CreateArticleRequest(String title, String content, Category category) {
+    @Builder
+    private ArticleUpdateRequest(String title, String content, Category category) {
         this.title = title;
         this.content = content;
         this.category = category;
