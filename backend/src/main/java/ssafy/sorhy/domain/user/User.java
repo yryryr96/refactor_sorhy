@@ -113,12 +113,12 @@ public class User extends BaseEntity {
                 .build();
     }
 
-    public void updateScoreAndWinOrLose(int score, boolean winner) {
+    public void updateScoreAndWinOrLose(int score, boolean isWin) {
 
         this.totalScore += score;
         this.company.updateCompanyScore(score);
 
-        if (winner) {
+        if (isWin) {
             this.win += 1;
         } else {
             this.lose += 1;

@@ -48,7 +48,6 @@ public class UserService {
     private final CompanyRepository companyRepository;
     private final UserCharacterRepository  userCharacterRepository;
     private final GameResultService gameResultService;
-    private final UserCharacterService userCharacterService;
     private final HistoryService historyService;
     private final BCryptPasswordEncoder encoder;
 

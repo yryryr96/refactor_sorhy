@@ -15,9 +15,12 @@ import ssafy.sorhy.domain.gameresult.Team;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
+import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
@@ -37,29 +40,29 @@ public class GameResultService {
     private final UserCharacterService userCharacterService;
     private final RankingService rankingService;
 
-    public GameResultDto.saveRes save(@RequestBody GameResultDto.saveReq request, String nickname) {
 
-        User user = findUser(nickname);
+    public GameResultCreateResponse save(GameResultCreateRequest request, String nickname) {
+
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Game game = gameRepository.findById(request.getGameId()).orElseThrow(() -> new ResourceNotFoundException("Game"));
+
         Long characterId = request.getCharacterId();
-        Game game = gameRepository.findById(request.getGameId())
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
-
-        GameResult gameResult = request.toEntity(user, game);
+        GameResult gameResult = GameResult.from(user, game, request);
         GameTitle gameTitle = game.getGameTitle();
         int score = gameResult.getScore();
 
         userCharacterService.addCharacterUseCount(user, characterId);
         rankingService.updateRanking(user, gameTitle, score);
         gameResultRepository.save(gameResult);
+        user.updateScoreAndWinOrLose(gameResult.getScore(), gameResult.isWin());
 
-        user.updateScoreAndWinOrLose(gameResult.getScore(), gameResult.isWinner());
-        return gameResult.toSaveResDto(gameResult);
+        return GameResultCreateResponse.from(gameResult);
     }
 
     public GameResultDto.searchGameRecordRes getGameRecordInfo(String nickname, Pageable pageable) {
 
         List<GameResultDto.gameRecordInfo> result = new ArrayList<>();
-        User user = findUser(nickname);
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
 
         Page<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
 
@@ -77,7 +80,4 @@ public class GameResultService {
         return new GameResultDto.searchGameRecordRes(totalPages, result);
     }
 
-    private User findUser(String nickname) {
-        return userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
-    }
 }

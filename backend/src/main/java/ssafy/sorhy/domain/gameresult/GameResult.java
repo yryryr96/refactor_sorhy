@@ -1,22 +1,16 @@
 package ssafy.sorhy.domain.gameresult;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.user.User;
+import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 public class GameResult extends BaseEntity {
 
@@ -27,7 +21,7 @@ public class GameResult extends BaseEntity {
 
     private int score;
     private Long characterId;
-    private boolean winner;
+    private boolean isWin;
 
     @Enumerated(EnumType.STRING)
     private Team team;
@@ -40,14 +34,36 @@ public class GameResult extends BaseEntity {
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
-    public GameResultDto.saveRes toSaveResDto(GameResult gameResult) {
+    @Builder
+    private GameResult(Long id, int score, Long characterId, boolean isWin, Team team, User user, Game game) {
+        this.id = id;
+        this.score = score;
+        this.characterId = characterId;
+        this.isWin = isWin;
+        this.team = team;
+        this.user = user;
+        this.game = game;
+    }
+
+    public GameResultDto.saveRes toSaveResDto() {
 
         return GameResultDto.saveRes.builder()
                 .gameId(this.getGame().getId())
                 .score(this.score)
                 .characterId(this.characterId)
-                .winner(this.winner)
+                .winner(this.isWin)
                 .team(this.team)
+                .build();
+    }
+
+    public static GameResult from(User user, Game game, GameResultCreateRequest request) {
+        return GameResult.builder()
+                .game(game)
+                .user(user)
+                .score(request.getScore())
+                .characterId(request.getCharacterId())
+                .isWin(request.isWin())
+                .team(request.getTeam())
                 .build();
     }
 }
