@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.service.user.request.UserCreateRequest;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
 import ssafy.sorhy.service.user.response.UserLoginResponse;
 import ssafy.sorhy.service.user.response.UserProfileResponse;
+import ssafy.sorhy.service.user.response.UserRecordResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
@@ -42,19 +42,19 @@ public class UserApiController {
     }
 
     @GetMapping("/profile")
-    public ApiResponse<UserProfileResponse> profile(Authentication authentication) {
+    public ApiResponse<UserProfileResponse> getProfile(Authentication authentication) {
 
         String nickname = authentication.getName();
-        UserProfileResponse response = userService.getProfileByNickname(nickname);
+        UserProfileResponse response = userService.getProfileBy(nickname);
         return ApiResponse.ok(response);
     }
 
     @GetMapping("/{nickname}")
-    public Response<UserDto.recordRes> findByNickname(@PathVariable String nickname,
+    public ApiResponse<UserRecordResponse> getUserRecord(@PathVariable String nickname,
                                                       @PageableDefault(size = 5) Pageable pageable) {
 
-        UserDto.recordRes response = userService.findByNickname(nickname, pageable);
-        return new Response(200, "닉네임으로 유저 전적 조회 성공", response);
+        UserRecordResponse response = userService.getUserRecordBy(nickname, pageable);
+        return ApiResponse.ok(response);
     }
 
     @GetMapping("/eachGameScore")

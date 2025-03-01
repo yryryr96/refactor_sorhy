@@ -15,7 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByNickname(String nickname);
 
-    @Query(value = "select new ssafy.sorhy.dto.user.UserRankInfoDto(count(u), (select count(u)+1 from User u where u.totalScore > (select u2.totalScore from User u2 where u2.nickname = :nickname))) from User u")
+    @Query(value = "select new ssafy.sorhy.dto.user.UserRankInfoDto(count(u), " +
+            "(select count(u)+1 from User u where u.totalScore > (select u2.totalScore from User u2 where u2.nickname = :nickname))) from User u")
     UserRankInfoDto findUserRankInfo(String nickname);
 
     @Query("select new ssafy.sorhy.dto.user.UserEachGameScore(r.gameTitle, r.score) " +
