@@ -14,7 +14,6 @@ import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
 import ssafy.sorhy.dto.character.CharacterDto;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
 import ssafy.sorhy.exception.*;
@@ -31,9 +30,11 @@ import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
 import ssafy.sorhy.service.user.response.UserLoginResponse;
 import ssafy.sorhy.service.user.response.UserProfileResponse;
+import ssafy.sorhy.service.user.response.UserRecordResponse;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -112,19 +113,23 @@ public class UserService {
         return encoder.matches(request.getPassword(), user.getPassword());
     }
 
-    public UserProfileResponse getProfileByNickname(String nickname) {
+    public UserProfileResponse getProfileBy(String nickname) {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
 
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
-        List<UserCharacter> mostUse3Characters =
-                userCharacterRepository.findMostUse3CharactersByUserId(user.getId(), PageRequest.of(0, 3));
-        List<CharacterDto> top3Characters = mostUse3Characters.stream()
-                .map(uc -> CharacterDto.from(uc.getUseCount(), uc.getCharacter()))
-                .toList();
+        List<CharacterDto> top3Characters = getMostUse3Characters(user);
 
         return UserProfileResponse.of(user, articleCount, commentCount, top3Characters);
+    }
+
+    private List<CharacterDto> getMostUse3Characters(User user) {
+        List<UserCharacter> mostUse3Characters =
+                userCharacterRepository.findMostUse3CharactersByUserId(user.getId(), PageRequest.of(0, 3));
+        return mostUse3Characters.stream()
+                .map(uc -> CharacterDto.from(uc.getUseCount(), uc.getCharacter()))
+                .collect(Collectors.toList());
     }
 
     // 전체 유저 조회
@@ -133,20 +138,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // 유저 닉네임으로 유저 정보 조회
-    public UserDto.recordRes findByNickname(String nickname, Pageable pageable) {
+    public UserRecordResponse getUserRecordBy(String nickname, Pageable pageable) {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
 
         UserRankInfoDto userRankInfo = userRepository.findUserRankInfo(nickname);
-        Long personalRanking = userRankInfo.getPersonalRank();
-        double rankPercent = userRankInfo.getRankPercent();
 
-        List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Characters(user.getId());
+        List<CharacterDto> mostUse3Characters = getMostUse3Characters(user);
         GameResultDto.searchGameRecordRes gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
-        return user.toRecordRes(top3Characters, gameResults, personalRanking, rankPercent);
+        return UserRecordResponse.of(user, userRankInfo, mostUse3Characters, gameResults);
     }
 
+    // 차후에 책임 이동 -> Game
     public List<UserEachGameScore> eachGameTopScore(String nickname) {
 
         return userRepository.findEachGameTopScore(nickname);

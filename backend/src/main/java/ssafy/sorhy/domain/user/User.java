@@ -129,12 +129,6 @@ public class User extends BaseEntity {
         }
     }
 
-    public UserDto.joinRes toJoinDto() {
-
-        return UserDto.joinRes.builder()
-                .nickname(this.nickname)
-                .build();
-    }
 
     public UserDto.recordRes toRecordRes(List<UserDto.top3Character> top3Characters,
                                          GameResultDto.searchGameRecordRes gameResults,

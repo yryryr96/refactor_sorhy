@@ -11,14 +11,6 @@ import java.util.List;
 @Data
 public class UserDto {
 
-
-    @Builder
-    @Data
-    public static class joinRes {
-
-        private String nickname;
-    }
-
     @Data
     @Builder
     public static class recordRes {
