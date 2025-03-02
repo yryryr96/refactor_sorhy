@@ -3,7 +3,7 @@ package ssafy.sorhy.domain.character;
 import lombok.Getter;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

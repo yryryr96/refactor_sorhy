@@ -1,7 +1,7 @@
 package ssafy.sorhy.util.converter;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 @Converter
 public class BooleanToYNConverter implements AttributeConverter<Boolean, String> {

@@ -15,7 +15,7 @@ import ssafy.sorhy.service.comment.response.CommentUpdateResponse;
 import ssafy.sorhy.service.comment.response.CommentsResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor

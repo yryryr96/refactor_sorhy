@@ -13,7 +13,7 @@ import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor

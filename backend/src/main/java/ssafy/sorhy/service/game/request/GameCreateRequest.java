@@ -4,7 +4,7 @@ import lombok.Getter;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.game.GameType;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter
 public class GameCreateRequest {

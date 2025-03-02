@@ -9,7 +9,7 @@ import ssafy.sorhy.domain.company.Company;
 import ssafy.sorhy.domain.gameresult.GameResult;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -6,7 +6,7 @@ import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data

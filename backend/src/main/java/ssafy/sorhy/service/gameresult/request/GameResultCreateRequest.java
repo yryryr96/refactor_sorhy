@@ -3,7 +3,7 @@ package ssafy.sorhy.service.gameresult.request;
 import lombok.Getter;
 import ssafy.sorhy.domain.gameresult.Team;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Getter
 public class GameResultCreateRequest {

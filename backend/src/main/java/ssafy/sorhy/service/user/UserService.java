@@ -9,22 +9,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.domain.company.Company;
-import ssafy.sorhy.domain.log.LoginHistory;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
 import ssafy.sorhy.dto.character.CharacterDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
-import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
-import ssafy.sorhy.service.user.dto.UserRankInfoDto;
-import ssafy.sorhy.exception.*;
-import ssafy.sorhy.jwt.JwtTokenUtil;
+import ssafy.sorhy.exception.DuplicateNicknameException;
+import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.repository.usercharacter.UserCharacterRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
+import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
 import ssafy.sorhy.service.history.HistoryService;
+import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 import ssafy.sorhy.service.user.request.UserCreateRequest;
 import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
@@ -49,11 +48,6 @@ public class UserService {
     private final GameResultService gameResultService;
     private final HistoryService historyService;
     private final BCryptPasswordEncoder encoder;
-
-    @Value("${jwt.secret}")
-    private String secretKey;
-
-    private int TOKEN_EXPIRE_TIME_MILLISECOND = 60 * 1000 * 60 * 24;
 
     // 계정 저장
     @Transactional
@@ -90,21 +84,23 @@ public class UserService {
     @Transactional
     public UserLoginResponse login(UserLoginRequest request) {
 
-        String nickname = request.getNickname();
+//        String nickname = request.getNickname();
+//
+//        if (!userRepository.existsByNickname(nickname)) {
+//            throw new CustomException(ErrorCode.DATA_NOT_FOUND);
+//        }
+//
+//        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+//        if (isMatchesPassword(request, user)) {
+//
+//            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, TOKEN_EXPIRE_TIME_MILLISECOND);// 만료시간 하루
+//            historyService.save(new LoginHistory(nickname));
+//            return UserLoginResponse.of(token, user);
+//        } else {
+//            throw new NotMatchedPasswordException();
+//        }
 
-        if (!userRepository.existsByNickname(nickname)) {
-            throw new CustomException(ErrorCode.DATA_NOT_FOUND);
-        }
-
-        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-        if (isMatchesPassword(request, user)) {
-
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, TOKEN_EXPIRE_TIME_MILLISECOND);// 만료시간 하루
-            historyService.save(new LoginHistory(nickname));
-            return UserLoginResponse.of(token, user);
-        } else {
-            throw new NotMatchedPasswordException();
-        }
+        return null;
     }
 
     private boolean isMatchesPassword(UserLoginRequest request, User user) {

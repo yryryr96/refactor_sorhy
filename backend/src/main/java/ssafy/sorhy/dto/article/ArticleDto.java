@@ -8,8 +8,8 @@ import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.domain.user.User;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
