@@ -73,7 +73,7 @@ public class Article extends BaseEntity {
         this.viewCount += 1;
     }
 
-    public boolean isUser(User user) {
+    public boolean isWrittenBy(User user) {
         return this.user.equals(user);
     }
 

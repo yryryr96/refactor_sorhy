@@ -14,8 +14,9 @@ import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 import ssafy.sorhy.service.article.response.ArticleListResponse;
+import ssafy.sorhy.service.article.response.ArticleRemoveResponse;
 import ssafy.sorhy.service.article.response.ArticleUpdateResponse;
-import ssafy.sorhy.service.article.response.CreateArticleResponse;
+import ssafy.sorhy.service.article.response.ArticleCreateResponse;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
@@ -29,13 +30,13 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @PostMapping("/article")
-    public ApiResponse<CreateArticleResponse> create(
+    public ApiResponse<ArticleCreateResponse> create(
             @RequestPart @Valid ArticleCreateRequest request,
             @RequestPart @Nullable MultipartFile file,
             Authentication authentication) throws IOException {
 
         String nickname = authentication.getName();
-        CreateArticleResponse response = articleService.create(nickname, file, request);
+        ArticleCreateResponse response = articleService.create(nickname, file, request);
         return ApiResponse.of(HttpStatus.CREATED, "게시글을 정상적으로 작성했습니다.", response);
     }
 
@@ -49,12 +50,12 @@ public class ArticleApiController {
     }
 
     @DeleteMapping("/article/{articleId}")
-    public Response<String> delete(@PathVariable Long articleId,
-                                   Authentication authentication) {
+    public ApiResponse<ArticleRemoveResponse> remove(@PathVariable Long articleId,
+                                                     Authentication authentication) {
 
         String nickname = authentication.getName();
-        String response = articleService.delete(articleId, nickname);
-        return new Response<>(204, "삭제 안료", response);
+        ArticleRemoveResponse response = articleService.remove(articleId, nickname);
+        return ApiResponse.of(HttpStatus.NO_CONTENT, "삭제 안료", response);
     }
 
     @GetMapping("/articles")

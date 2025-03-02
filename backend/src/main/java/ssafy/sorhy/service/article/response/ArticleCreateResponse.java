@@ -7,7 +7,7 @@ import ssafy.sorhy.domain.article.Article;
 import java.time.LocalDateTime;
 
 @Getter
-public class CreateArticleResponse {
+public class ArticleCreateResponse {
 
     private final Long articleId;
     private final String nickname;
@@ -17,7 +17,12 @@ public class CreateArticleResponse {
     private final LocalDateTime createdAt;
 
     @Builder
-    private CreateArticleResponse(Long articleId, String nickname, String title, int viewCount, String imageUrl, LocalDateTime createdAt) {
+    private ArticleCreateResponse(Long articleId,
+                                  String nickname,
+                                  String title,
+                                  int viewCount,
+                                  String imageUrl,
+                                  LocalDateTime createdAt) {
         this.articleId = articleId;
         this.nickname = nickname;
         this.title = title;
@@ -26,8 +31,8 @@ public class CreateArticleResponse {
         this.createdAt = createdAt;
     }
 
-    public static CreateArticleResponse from(Article article) {
-        return CreateArticleResponse.builder()
+    public static ArticleCreateResponse from(Article article) {
+        return ArticleCreateResponse.builder()
                 .articleId(article.getId())
                 .nickname(article.getUser().getNickname())
                 .title(article.getTitle())
