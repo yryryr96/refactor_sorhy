@@ -8,11 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.article.Category;
-import ssafy.sorhy.domain.article.SearchCond;
+import ssafy.sorhy.domain.article.SearchCondition;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.exception.ResourceNotFoundException;
@@ -22,17 +21,14 @@ import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
-import ssafy.sorhy.service.article.response.ArticleCreateResponse;
-import ssafy.sorhy.service.article.response.ArticleListResponse;
-import ssafy.sorhy.service.article.response.ArticleRemoveResponse;
-import ssafy.sorhy.service.article.response.ArticleUpdateResponse;
+import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.service.s3.S3UploadService;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ssafy.sorhy.domain.article.SearchCond.valueOf;
+import static ssafy.sorhy.domain.article.SearchCondition.valueOf;
 
 @Transactional(readOnly = true)
 @Service
@@ -124,39 +120,33 @@ public class ArticleService {
         return ArticleListResponse.from(articles);
     }
 
-    public ArticleDto.detailRes findById(Long articleId, Pageable pageable) {
+    public ArticleDetailResponse getArticleDetail(Long articleId, Pageable pageable) {
 
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
-
-        Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(article.getId(), pageable);
-        CommentDto2.pagingRes comments = CommentDto2.pagingRes.builder()
-                .comments(result.stream()
-                        .map(Comment::toBasicRes)
-                        .collect(Collectors.toList()))
-                .totalElement(result.getTotalElements())
-                .totalPage(result.getTotalPages())
-                .build();
-
+                .orElseThrow(() -> new ResourceNotFoundException("Article"));
+        Page<Comment> comments = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
+        
+        // 트랜잭션 분리, 책임 분리 필요
         article.addViewCount();
-        return article.toDetailRes(comments);
+
+        return ArticleDetailResponse.of(article, comments);
     }
 
     public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, String category, Pageable pageable) {
 
         String word = request.getWord();
         Category articleCategory;
-        SearchCond searchCond;
+        SearchCondition searchCondition;
         Page<Article> result = null;
 
         try {
             articleCategory = Category.valueOf(category);
-            searchCond = valueOf(request.getSearchCond());
+            searchCondition = valueOf(request.getSearchCond());
         } catch (Exception e) {
             throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
 
-        switch (searchCond) {
+        switch (searchCondition) {
             case NONE:
                 result = articleRepository.searchArticleByTitleAndContent(word, articleCategory, pageable);
                 break;
@@ -179,18 +169,18 @@ public class ArticleService {
     public ArticleDto.pagingRes searchCompanyArticle(String nickname, ArticleDto.searchReq request, Pageable pageable) {
 
         String word = request.getWord();
-        SearchCond searchCond;
+        SearchCondition searchCondition;
         Page<Article> result = null;
         User user = findUser(nickname);
         Long companyId = user.getCompany().getId();
 
         try {
-            searchCond = valueOf(request.getSearchCond());
+            searchCondition = valueOf(request.getSearchCond());
         } catch (Exception e) {
             throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
 
-        switch (searchCond) {
+        switch (searchCondition) {
             case NONE:
                 result = articleRepository.searchCompanyArticleByTitleAndContent(word, companyId, pageable);
                 break;
