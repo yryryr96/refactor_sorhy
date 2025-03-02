@@ -2,11 +2,7 @@ package ssafy.sorhy.dto.comment;
 
 import lombok.Builder;
 import lombok.Data;
-import ssafy.sorhy.domain.article.Article;
-import ssafy.sorhy.domain.comment.Comment;
-import ssafy.sorhy.domain.user.User;
 
-import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data

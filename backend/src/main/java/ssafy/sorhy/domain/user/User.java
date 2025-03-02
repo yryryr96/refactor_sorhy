@@ -1,15 +1,18 @@
 package ssafy.sorhy.domain.user;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
-import ssafy.sorhy.service.user.request.UserCreateRequest;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.company.Company;
 import ssafy.sorhy.domain.gameresult.GameResult;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
+import ssafy.sorhy.service.user.request.UserCreateRequest;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,14 +1,16 @@
 package ssafy.sorhy.domain.comment;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
 import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
-
-import jakarta.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

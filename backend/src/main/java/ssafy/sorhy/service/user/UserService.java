@@ -2,7 +2,6 @@ package ssafy.sorhy.service.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,9 +24,7 @@ import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
 import ssafy.sorhy.service.history.HistoryService;
 import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 import ssafy.sorhy.service.user.request.UserCreateRequest;
-import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
-import ssafy.sorhy.service.user.response.UserLoginResponse;
 import ssafy.sorhy.service.user.response.UserProfileResponse;
 import ssafy.sorhy.service.user.response.UserRecordResponse;
 
@@ -62,7 +59,7 @@ public class UserService {
         }
 
         Company company = companyRepository.findById(request.getCompanyId())
-                .orElseThrow(() ->  new IllegalArgumentException("해당 회사 데이터를 찾을 수 없습니다."));
+                .orElseThrow(() ->  new ResourceNotFoundException("Company"));
 
         User user = User.create(request, company);
         String encodedPassword = encoder.encode(user.getPassword());
@@ -78,33 +75,6 @@ public class UserService {
 
     private boolean existedNickname(UserCreateRequest request) {
         return userRepository.existsByNickname(request.getNickname());
-    }
-
-    // 로그인
-    @Transactional
-    public UserLoginResponse login(UserLoginRequest request) {
-
-//        String nickname = request.getNickname();
-//
-//        if (!userRepository.existsByNickname(nickname)) {
-//            throw new CustomException(ErrorCode.DATA_NOT_FOUND);
-//        }
-//
-//        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-//        if (isMatchesPassword(request, user)) {
-//
-//            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, TOKEN_EXPIRE_TIME_MILLISECOND);// 만료시간 하루
-//            historyService.save(new LoginHistory(nickname));
-//            return UserLoginResponse.of(token, user);
-//        } else {
-//            throw new NotMatchedPasswordException();
-//        }
-
-        return null;
-    }
-
-    private boolean isMatchesPassword(UserLoginRequest request, User user) {
-        return encoder.matches(request.getPassword(), user.getPassword());
     }
 
     public UserProfileResponse getProfileBy(String nickname) {
@@ -126,12 +96,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    // 전체 유저 조회
-    public List<User> findAll() {
-
-        return userRepository.findAll();
-    }
-
     public UserRecordResponse getUserRecordBy(String nickname, Pageable pageable) {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
@@ -147,5 +111,11 @@ public class UserService {
     public List<UserEachGameScore> eachGameTopScore(String nickname) {
 
         return userRepository.findEachGameTopScore(nickname);
+    }
+
+    // 전체 유저 조회
+    public List<User> findAll() {
+
+        return userRepository.findAll();
     }
 }

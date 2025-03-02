@@ -1,12 +1,11 @@
 package ssafy.sorhy.domain.ranking;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.user.User;
-
-import jakarta.persistence.*;
 
 @Entity
 @Getter

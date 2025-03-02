@@ -1,11 +1,10 @@
 package ssafy.sorhy.service.article.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.article.Category;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor

@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.character.CharacterDto;
-import ssafy.sorhy.dto.user.UserDto;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package ssafy.sorhy.controller.gameresult;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,8 +13,6 @@ import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.util.response.ApiResponse;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor

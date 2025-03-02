@@ -1,5 +1,6 @@
 package ssafy.sorhy.controller.comment;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -14,8 +15,6 @@ import ssafy.sorhy.service.comment.response.CommentRemoveResponse;
 import ssafy.sorhy.service.comment.response.CommentUpdateResponse;
 import ssafy.sorhy.service.comment.response.CommentsResponse;
 import ssafy.sorhy.util.response.ApiResponse;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
