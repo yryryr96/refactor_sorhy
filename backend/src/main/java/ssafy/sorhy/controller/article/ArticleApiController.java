@@ -13,10 +13,7 @@ import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
-import ssafy.sorhy.service.article.response.ArticleListResponse;
-import ssafy.sorhy.service.article.response.ArticleRemoveResponse;
-import ssafy.sorhy.service.article.response.ArticleUpdateResponse;
-import ssafy.sorhy.service.article.response.ArticleCreateResponse;
+import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
@@ -55,7 +52,7 @@ public class ArticleApiController {
 
         String nickname = authentication.getName();
         ArticleRemoveResponse response = articleService.remove(articleId, nickname);
-        return ApiResponse.of(HttpStatus.NO_CONTENT, "삭제 안료", response);
+        return ApiResponse.of(HttpStatus.NO_CONTENT, "삭제 완료", response);
     }
 
     @GetMapping("/articles")
@@ -94,13 +91,12 @@ public class ArticleApiController {
     }
 
     @GetMapping("/article/{articleId}")
-    public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId,
+    public ApiResponse<ArticleDetailResponse> getArticleDetail(@PathVariable Long articleId,
                                                    @PageableDefault(size = 4) Pageable pageable) {
 
-        ArticleDto.detailRes response = articleService.findById(articleId, pageable);
-        return new Response(200, "게시글을 조회했습니다.", response);
+        ArticleDetailResponse response = articleService.getArticleDetail(articleId, pageable);
+        return ApiResponse.ok("게시글을 조회했습니다.", response);
     }
-
 
     @PostMapping("/articles/search")
     public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
