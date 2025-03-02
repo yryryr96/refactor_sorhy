@@ -1,5 +1,6 @@
 package ssafy.sorhy.domain.gameresult;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,8 +10,6 @@ import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.util.converter.BooleanToYNConverter;
-
-import jakarta.persistence.*;
 
 @Entity
 @Getter

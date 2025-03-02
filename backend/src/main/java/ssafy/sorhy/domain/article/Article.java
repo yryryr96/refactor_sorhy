@@ -1,5 +1,6 @@
 package ssafy.sorhy.domain.article;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,6 @@ import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

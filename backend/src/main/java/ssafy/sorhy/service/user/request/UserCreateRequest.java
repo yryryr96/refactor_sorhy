@@ -1,13 +1,10 @@
 package ssafy.sorhy.service.user.request;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import ssafy.sorhy.domain.company.Company;
-import ssafy.sorhy.domain.user.User;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor

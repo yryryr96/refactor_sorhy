@@ -1,6 +1,6 @@
 package ssafy.sorhy.service.gameresult.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class OtherUserDto {

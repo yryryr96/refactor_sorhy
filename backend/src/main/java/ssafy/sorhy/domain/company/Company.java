@@ -1,11 +1,11 @@
 package ssafy.sorhy.domain.company;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.user.User;
 
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

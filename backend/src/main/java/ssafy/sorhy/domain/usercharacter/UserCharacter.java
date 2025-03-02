@@ -1,14 +1,13 @@
 package ssafy.sorhy.domain.usercharacter;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.character.Character;
 import ssafy.sorhy.domain.user.User;
-
-import jakarta.persistence.*;
+import ssafy.sorhy.dto.user.UserDto;
 
 @Entity
 @Builder

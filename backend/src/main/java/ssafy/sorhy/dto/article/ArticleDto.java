@@ -1,15 +1,15 @@
 package ssafy.sorhy.dto.article;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.domain.user.User;
+import ssafy.sorhy.dto.comment.CommentDto2;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Data

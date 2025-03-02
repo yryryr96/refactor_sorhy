@@ -1,9 +1,10 @@
 package ssafy.sorhy.service.gameresult.request;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import ssafy.sorhy.domain.gameresult.Team;
-
-import jakarta.validation.constraints.*;
 
 @Getter
 public class GameResultCreateRequest {

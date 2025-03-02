@@ -1,5 +1,6 @@
 package ssafy.sorhy.controller.article;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,7 +18,6 @@ import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
-import jakarta.validation.Valid;
 import java.io.IOException;
 
 @RestController

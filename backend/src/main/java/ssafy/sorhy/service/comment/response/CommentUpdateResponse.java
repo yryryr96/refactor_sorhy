@@ -1,7 +1,6 @@
 package ssafy.sorhy.service.comment.response;
 
 import lombok.Getter;
-import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
 
 @Getter
 public class CommentUpdateResponse {

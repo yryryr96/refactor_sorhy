@@ -1,9 +1,9 @@
 package ssafy.sorhy.domain.character;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
 
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

@@ -1,9 +1,8 @@
 package ssafy.sorhy.service.comment.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
