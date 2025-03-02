@@ -8,7 +8,7 @@ import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
 import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

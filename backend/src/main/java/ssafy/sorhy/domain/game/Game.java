@@ -8,7 +8,7 @@ import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.gameresult.GameResult;
 import ssafy.sorhy.service.game.request.GameCreateRequest;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -13,7 +13,7 @@ import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

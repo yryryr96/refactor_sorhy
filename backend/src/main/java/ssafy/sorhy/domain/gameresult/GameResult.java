@@ -10,7 +10,7 @@ import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.util.converter.BooleanToYNConverter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Getter

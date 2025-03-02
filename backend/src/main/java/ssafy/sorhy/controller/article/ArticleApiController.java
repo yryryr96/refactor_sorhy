@@ -17,7 +17,7 @@ import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.util.response.ApiResponse;
 import ssafy.sorhy.util.response.Response;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.io.IOException;
 
 @RestController

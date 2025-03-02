@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ssafy.sorhy.service.user.dto.UserRankInfoDto;
 import ssafy.sorhy.domain.user.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import java.util.List;
 

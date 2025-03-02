@@ -8,7 +8,7 @@ import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.domain.character.Character;
 import ssafy.sorhy.domain.user.User;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Builder

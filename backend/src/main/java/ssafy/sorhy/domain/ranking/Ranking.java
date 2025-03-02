@@ -6,9 +6,7 @@ import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.user.User;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import jakarta.persistence.*;
 
 @Entity
 @Getter

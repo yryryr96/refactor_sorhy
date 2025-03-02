@@ -8,7 +8,7 @@ import ssafy.sorhy.domain.company.Company;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.dto.company.CompanyInfoDto;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
