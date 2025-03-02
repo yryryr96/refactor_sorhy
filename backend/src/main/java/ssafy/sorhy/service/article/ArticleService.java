@@ -6,13 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.domain.article.SearchCond;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
+import ssafy.sorhy.dto.article.ArticleDto;
+import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.exception.ResourceNotFoundException;
@@ -22,9 +22,10 @@ import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
+import ssafy.sorhy.service.article.response.ArticleCreateResponse;
 import ssafy.sorhy.service.article.response.ArticleListResponse;
+import ssafy.sorhy.service.article.response.ArticleRemoveResponse;
 import ssafy.sorhy.service.article.response.ArticleUpdateResponse;
-import ssafy.sorhy.service.article.response.CreateArticleResponse;
 import ssafy.sorhy.service.s3.S3UploadService;
 
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class ArticleService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public CreateArticleResponse create(String nickname,
+    public ArticleCreateResponse create(String nickname,
                                         MultipartFile file,
                                         ArticleCreateRequest request) throws IOException {
 
@@ -61,7 +62,37 @@ public class ArticleService {
         Article article = Article.from(request, user, imgUrl);
         Article savedArticle = articleRepository.save(article);
 
-        return CreateArticleResponse.from(savedArticle);
+        return ArticleCreateResponse.from(savedArticle);
+    }
+
+    @Transactional
+    public ArticleUpdateResponse update(Long articleId, String nickname, ArticleUpdateRequest request) {
+
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ResourceNotFoundException("Article"));
+
+        if (article.isWrittenBy(user)) {
+            article.update(request);
+            return ArticleUpdateResponse.of("게시글 수정 완료");
+        }
+
+        throw new UnAuthorizedException();
+    }
+
+    @Transactional
+    public ArticleRemoveResponse remove(Long articleId, String nickname) {
+
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ResourceNotFoundException("Article"));
+
+        if (article.isWrittenBy(user)) {
+            articleRepository.delete(article);
+            return ArticleRemoveResponse.of("게시글 삭제 완료");
+        }
+
+        throw new UnAuthorizedException();
     }
 
     public ArticleListResponse getAllArticlesByCategory(Category category, Pageable pageable) {
@@ -109,35 +140,6 @@ public class ArticleService {
 
         article.addViewCount();
         return article.toDetailRes(comments);
-    }
-
-    @Transactional
-    public ArticleUpdateResponse update(Long articleId, String nickname, ArticleUpdateRequest request) {
-
-        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Article"));
-
-        if (article.isUser(user)) {
-            article.update(request);
-            return ArticleUpdateResponse.of("게시글 수정 완료");
-        } else {
-            throw new UnAuthorizedException();
-        }
-    }
-
-    public String delete(Long articleId, String nickname) {
-
-        User user = findUser(nickname);
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
-
-        if (article.getUser().equals(user)) {
-            articleRepository.delete(article);
-            return "delete success!!";
-        } else {
-            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
-        }
     }
 
     public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, String category, Pageable pageable) {
@@ -228,4 +230,6 @@ public class ArticleService {
         return userRepository.findByNickname(nickname)
                 .orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
     }
+
+
 }
