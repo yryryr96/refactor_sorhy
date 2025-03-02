@@ -1,6 +1,7 @@
 package ssafy.sorhy.service.article;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,32 +12,29 @@ import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.domain.article.SearchCondition;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
-import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.exception.CustomException;
-import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.exception.UnAuthorizedException;
 import ssafy.sorhy.repository.article.ArticleRepository;
+import ssafy.sorhy.repository.article.BeforeArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
+import ssafy.sorhy.service.article.request.ArticleSearchRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.service.s3.S3UploadService;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static ssafy.sorhy.domain.article.SearchCondition.valueOf;
 
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ArticleService {
 
     private final S3UploadService s3UploadService;
-    private final ArticleRepository articleRepository;
+    private final BeforeArticleRepository articleRepository;
+    private final ArticleRepository articleRepository1;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
@@ -58,7 +56,7 @@ public class ArticleService {
         Article article = Article.from(request, user, imgUrl);
         Article savedArticle = articleRepository.save(article);
 
-        return ArticleCreateResponse.from(savedArticle);
+        return ArticleCreateResponse.from(savedArticle, user);
     }
 
     @Transactional
@@ -132,94 +130,17 @@ public class ArticleService {
         return ArticleDetailResponse.of(article, comments);
     }
 
-    public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, String category, Pageable pageable) {
+    public ArticleListResponse getArticlesBySearchCondition(ArticleSearchRequest request, String nickname, Pageable pageable) {
 
-        String word = request.getWord();
-        Category articleCategory;
-        SearchCondition searchCondition;
-        Page<Article> result = null;
-
-        try {
-            articleCategory = Category.valueOf(category);
-            searchCondition = valueOf(request.getSearchCond());
-        } catch (Exception e) {
-            throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
-        }
-
-        switch (searchCondition) {
-            case NONE:
-                result = articleRepository.searchArticleByTitleAndContent(word, articleCategory, pageable);
-                break;
-            case TITLE:
-                result = articleRepository.searchArticleByTitle(word, articleCategory, pageable);
-                break;
-            case NICKNAME:
-                result = articleRepository.searchArticleByNickname(word, articleCategory, pageable);
-                break;
-            case CONTENT:
-                result = articleRepository.searchArticleByContent(word, articleCategory, pageable);
-                break;
-            default:
-                throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
-        }
-
-        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
+        Page<Article> articles = getArticlesByArticleSearchRequest(request, user, pageable);
+        return ArticleListResponse.from(articles);
     }
 
-    public ArticleDto.pagingRes searchCompanyArticle(String nickname, ArticleDto.searchReq request, Pageable pageable) {
-
-        String word = request.getWord();
-        SearchCondition searchCondition;
-        Page<Article> result = null;
-        User user = findUser(nickname);
-        Long companyId = user.getCompany().getId();
-
-        try {
-            searchCondition = valueOf(request.getSearchCond());
-        } catch (Exception e) {
-            throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
-        }
-
-        switch (searchCondition) {
-            case NONE:
-                result = articleRepository.searchCompanyArticleByTitleAndContent(word, companyId, pageable);
-                break;
-            case TITLE:
-                result = articleRepository.searchCompanyArticleByTitle(word, companyId, pageable);
-                break;
-            case NICKNAME:
-                result = articleRepository.searchCompanyArticleByNickname(word, pageable);
-                break;
-            case CONTENT:
-                result = articleRepository.searchCompanyArticleByContent(word, companyId, pageable);
-                break;
-            default:
-                throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
-        }
-        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+    private Page<Article> getArticlesByArticleSearchRequest(ArticleSearchRequest request, User user, Pageable pageable) {
+        SearchCondition searchCondition = request.getSearchCondition();
+        Category category = request.getCategory();
+        String keyword = request.getKeyword();
+        return articleRepository1.searchArticleByCondition(user, searchCondition, category, keyword, pageable);
     }
-
-    private List<ArticleDto.basicRes> toDtoList(List<Article> articleList) {
-
-        return articleList.stream()
-                .map(Article::toBasicRes)
-                .collect(Collectors.toList());
-    }
-
-    private ArticleDto.pagingRes toPagingRes(List<ArticleDto.basicRes> articlesDto, long totalElement, int totalPage) {
-
-        return ArticleDto.pagingRes.builder()
-                .totalPage(totalPage)
-                .totalElement(totalElement)
-                .articles(articlesDto)
-                .build();
-    }
-
-    private User findUser(String nickname) {
-
-        return userRepository.findByNickname(nickname)
-                .orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
-    }
-
-
 }

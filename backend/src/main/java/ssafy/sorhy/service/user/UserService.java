@@ -14,7 +14,7 @@ import ssafy.sorhy.dto.character.CharacterDto;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.exception.DuplicateNicknameException;
 import ssafy.sorhy.exception.ResourceNotFoundException;
-import ssafy.sorhy.repository.article.ArticleRepository;
+import ssafy.sorhy.repository.article.BeforeArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final ArticleRepository articleRepository;
+    private final BeforeArticleRepository articleRepository;
     private final CommentRepository commentRepository;
     private final CompanyRepository companyRepository;
     private final UserCharacterRepository  userCharacterRepository;

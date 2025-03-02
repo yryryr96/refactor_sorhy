@@ -13,6 +13,7 @@ import ssafy.sorhy.domain.article.Category;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
+import ssafy.sorhy.service.article.request.ArticleSearchRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.util.response.ApiResponse;
@@ -98,21 +99,12 @@ public class ArticleApiController {
         return ApiResponse.ok("게시글을 조회했습니다.", response);
     }
 
-    @PostMapping("/articles/search")
-    public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
+    @GetMapping("/articles/search")
+    public ApiResponse<ArticleListResponse> getArticlesBySearchCondition(@RequestBody @Valid ArticleSearchRequest request,
                                                         @PageableDefault(size = 6) Pageable pageable,
                                                         Authentication authentication) {
-
-        ArticleDto.pagingRes response;
-        String category = request.getCategory();
-        if (category.equals("COMPANY")) {
-
-            String nickname = authentication.getName();
-            response = articleService.searchCompanyArticle(nickname, request, pageable);
-        } else {
-
-            response = articleService.searchArticle(request, category, pageable);
-        }
-        return new Response(200, "검색 성공", response);
+        String nickname = authentication.getName();
+        ArticleListResponse response = articleService.getArticlesBySearchCondition(request, nickname, pageable);
+        return ApiResponse.ok( "검색 성공", response);
     }
 }
