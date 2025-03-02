@@ -81,7 +81,7 @@ public class UserService {
 
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
 
-        Long articleCount = articleRepository.countArticleByNickname(nickname);
+        Long articleCount = articleRepository.countByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
         List<CharacterDto> top3Characters = getMostUse3Characters(user);
 

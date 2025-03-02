@@ -3,6 +3,7 @@ package ssafy.sorhy.service.article.response;
 import lombok.Builder;
 import lombok.Getter;
 import ssafy.sorhy.domain.article.Article;
+import ssafy.sorhy.domain.user.User;
 
 import java.time.LocalDateTime;
 
@@ -31,10 +32,10 @@ public class ArticleCreateResponse {
         this.createdAt = createdAt;
     }
 
-    public static ArticleCreateResponse from(Article article) {
+    public static ArticleCreateResponse from(Article article, User user) {
         return ArticleCreateResponse.builder()
                 .articleId(article.getId())
-                .nickname(article.getUser().getNickname())
+                .nickname(user.getNickname())
                 .title(article.getTitle())
                 .viewCount(article.getViewCount())
                 .imageUrl(article.getImgUrl())
