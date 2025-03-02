@@ -12,7 +12,7 @@ import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.exception.UnAuthorizedException;
-import ssafy.sorhy.repository.article.BeforeArticleRepository;
+import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
@@ -28,7 +28,7 @@ import ssafy.sorhy.service.comment.response.CommentsResponse;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final BeforeArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
     @Transactional

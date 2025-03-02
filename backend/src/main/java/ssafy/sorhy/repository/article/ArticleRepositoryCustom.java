@@ -10,4 +10,12 @@ import ssafy.sorhy.domain.user.User;
 public interface ArticleRepositoryCustom {
 
     Page<Article> searchArticleByCondition(User user, SearchCondition condition, Category category, String keyword, Pageable pageable);
+
+    Page<Article> getAllArticlesByCategory(User user, Category category, Pageable pageable);
+
+    Page<Article> getHotArticles(User user, Category category, Pageable pageable);
+
+    Page<Article> getCurrentIssueArticles(Pageable pageable);
+
+    Long countByNickname(String nickname);
 }

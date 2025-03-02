@@ -10,14 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.domain.article.Category;
-import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleSearchRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 import ssafy.sorhy.service.article.response.*;
 import ssafy.sorhy.util.response.ApiResponse;
-import ssafy.sorhy.util.response.Response;
 
 import java.io.IOException;
 
@@ -60,14 +58,8 @@ public class ArticleApiController {
     public ApiResponse<ArticleListResponse> getAllArticlesByCategory(@RequestParam Category category,
                                                                      @PageableDefault(size = 4) Pageable pageable,
                                                                      Authentication authentication) {
-        ArticleListResponse response;
-        if (Category.isCompany(category)) {
-            String nickname = authentication.getName();
-            response = articleService.getAllCompanyArticles(nickname, pageable);
-        } else {
-            response = articleService.getAllArticlesByCategory(category, pageable);
-        }
-
+        String nickname = authentication.getName();
+        ArticleListResponse response = articleService.getAllArticlesByCategory(nickname, category, pageable);
         return ApiResponse.ok("게시글 전체 조회 성공", response);
     }
 
@@ -75,13 +67,8 @@ public class ArticleApiController {
     public ApiResponse<ArticleListResponse> getHotArticles(@RequestParam Category category,
                                                           @PageableDefault(size = 4) Pageable pageable,
                                                           Authentication authentication) {
-        ArticleListResponse response;
-        if (Category.isCompany(category)) {
-            String nickname = authentication.getName();
-            response = articleService.getCompanyHotArticles(nickname, pageable);
-        } else {
-            response = articleService.getHotArticles(category, pageable);
-        }
+        String nickname = authentication.getName();
+        ArticleListResponse response = articleService.getHotArticles(nickname, category, pageable);
         return ApiResponse.ok("게시글 전체 조회 성공", response);
     }
 

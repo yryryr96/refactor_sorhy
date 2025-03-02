@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.article.Article;
 import ssafy.sorhy.domain.user.User;
-import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.comment.request.CommentCreateRequest;
 import ssafy.sorhy.service.comment.request.CommentUpdateRequest;
 
@@ -45,15 +44,6 @@ public class Comment extends BaseEntity {
                 .content(request.getContent())
                 .user(user)
                 .article(article)
-                .build();
-    }
-
-    public CommentDto2.basicRes toBasicRes() {
-
-        return CommentDto2.basicRes.builder()
-                .commentId(this.id)
-                .nickname(this.user.getNickname())
-                .content(this.content)
                 .build();
     }
 

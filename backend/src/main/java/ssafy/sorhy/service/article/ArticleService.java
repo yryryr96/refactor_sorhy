@@ -1,7 +1,6 @@
 package ssafy.sorhy.service.article;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.exception.UnAuthorizedException;
 import ssafy.sorhy.repository.article.ArticleRepository;
-import ssafy.sorhy.repository.article.BeforeArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
@@ -29,12 +27,10 @@ import java.io.IOException;
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class ArticleService {
 
     private final S3UploadService s3UploadService;
-    private final BeforeArticleRepository articleRepository;
-    private final ArticleRepository articleRepository1;
+    private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
@@ -89,35 +85,24 @@ public class ArticleService {
         throw new UnAuthorizedException();
     }
 
-    public ArticleListResponse getAllArticlesByCategory(Category category, Pageable pageable) {
-        Page<Article> articles = articleRepository.findAllArticleOrderByIdDesc(category, pageable);
-        return ArticleListResponse.from(articles);
-    }
-
-    public ArticleListResponse getAllCompanyArticles(String nickname, Pageable pageable) {
+    public ArticleListResponse getAllArticlesByCategory(String nickname, Category category, Pageable pageable) {
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-        Long companyId = user.getCompany().getId();
-        Page<Article> articles = articleRepository.findCompanyArticlesOrderByDesc(companyId, pageable);
+        Page<Article> articles = articleRepository.getAllArticlesByCategory(user, category, pageable);
         return ArticleListResponse.from(articles);
     }
 
-    public ArticleListResponse getCompanyHotArticles(String nickname, Pageable pageable) {
+    public ArticleListResponse getHotArticles(String nickname, Category category, Pageable pageable) {
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-        Long companyId = user.getCompany().getId();
-        Page<Article> articles = articleRepository.findCompanyHotArticles(companyId, pageable);
-        return ArticleListResponse.from(articles);
-    }
-
-    public ArticleListResponse getHotArticles(Category category, Pageable pageable) {
-        Page<Article> articles = articleRepository.findHotArticles(category, pageable);
+        Page<Article> articles = articleRepository.getHotArticles(user, category, pageable);
         return ArticleListResponse.from(articles);
     }
 
     public ArticleListResponse getCurrentIssueArticles(Pageable pageable) {
-        Page<Article> articles = articleRepository.findCurrentIssueArticles(pageable);
+        Page<Article> articles = articleRepository.getCurrentIssueArticles(pageable);
         return ArticleListResponse.from(articles);
     }
 
+    @Transactional
     public ArticleDetailResponse getArticleDetail(Long articleId, Pageable pageable) {
 
         Article article = articleRepository.findById(articleId)
@@ -131,7 +116,6 @@ public class ArticleService {
     }
 
     public ArticleListResponse getArticlesBySearchCondition(ArticleSearchRequest request, String nickname, Pageable pageable) {
-
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Page<Article> articles = getArticlesByArticleSearchRequest(request, user, pageable);
         return ArticleListResponse.from(articles);
@@ -141,6 +125,6 @@ public class ArticleService {
         SearchCondition searchCondition = request.getSearchCondition();
         Category category = request.getCategory();
         String keyword = request.getKeyword();
-        return articleRepository1.searchArticleByCondition(user, searchCondition, category, keyword, pageable);
+        return articleRepository.searchArticleByCondition(user, searchCondition, category, keyword, pageable);
     }
 }

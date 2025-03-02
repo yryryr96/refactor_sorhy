@@ -9,8 +9,6 @@ import org.springframework.lang.Nullable;
 import ssafy.sorhy.domain.BaseEntity;
 import ssafy.sorhy.domain.comment.Comment;
 import ssafy.sorhy.domain.user.User;
-import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.dto.comment.CommentDto2;
 import ssafy.sorhy.service.article.request.ArticleCreateRequest;
 import ssafy.sorhy.service.article.request.ArticleUpdateRequest;
 
@@ -84,31 +82,6 @@ public class Article extends BaseEntity {
                 .content(request.getContent())
                 .category(request.getCategory())
                 .imgUrl(imgUrl)
-                .build();
-    }
-
-    public ArticleDto.basicRes toBasicRes() {
-
-        return ArticleDto.basicRes.builder()
-                .articleId(this.id)
-                .nickname(this.user.getNickname())
-                .title(this.title)
-                .viewCount(this.viewCount)
-                .imageUrl(this.imgUrl)
-                .build();
-    }
-
-    public ArticleDto.detailRes toDetailRes(CommentDto2.pagingRes comments) {
-
-        return ArticleDto.detailRes.builder()
-                .articleId(this.id)
-                .nickname(this.user.getNickname())
-                .title(this.title)
-                .content(this.content)
-                .category(this.category)
-                .viewCount(this.viewCount)
-                .imgUrl(this.imgUrl)
-                .comments(comments)
                 .build();
     }
 }

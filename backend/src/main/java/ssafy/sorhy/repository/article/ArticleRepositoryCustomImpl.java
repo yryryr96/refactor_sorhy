@@ -16,7 +16,9 @@ import ssafy.sorhy.domain.user.User;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.hasText;
+import static ssafy.sorhy.domain.article.Category.*;
 import static ssafy.sorhy.domain.article.QArticle.article;
+import static ssafy.sorhy.domain.user.QUser.user;
 
 @RequiredArgsConstructor
 public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
@@ -24,12 +26,41 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<Article> searchArticleByCondition(User user, SearchCondition condition, Category category, String keyword, Pageable pageable) {
+    public Page<Article> getAllArticlesByCategory(User user, Category category, Pageable pageable) {
+        List<Article> content = queryFactory
+                .selectFrom(article)
+                .where(
+                        categoryEq(category),
+                        companyEq(category, user)
+                )
+                .orderBy(article.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(article.count())
+                .from(article)
+                .where(
+                        categoryEq(category),
+                        companyEq(category, user)
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Page<Article> searchArticleByCondition(User user,
+                                                  SearchCondition condition,
+                                                  Category category,
+                                                  String keyword,
+                                                  Pageable pageable) {
 
         List<Article> content = queryFactory
                 .selectFrom(article)
                 .where(
                         categoryEq(category),
+                        companyEq(category, user),
                         searchConditionEq(condition, keyword)
                 )
                 .orderBy(article.id.desc())
@@ -50,12 +81,70 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    private BooleanExpression companyEq(Category category, User user) {
-        return Category.isCompany(category) ? article.user.company.eq(user.getCompany()) : null;
+    @Override
+    public Page<Article> getHotArticles(User user, Category category, Pageable pageable) {
+
+        List<Article> content = queryFactory
+                .selectFrom(article)
+                .where(
+                        categoryEq(category),
+                        companyEq(category, user)
+                )
+                .orderBy(article.viewCount.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(article.count())
+                .from(article)
+                .where(
+                        categoryEq(category),
+                        companyEq(category, user)
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Page<Article> getCurrentIssueArticles(Pageable pageable) {
+        List<Article> content = queryFactory
+                .selectFrom(article)
+                .where(
+                        article.category.ne(COMPANY)
+                )
+                .orderBy(article.viewCount.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(article.count())
+                .from(article)
+                .where(
+                        article.category.ne(COMPANY)
+                );
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Long countByNickname(String nickname) {
+        return queryFactory
+                .select(article.count())
+                .from(article)
+                .innerJoin(article.user, user)
+                .on(article.user.eq(user))
+                .where(user.nickname.eq(nickname))
+                .fetchOne();
     }
 
     private BooleanExpression categoryEq(Category category) {
         return category != null ? article.category.eq(category) : null;
+    }
+
+    private BooleanExpression companyEq(Category category, User user) {
+        return isCompany(category) ? article.user.company.eq(user.getCompany()) : null;
     }
 
     private BooleanExpression searchConditionEq(SearchCondition searchCondition, String keyword) {
