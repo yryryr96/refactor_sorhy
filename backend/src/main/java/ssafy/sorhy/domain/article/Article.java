@@ -44,13 +44,13 @@ public class Article extends BaseEntity {
 
     @Builder
     private Article(Long id,
-                   String title,
-                   String content,
-                   int viewCount,
-                   Category category,
-                   String imgUrl,
-                   User user,
-                   List<Comment> comments) {
+                    String title,
+                    String content,
+                    int viewCount,
+                    Category category,
+                    String imgUrl,
+                    User user,
+                    List<Comment> comments) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -59,6 +59,16 @@ public class Article extends BaseEntity {
         this.imgUrl = imgUrl;
         this.user = user;
         this.comments = comments;
+    }
+
+    public static Article from(ArticleCreateRequest request, User user, String imgUrl) {
+        return Article.builder()
+                .user(user)
+                .title(request.getTitle())
+                .content(request.getContent())
+                .category(request.getCategory())
+                .imgUrl(imgUrl)
+                .build();
     }
 
     public void update(ArticleUpdateRequest dto) {
@@ -73,15 +83,5 @@ public class Article extends BaseEntity {
 
     public boolean isWrittenBy(User user) {
         return this.user.equals(user);
-    }
-
-    public static Article from(ArticleCreateRequest request, User user, String imgUrl) {
-        return Article.builder()
-                .user(user)
-                .title(request.getTitle())
-                .content(request.getContent())
-                .category(request.getCategory())
-                .imgUrl(imgUrl)
-                .build();
     }
 }

@@ -108,7 +108,7 @@ public class ArticleService {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Article"));
         Page<Comment> comments = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
-        
+
         // 트랜잭션 분리, 책임 분리 필요
         article.addViewCount();
 

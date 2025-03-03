@@ -27,15 +27,15 @@ public class UserRecordResponse {
 
     @Builder
     private UserRecordResponse(String nickname,
-                              int totalScore,
-                              String companyName,
-                              int win,
-                              int lose,
-                              float winPercentage,
-                              Long personalRanking,
-                              double rankPercent,
-                              List<CharacterDto> top3Characters,
-                              GameRecordInfo gameRecordInfo) {
+                               int totalScore,
+                               String companyName,
+                               int win,
+                               int lose,
+                               float winPercentage,
+                               Long personalRanking,
+                               double rankPercent,
+                               List<CharacterDto> top3Characters,
+                               GameRecordInfo gameRecordInfo) {
         this.nickname = nickname;
         this.totalScore = totalScore;
         this.companyName = companyName;

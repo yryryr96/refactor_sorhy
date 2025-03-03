@@ -40,15 +40,15 @@ public class SecurityConfig {
         http.sessionManagement((sessionManagement) ->
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests((authorize) ->
-                authorize
-                        .requestMatchers("/user/profile").authenticated()
-                        .requestMatchers("/health-check").permitAll()
-                        .requestMatchers("/user/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/article/**").permitAll()
-                        .requestMatchers("/articles/**").permitAll()
-                        .requestMatchers("/game").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/rank/**").permitAll()
-                        .anyRequest().authenticated())
+                        authorize
+                                .requestMatchers("/user/profile").authenticated()
+                                .requestMatchers("/health-check").permitAll()
+                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/article/**").permitAll()
+                                .requestMatchers("/articles/**").permitAll()
+                                .requestMatchers("/game").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/rank/**").permitAll()
+                                .anyRequest().authenticated())
                 .formLogin((formLogin) ->
                         formLogin.disable() // 폼 태그를 이용한 로그인을 하지 않겠다.
                 )

@@ -65,8 +65,8 @@ public class ArticleApiController {
 
     @GetMapping("/articles/hot")
     public ApiResponse<ArticleListResponse> getHotArticles(@RequestParam Category category,
-                                                          @PageableDefault(size = 4) Pageable pageable,
-                                                          Authentication authentication) {
+                                                           @PageableDefault(size = 4) Pageable pageable,
+                                                           Authentication authentication) {
         String nickname = authentication.getName();
         ArticleListResponse response = articleService.getHotArticles(nickname, category, pageable);
         return ApiResponse.ok("게시글 전체 조회 성공", response);
@@ -80,7 +80,7 @@ public class ArticleApiController {
 
     @GetMapping("/article/{articleId}")
     public ApiResponse<ArticleDetailResponse> getArticleDetail(@PathVariable Long articleId,
-                                                   @PageableDefault(size = 4) Pageable pageable) {
+                                                               @PageableDefault(size = 4) Pageable pageable) {
 
         ArticleDetailResponse response = articleService.getArticleDetail(articleId, pageable);
         return ApiResponse.ok("게시글을 조회했습니다.", response);
@@ -88,10 +88,10 @@ public class ArticleApiController {
 
     @GetMapping("/articles/search")
     public ApiResponse<ArticleListResponse> getArticlesBySearchCondition(@RequestBody @Valid ArticleSearchRequest request,
-                                                        @PageableDefault(size = 6) Pageable pageable,
-                                                        Authentication authentication) {
+                                                                         @PageableDefault(size = 6) Pageable pageable,
+                                                                         Authentication authentication) {
         String nickname = authentication.getName();
         ArticleListResponse response = articleService.getArticlesBySearchCondition(request, nickname, pageable);
-        return ApiResponse.ok( "검색 성공", response);
+        return ApiResponse.ok("검색 성공", response);
     }
 }

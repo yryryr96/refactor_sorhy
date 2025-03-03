@@ -33,7 +33,6 @@ public class CommentService {
 
     @Transactional
     public CommentCreateResponse create(Long articleId, String nickname, CommentCreateRequest request) {
-
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Article"));
@@ -45,7 +44,6 @@ public class CommentService {
 
     @Transactional
     public CommentRemoveResponse remove(Long commentId, String nickname) {
-
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment"));
@@ -60,7 +58,6 @@ public class CommentService {
 
     @Transactional
     public CommentUpdateResponse update(Long commentId, String nickname, CommentUpdateRequest request) {
-
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
@@ -74,7 +71,6 @@ public class CommentService {
     }
 
     public CommentsResponse getCommentsBy(Long articleId, Pageable pageable) {
-
         Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
         return CommentsResponse.of(result);
     }

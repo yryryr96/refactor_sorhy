@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.service.user.request.UserCreateRequest;
-import ssafy.sorhy.service.user.request.UserLoginRequest;
 import ssafy.sorhy.service.user.response.UserCreateResponse;
-import ssafy.sorhy.service.user.response.UserLoginResponse;
 import ssafy.sorhy.service.user.response.UserProfileResponse;
 import ssafy.sorhy.service.user.response.UserRecordResponse;
 import ssafy.sorhy.util.response.ApiResponse;
@@ -45,7 +43,7 @@ public class UserApiController {
 
     @GetMapping("/{nickname}")
     public ApiResponse<UserRecordResponse> getUserRecord(@PathVariable String nickname,
-                                                      @PageableDefault(size = 5) Pageable pageable) {
+                                                         @PageableDefault(size = 5) Pageable pageable) {
 
         UserRecordResponse response = userService.getUserRecordBy(nickname, pageable);
         return ApiResponse.ok(response);

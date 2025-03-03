@@ -24,7 +24,7 @@ public class GameResultApiController {
 
     @PostMapping
     public ApiResponse<GameResultCreateResponse> createGameResult(@RequestBody @Valid GameResultCreateRequest request,
-                                                      Authentication authentication) {
+                                                                  Authentication authentication) {
 
         String nickname = authentication.getName();
         GameResultCreateResponse response = gameResultService.create(request, nickname);

@@ -41,7 +41,7 @@ public class UserService {
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
     private final CompanyRepository companyRepository;
-    private final UserCharacterRepository  userCharacterRepository;
+    private final UserCharacterRepository userCharacterRepository;
     private final GameResultService gameResultService;
     private final HistoryService historyService;
     private final BCryptPasswordEncoder encoder;
@@ -59,7 +59,7 @@ public class UserService {
         }
 
         Company company = companyRepository.findById(request.getCompanyId())
-                .orElseThrow(() ->  new ResourceNotFoundException("Company"));
+                .orElseThrow(() -> new ResourceNotFoundException("Company"));
 
         User user = User.create(request, company);
         String encodedPassword = encoder.encode(user.getPassword());
