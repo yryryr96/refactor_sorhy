@@ -1,6 +1,8 @@
 package ssafy.sorhy.domain.ranking;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.BaseEntity;
@@ -9,7 +11,7 @@ import ssafy.sorhy.domain.user.User;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Ranking extends BaseEntity {
 
     @Id
@@ -23,10 +25,20 @@ public class Ranking extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Ranking(User user, GameTitle gameTitle, int score) {
+    @Builder
+    private Ranking(Long id, GameTitle gameTitle, int score, User user) {
+        this.id = id;
         this.gameTitle = gameTitle;
-        this.user = user;
         this.score = score;
+        this.user = user;
+    }
+
+    public static Ranking of(User user, GameTitle gameTitle, int score) {
+        return Ranking.builder()
+                .user(user)
+                .gameTitle(gameTitle)
+                .score(score)
+                .build();
     }
 
     public void updateRankingScore(int score) {

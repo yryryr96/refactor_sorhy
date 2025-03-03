@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.domain.character.Character;
 import ssafy.sorhy.domain.user.User;
-import ssafy.sorhy.dto.user.UserDto;
 
 @Entity
 @Builder
@@ -34,13 +33,5 @@ public class UserCharacter {
 
     public void addUseCount() {
         this.useCount += 1;
-    }
-
-    public UserDto.top3Character toTop3Character() {
-        return UserDto.top3Character.builder()
-                .characterId(this.character.getId())
-                .characterName(this.character.getName())
-                .cnt(this.useCount)
-                .build();
     }
 }

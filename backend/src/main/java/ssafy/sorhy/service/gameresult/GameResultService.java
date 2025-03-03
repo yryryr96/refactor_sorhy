@@ -15,6 +15,7 @@ import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.dto.GameRecordInfo;
+import ssafy.sorhy.service.gameresult.dto.GameResultDto;
 import ssafy.sorhy.service.gameresult.dto.OtherUserDto;
 import ssafy.sorhy.service.gameresult.request.GameResultCreateRequest;
 import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
@@ -61,14 +62,14 @@ public class GameResultService {
         int totalPages = gameResults.getTotalPages();
         List<GameResult> contents = gameResults.getContent();
 
-        List<ssafy.sorhy.service.gameresult.dto.GameResultDto> result = new ArrayList<>();
+        List<GameResultDto> result = new ArrayList<>();
         for (GameResult gameResult : contents) {
             Game game = gameResult.getGame();
             Team team = gameResult.getTeam();
             List<OtherUserDto> teamMember = gameResultRepository.findTeamOtherUserDtoByGameId(game.getId(), team);
             List<OtherUserDto> enemy = gameResultRepository.findEnemyOtherUserDtoByGameId(game.getId(), team);
 
-            result.add(ssafy.sorhy.service.gameresult.dto.GameResultDto.of(game, gameResult, teamMember, enemy));
+            result.add(GameResultDto.of(game, gameResult, teamMember, enemy));
         }
 
         return GameRecordInfo.of(totalPages, result);
