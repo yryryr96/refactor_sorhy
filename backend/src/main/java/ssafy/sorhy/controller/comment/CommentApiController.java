@@ -28,13 +28,13 @@ public class CommentApiController {
                                                                 @PageableDefault(size = 6) Pageable pageable) {
 
         CommentsResponse response = commentService.getCommentsBy(articleId, pageable);
-        return ApiResponse.ok( "댓글 조회 성공", response);
+        return ApiResponse.ok("댓글 조회 성공", response);
     }
 
     @PostMapping("/{articleId}/comment")
     public ApiResponse<CommentCreateResponse> create(@PathVariable Long articleId,
-                                        @RequestBody @Valid CommentCreateRequest request,
-                                        Authentication authentication) {
+                                                     @RequestBody @Valid CommentCreateRequest request,
+                                                     Authentication authentication) {
 
         String nickname = authentication.getName();
         CommentCreateResponse response = commentService.create(articleId, nickname, request);
@@ -52,8 +52,8 @@ public class CommentApiController {
 
     @PutMapping("/{articleId}/comment/{commentId}")
     public ApiResponse<CommentUpdateResponse> update(@PathVariable Long commentId,
-                                   @RequestBody @Valid CommentUpdateRequest request,
-                                   Authentication authentication) {
+                                                     @RequestBody @Valid CommentUpdateRequest request,
+                                                     Authentication authentication) {
 
         String nickname = authentication.getName();
         CommentUpdateResponse response = commentService.update(commentId, nickname, request);

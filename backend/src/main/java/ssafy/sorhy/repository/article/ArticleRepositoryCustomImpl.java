@@ -16,7 +16,8 @@ import ssafy.sorhy.domain.user.User;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.hasText;
-import static ssafy.sorhy.domain.article.Category.*;
+import static ssafy.sorhy.domain.article.Category.COMPANY;
+import static ssafy.sorhy.domain.article.Category.isCompany;
 import static ssafy.sorhy.domain.article.QArticle.article;
 import static ssafy.sorhy.domain.user.QUser.user;
 

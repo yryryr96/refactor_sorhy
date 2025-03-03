@@ -53,17 +53,17 @@ public class User extends BaseEntity {
 
     @Builder
     private User(Long id,
-                String nickname,
-                String password,
-                int win,
-                int lose,
-                float winPercentage,
-                int totalScore,
-                List<Article> articles,
-                List<UserCharacter> characters,
-                List<Comment> comments,
-                List<GameResult> gameResults,
-                Company company) {
+                 String nickname,
+                 String password,
+                 int win,
+                 int lose,
+                 float winPercentage,
+                 int totalScore,
+                 List<Article> articles,
+                 List<UserCharacter> characters,
+                 List<Comment> comments,
+                 List<GameResult> gameResults,
+                 Company company) {
 
         this.id = id;
         this.nickname = nickname;

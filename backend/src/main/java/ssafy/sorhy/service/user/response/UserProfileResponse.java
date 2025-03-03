@@ -22,14 +22,14 @@ public class UserProfileResponse {
 
     @Builder
     private UserProfileResponse(String nickname,
-                               int totalScore,
-                               Long articleCount,
-                               Long commentCount,
-                               String companyName,
-                               int win,
-                               int lose,
-                               float winPercentage,
-                               List<CharacterDto> top3Characters) {
+                                int totalScore,
+                                Long articleCount,
+                                Long commentCount,
+                                String companyName,
+                                int win,
+                                int lose,
+                                float winPercentage,
+                                List<CharacterDto> top3Characters) {
         this.nickname = nickname;
         this.totalScore = totalScore;
         this.articleCount = articleCount;
