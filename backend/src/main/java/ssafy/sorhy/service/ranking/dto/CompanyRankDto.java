@@ -1,4 +1,4 @@
-package ssafy.sorhy.dto.ranking;
+package ssafy.sorhy.service.ranking.dto;
 
 public interface CompanyRankDto {
 

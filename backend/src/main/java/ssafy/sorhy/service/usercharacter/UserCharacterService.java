@@ -6,14 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.domain.character.Character;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.domain.usercharacter.UserCharacter;
-import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.character.CharacterRepository;
 import ssafy.sorhy.repository.usercharacter.UserCharacterRepository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -41,12 +38,5 @@ public class UserCharacterService {
         }
 
         userCharacterInfo.get().addUseCount();
-    }
-
-    public List<UserDto.top3Character> findTop3Characters(Long userId) {
-
-        return userCharacterRepository.findTop3CharacterByUserId(userId).stream()
-                .map(UserCharacter::toTop3Character)
-                .collect(Collectors.toList());
     }
 }

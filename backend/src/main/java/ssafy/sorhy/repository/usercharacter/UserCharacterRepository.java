@@ -14,10 +14,6 @@ public interface UserCharacterRepository extends JpaRepository<UserCharacter, Lo
             "where u.id = :userId and c.id = :characterId")
     Optional<UserCharacter> findByUserIdAndCharacterId(Long userId, Long characterId);
 
-    @Query(nativeQuery = true,
-            value = "select * from user_character where user_id = :userId order by use_count desc limit 3")
-    List<UserCharacter> findTop3CharacterByUserId(Long userId);
-
     @Query("select uc from UserCharacter uc " +
             "join fetch uc.user u " +
             "where u.id = :userId " +

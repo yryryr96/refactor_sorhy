@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ssafy.sorhy.dto.ranking.CompanyRankDto;
-import ssafy.sorhy.dto.ranking.RankingDto;
+import ssafy.sorhy.domain.game.GameTitle;
+import ssafy.sorhy.service.ranking.dto.CompanyRankDto;
 import ssafy.sorhy.service.ranking.RankingService;
-import ssafy.sorhy.util.response.Response;
+import ssafy.sorhy.service.ranking.response.EachGameRankingResponse;
+import ssafy.sorhy.util.response.ApiResponse;
 
 import java.util.List;
 
@@ -22,17 +23,16 @@ public class RankApiController {
     private final RankingService rankingService;
 
     @GetMapping("/{gameTitle}")
-    public Response<List<RankingDto.personalRankRes>> eachGameRank(@PathVariable String gameTitle,
-                                                                   @PageableDefault(size = 10) Pageable pageable) {
+    public ApiResponse<EachGameRankingResponse> eachGameRank(@PathVariable GameTitle gameTitle,
+                                                             @PageableDefault(size = 10) Pageable pageable) {
 
-        List<RankingDto.personalRankRes> response = rankingService.eachGameRank(gameTitle, pageable);
-        return new Response(200, "게임 별 랭크 조회 성공", response);
+        EachGameRankingResponse response = rankingService.getEachGameRanking(gameTitle, pageable);
+        return ApiResponse.ok("게임 별 랭크 조회 성공", response);
     }
 
     @GetMapping("/company")
-    public Response<List<CompanyRankDto>> companyRank() {
-
-        List<CompanyRankDto> response = rankingService.companyRank();
-        return new Response<>(200, "회사 별 랭크 조회 성공", response);
+    public ApiResponse<List<CompanyRankDto>> companyRank() {
+        List<CompanyRankDto> response = rankingService.getCompanyRanking();
+        return ApiResponse.ok("회사 별 랭크 조회 성공", response);
     }
 }
