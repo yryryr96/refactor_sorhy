@@ -19,9 +19,10 @@ import ssafy.sorhy.service.ranking.response.EachGameRankingResponse;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class RankingService {
@@ -29,23 +30,20 @@ public class RankingService {
     private final RankingRepository rankingRepository;
     private final UserCharacterRepository userCharacterRepository;
 
+    @Transactional
     public void save(User user, GameTitle gameTitle, int score) {
         Ranking ranking = Ranking.of(user, gameTitle, score);
         rankingRepository.save(ranking);
     }
 
+    @Transactional
     public void updateRanking(User user, GameTitle gameTitle, int score) {
-        Ranking ranking = rankingRepository.findByUserAndGameTitle(user, gameTitle).orElse(null);
+        Optional<Ranking> ranking = rankingRepository.findByUserAndGameTitle(user, gameTitle);
 
-        if (ranking == null) {
-            save(user, gameTitle, score);
-            return;
-        }
-
-        if (ranking.getScore() < score) {
-
-            ranking.updateRankingScore(score);
-        }
+        ranking.ifPresentOrElse(
+                r -> r.updateScore(score),
+                () -> save(user, gameTitle, score)
+        );
     }
 
     public List<CompanyRankDto> getCompanyRanking() {

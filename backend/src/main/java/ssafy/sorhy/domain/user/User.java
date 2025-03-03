@@ -126,8 +126,12 @@ public class User extends BaseEntity {
         }
 
         if (this.win != 0 || this.lose != 0) {
-            this.winPercentage = ((float) this.win / (this.win + this.lose)) * 100;
+            updateWinPercentage();
         }
+    }
+
+    private void updateWinPercentage() {
+        this.winPercentage = ((float) this.win / (this.win + this.lose)) * 100;
     }
 
     public void changeToEncodedPassword(String encodedPassword) {

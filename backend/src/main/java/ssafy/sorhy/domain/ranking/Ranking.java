@@ -19,7 +19,7 @@ public class Ranking extends BaseEntity {
     private Long id;
 
     private GameTitle gameTitle;
-    private int score = 0;
+    private int score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -41,7 +41,9 @@ public class Ranking extends BaseEntity {
                 .build();
     }
 
-    public void updateRankingScore(int score) {
-        this.score = score;
+    public void updateScore(int score) {
+        if (this.score < score) {
+            this.score = score;
+        }
     }
 }
