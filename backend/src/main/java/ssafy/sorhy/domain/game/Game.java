@@ -11,6 +11,7 @@ import ssafy.sorhy.service.game.request.GameCreateRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -44,5 +45,17 @@ public class Game extends BaseEntity {
                 .gameTitle(request.getGameTitle())
                 .gameType(request.getGameType())
                 .build();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        Game game = (Game) object;
+        return Objects.equals(id, game.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, gameType, gameTitle, gameResults);
     }
 }

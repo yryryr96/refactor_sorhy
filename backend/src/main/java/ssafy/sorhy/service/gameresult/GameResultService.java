@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.domain.game.Game;
 import ssafy.sorhy.domain.game.GameTitle;
 import ssafy.sorhy.domain.gameresult.GameResult;
-import ssafy.sorhy.domain.gameresult.Team;
 import ssafy.sorhy.domain.user.User;
 import ssafy.sorhy.exception.ResourceNotFoundException;
 import ssafy.sorhy.repository.game.GameRepository;
@@ -22,8 +21,10 @@ import ssafy.sorhy.service.gameresult.response.GameResultCreateResponse;
 import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 @RequiredArgsConstructor
@@ -56,22 +57,48 @@ public class GameResultService {
     }
 
     public GameRecordInfo getGameRecordInfo(String nickname, Pageable pageable) {
-
         User user = userRepository.findByNickname(nickname).orElseThrow(() -> new ResourceNotFoundException("User"));
-        Page<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
+        Page<GameResult> gameResults = gameResultRepository.getGameRecordInfo(user.getId(), pageable);
         int totalPages = gameResults.getTotalPages();
-        List<GameResult> contents = gameResults.getContent();
 
-        List<GameResultDto> result = new ArrayList<>();
-        for (GameResult gameResult : contents) {
-            Game game = gameResult.getGame();
-            Team team = gameResult.getTeam();
-            List<OtherUserDto> teamMember = gameResultRepository.findTeamOtherUserDtoByGameId(game.getId(), team);
-            List<OtherUserDto> enemy = gameResultRepository.findEnemyOtherUserDtoByGameId(game.getId(), team);
+        // 게임별 내 팀 정보 초기화
+        Map<Game, GameResult> myGameResults = getMyGameResults(gameResults, user);
 
-            result.add(GameResultDto.of(game, gameResult, teamMember, enemy));
-        }
+        List<GameResultDto> result = processGameResults(gameResults.getContent(), myGameResults);
 
         return GameRecordInfo.of(totalPages, result);
+    }
+
+    private List<GameResultDto> processGameResults(List<GameResult> gameResults, Map<Game, GameResult> myGameResults) {
+        return gameResults.stream()
+                .collect(groupingBy(GameResult::getGame)) // 🔹 게임별 그룹화
+                .entrySet().stream()
+                .map(entry -> {
+                    Game game = entry.getKey();
+                    List<GameResult> results = entry.getValue();
+
+                    // 🔹 내 팀원과 적 팀원 구분 (partitioningBy 활용)
+                    Map<Boolean, List<OtherUserDto>> teamPartition = results.stream()
+                            .collect(partitioningBy(
+                                    gameResult -> isSameTeam(game, gameResult, myGameResults),
+                                    mapping(gr -> OtherUserDto.of(gr.getUser().getNickname(), gr.getCharacterId()), toList())
+                            ));
+
+                    List<OtherUserDto> teamMember = teamPartition.get(true);
+                    List<OtherUserDto> enemy = teamPartition.get(false);
+
+                    return GameResultDto.of(game, results.get(0), teamMember, enemy);
+                })
+                .collect(toList());
+    }
+
+    private boolean isSameTeam(Game game, GameResult gameResult, Map<Game, GameResult> myGameResults) {
+        return gameResult.getTeam().equals(myGameResults.get(game).getTeam());
+    }
+
+    private Map<Game, GameResult> getMyGameResults(Page<GameResult> gameResults, User user) {
+        return gameResults.getContent().stream()
+                .filter(gameResult -> gameResult.getUser().equals(user))
+                .collect(toMap(GameResult::getGame, gameResult -> gameResult));
     }
 }
