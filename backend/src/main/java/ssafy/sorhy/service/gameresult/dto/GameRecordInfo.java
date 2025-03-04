@@ -9,18 +9,18 @@ import java.util.List;
 public class GameRecordInfo {
 
     private final int totalPage;
-    private final List<GameResultDto> gameResultDto;
+    private final List<GameResultDto> gameResults;
 
     @Builder
-    private GameRecordInfo(int totalPage, List<GameResultDto> gameResultDto) {
+    private GameRecordInfo(int totalPage, List<GameResultDto> gameResults) {
         this.totalPage = totalPage;
-        this.gameResultDto = gameResultDto;
+        this.gameResults = gameResults;
     }
 
     public static GameRecordInfo of(int totalPage, List<GameResultDto> gameResultDto) {
         return GameRecordInfo.builder()
                 .totalPage(totalPage)
-                .gameResultDto(gameResultDto)
+                .gameResults(gameResultDto)
                 .build();
     }
 }
